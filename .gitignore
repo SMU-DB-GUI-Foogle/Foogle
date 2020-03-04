@@ -1,0 +1,6 @@
+
+data/
+backend/log/
+backend/node_modules/
+notworking.json
+frontend/node_modules/
