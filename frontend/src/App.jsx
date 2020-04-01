@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import './App.css';
+import { Login } from './Login';
 
 class App extends Component{
   render() {
     return (
       <>
-        <h2>Hello World!!</h2>
+        <Login />
       </>
     );
   }
 }
 
 export default App;
+
