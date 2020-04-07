@@ -13,7 +13,7 @@ export class ProfileView extends React.Component {
 
     render() {
         return <>
-            <Profile auth={this.props.isAuthenticated} account={this.state.userAccount} />
+            <Profile account={this.state.userAccount} />
         </>
     }
 

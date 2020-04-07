@@ -3,8 +3,8 @@ import { Redirect } from 'react-router-dom';
 
 export const Profile = props => {
 
-    if(!props.auth) {
-        return (<Redirect to="/" push/>);
+    if(!sessionStorage.getItem("auth") || window.location.pathname !== `/profile/${sessionStorage.getItem("username")}`) {
+        return (<Redirect to="/"/>);
     }
 
     return <>

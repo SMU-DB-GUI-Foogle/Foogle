@@ -22,6 +22,12 @@ class App extends React.Component{
     }
   }
 
+  keyPressed(event) {
+    if (event.key === "Enter" && this.state.searchQuery !== "") {
+      this.searchResult(event)
+    }
+  }
+
   handleLogout(e) {
     window.sessionStorage.removeItem("auth");
     window.sessionStorage.removeItem("username");
@@ -59,7 +65,7 @@ class App extends React.Component{
 
             <Navbar.Collapse>
               <Nav className="m-auto">
-                {this.state.isAuthenticated
+                {/* {this.state.isAuthenticated */}{sessionStorage.getItem("auth")
                   ? <>
                       <Navbar.Brand>
                         <Link className="text-white" to="/" onClick={ e => this.handleLogout(e) }>Logout</Link>
@@ -84,7 +90,8 @@ class App extends React.Component{
                             placeholder="Search for a Food"
                             className=" mr-sm-2"
                             value={this.state.searchQuery}
-                            onChange={ e => this.setState({ searchQuery: e.target.value }) } />
+                            onChange={ e => this.setState({ searchQuery: e.target.value }) }
+                            onKeyPress={ e => this.keyPressed(e) } />
               <Button type="button"
                       onClick={ e => this.searchResult(e) }
                       disabled={ !(this.state.searchQuery.length > 0)}>
