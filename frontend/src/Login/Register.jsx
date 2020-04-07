@@ -50,7 +50,7 @@ export const Register = (props) => {
     return(
         <>
             <div className="Register">
-                <form onSubmit={ e => register(e) }>
+                <form>
                     <Form.Group as={Form.Row} controlId="horizontalFirstName">
                         <Form.Label column sm={2}>
                             First Name
@@ -103,7 +103,10 @@ export const Register = (props) => {
                         </Col>
                     </Form.Group> 
 
-                    <Button block bsSize="large" disabled={!validateForm()} type="submit">
+                    <Button block bsSize="large"
+                            disabled={!validateForm()}
+                            type="button"
+                            onClick={ e => register(e) }>
                         Register
                     </Button>
                 </form>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
+import { Button, FormGroup, FormControl, FormLabel, NavLink } from "react-bootstrap";
 import { Redirect } from 'react-router-dom';
 
 export const Login = (props) => {
@@ -38,7 +38,7 @@ export const Login = (props) => {
     return (
         <>
             <div className="Login">
-                <form onSubmit={ e => login(e) }>
+                <form>
                     { invalidCred && 
                     <p className="alert alert-danger">
                         Invalid email or password
@@ -60,11 +60,14 @@ export const Login = (props) => {
                             
                         />
                     </FormGroup>
-                    <Button block bsSize="large" disabled={!validateForm()} type="submit">
+                    <Button block bsSize="large"
+                                  disabled={!validateForm()}
+                                  type="button"
+                                  onClick={ e => login(e) }>
                         Login
                     </Button>
                     <div>
-                        <a href="/register">Register for an Account</a>
+                        <NavLink href="/register">Register for an Account</NavLink>
                     </div>
                 </form>
             </div>
