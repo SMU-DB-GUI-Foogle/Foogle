@@ -21,6 +21,17 @@ export class AxiosRequests {
         });
     }
 
+    getProfileAccount(userName) {
+        return new Promise((resolve, reject) => {
+            axios.get(`${this.url}/profile/${userName}`, this.config)
+                .then(x => resolve(x.data))
+                .catch(x => {
+                    alert(x);
+                    reject(x);
+                });
+        });
+    }
+
 }
 
 export default AxiosRequests;

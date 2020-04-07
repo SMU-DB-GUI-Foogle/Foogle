@@ -1,13 +1,19 @@
 import React from 'react';
 import { AxiosRequests } from '../api';
+import { Food } from '../models';
+import { Product } from './Product';
 
 export class ProductView extends React.Component {
 
     productRequests = new AxiosRequests();
 
+    state = {
+        product: new Food()
+    }
+
     render() {
         return <>
-            Product goes here
+            <Product />
         </>
     }
 

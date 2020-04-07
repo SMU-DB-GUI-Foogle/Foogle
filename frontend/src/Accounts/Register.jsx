@@ -7,11 +7,12 @@ export const Register = (props) => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
+    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [registered, setRegistered] = useState(false);
 
     function validateForm() {
-        return firstName.length > 0 && lastName.length > 0 && email.length > 0 && password.length > 0;
+        return firstName.length > 0 && lastName.length > 0 && email.length > 0 && username.length > 0 && password.length > 0;
     }
 
     function register(event) {
@@ -25,6 +26,7 @@ export const Register = (props) => {
             firstName, 
             lastName, 
             email,
+            username,
             password);
 
         //local stoarge statements used for local testing till axios requests can be used
@@ -86,6 +88,19 @@ export const Register = (props) => {
                                           placeholder="Email"
                                           value={email}
                                           onChange={e => setEmail(e.target.value)}
+                            />
+                        </Col>
+                    </Form.Group> 
+
+                    <Form.Group as={Form.Row} controlId="formHorizonalUsername">
+                        <Form.Label column sm={2}>
+                            Username
+                        </Form.Label>
+                        <Col sm={10}>
+                            <Form.Control type="text"
+                                          placeholder="Username"
+                                          value={username}
+                                          onChange={e => setUsername(e.target.value)}
                             />
                         </Col>
                     </Form.Group>    

@@ -11,27 +11,34 @@ export const Login = (props) => {
         return email.length > 0 && password.length > 0;
     }
 
-    function login(event) {
+    async function login(event) {
         const form = event.currentTarget;
         if(form.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
         }
 
-        //local stoarge statements used for local testing till axios requests can be used
-        let accounts = JSON.parse(localStorage.getItem('accounts'));
-        let userAccount = accounts.find(x => (x.email === email && x.password === password));
+        try {
+            //local stoarge statements used for local testing till axios requests can be used
+            let accounts = JSON.parse(localStorage.getItem('accounts'));
+            let userAccount = accounts.find(x => (x.email === email && x.password === password));
 
-        if (!(email && password) || !userAccount) {
-            setInvalidCred(true);
-            return;
+            if (!(email && password) || !userAccount) {
+                setInvalidCred(true);
+                return;
+            }
+
+            props.userHasAuthenticated(true);
+            window.sessionStorage.setItem("auth", true);
+            window.sessionStorage.setItem("username", userAccount.username);
         }
-
-        props.userHasAuthenticated(true);
+        catch(e) {
+            alert(e.message)
+        }
 
     }
 
-    if(props.isAuthenticated) {
+    if(props.isAuthenticated /*window.sessionStorage.getItem("auth")*/) {
         return (<Redirect to="/" push/>);
     }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import Routes from './Routes';
 import { Nav, Navbar, Form, Button } from 'react-bootstrap';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 class App extends React.Component{
   state = {
@@ -18,8 +18,14 @@ class App extends React.Component{
       e.stopPropagation();
     }
     else {
-      this.setState({search: true})
+      this.setState({search: true});
     }
+  }
+
+  handleLogout(e) {
+    window.sessionStorage.removeItem("auth");
+    window.sessionStorage.removeItem("username");
+    this.setState({ isAuthenticated: false });
   }
 
   render() {
@@ -34,14 +40,45 @@ class App extends React.Component{
 
     return (
       <>
-        <Navbar bg="dark" variant="dark">
-					<Navbar.Brand href="/">Foogle</Navbar.Brand>
-            <Nav className="m-auto">
+        <Navbar bg="dark" variant="dark" fluid="true" collapseOnSelect>
+					<Navbar.Brand>
+            <Link className="text-white" to="/">Foogle</Link>
+          </Navbar.Brand>
+          <Navbar.Toggle />
+            {/* <Nav className="m-auto">
               {!this.state.isAuthenticated && 
                 <Nav.Link href="/login">Login</Nav.Link>}
               {this.state.isAuthenticated && 
-                <Nav.Link href="/login">Logout</Nav.Link>}
-            </Nav>
+                <Nav.Link href="/" onClick={this.handlelogout}>Logout</Nav.Link>}
+              {this.state.isAuthenticated && 
+                <Nav.Link href={`/profile/${window.sessionStorage.getItem("username")}`}>Profile</Nav.Link>}
+            </Nav> */}
+
+            
+                  
+
+            <Navbar.Collapse>
+              <Nav className="m-auto">
+                {this.state.isAuthenticated
+                  ? <>
+                      <Navbar.Brand>
+                        <Link className="text-white" to="/" onClick={ e => this.handleLogout(e) }>Logout</Link>
+                      </Navbar.Brand>
+                      <Navbar.Brand>
+                        <Link className="text-white" to={`/profile/${window.sessionStorage.getItem("username")}`}>Profile</Link>
+                      </Navbar.Brand>
+                    </>
+                  : <>
+                      <Navbar.Brand>
+                        <Link className="text-white" to="/register">Register</Link>
+                      </Navbar.Brand>
+                      <Navbar.Brand>
+                        <Link className="text-white" to="/login">Login</Link>
+                      </Navbar.Brand>
+                    </>
+                }
+              </Nav>
+            </Navbar.Collapse>
             <Form inline>
               <Form.Control type="text"
                             placeholder="Search for a Food"
@@ -49,7 +86,8 @@ class App extends React.Component{
                             value={this.state.searchQuery}
                             onChange={ e => this.setState({ searchQuery: e.target.value }) } />
               <Button type="button"
-                      onClick={ e => this.searchResult(e) }>
+                      onClick={ e => this.searchResult(e) }
+                      disabled={ !(this.state.searchQuery.length > 0)}>
                 Search
               </Button>
             </Form>
@@ -57,6 +95,10 @@ class App extends React.Component{
         <Routes appProps={ this.state } />
       </>
     );
+  }
+
+  componentDidUpdate() {
+
   }
 }
 
