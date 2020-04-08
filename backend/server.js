@@ -10,7 +10,7 @@ var connection = mysql.createConnection({
   port: '3306',
   user: 'user',
   password: 'password',
-  database: 'Foogle_DB'
+  database: 'foogle'
 });
 
 //set up some configs for express.

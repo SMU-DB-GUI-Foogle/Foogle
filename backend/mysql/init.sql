@@ -1,22 +1,21 @@
--- CREATE TABLE IF NOT EXISTS `foogle`.`test_table` (
---     `id` INT NOT NULL AUTO_INCREMENT, 
---     `value` VARCHAR(45), 
---     PRIMARY KEY (`id`), 
---     UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE
--- );
+CREATE TABLE IF NOT EXISTS `foogle`.`test_table` (
+    `id` INT NOT NULL AUTO_INCREMENT, 
+    `value` VARCHAR(45), 
+    PRIMARY KEY (`id`), 
+    UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE
+);
 
--- INSERT INTO `foogle`.`test_table` (`value`) VALUES ('Sample Value');
+INSERT INTO `foogle`.`test_table` (`value`) VALUES ('Sample Value');
 
--- CREATE IF NOT EXISTS USER 'user'@'%' IDENTIFIED BY 'password';
+CREATE IF NOT EXISTS USER 'user'@'%' IDENTIFIED BY 'password';
 
--- GRANT ALL PRIVILEGES ON foogle.* TO 'user'@'%';
+ALTER USER 'user'@'%' IDENTIFIED WITH MYSQL_NATIVE_PASSWORD BY 'password';
 
--- ALTER USER 'user'@'%' IDENTIFIED WITH MYSQL_NATIVE_PASSWORD BY 'password';
 
--- FLUSH PRIVILEGES;
+-- CREATE DATABASE IF NOT EXISTS Foogle_DB;
+-- USE Foogle_DB;
 
-CREATE DATABASE IF NOT EXISTS Foogle_DB;
-USE Foogle_DB;
+USE foogle;
 
 CREATE TABLE ingredients (
 ingredientId int,
@@ -24,8 +23,7 @@ numberOfServings int,
 recipeId int
 );
 
-DROP TABLE IF EXISTS `foods`;
-CREATE TABLE foods (
+CREATE TABLE IF NOT EXISTS foods (
 foodId int PRIMARY KEY AUTO_INCREMENT,
 foodName varchar(50),
 foodGroupId int,
@@ -42,26 +40,22 @@ sugars int,
 protein int
 );
 
-DROP TABLE IF EXISTS `foodGroups`;
-CREATE TABLE foodGroups (
+CREATE TABLE IF NOT EXISTS foodGroups (
 id int PRIMARY KEY AUTO_INCREMENT,
 foodGroup varchar(50)
 );
 
-DROP TABLE IF EXISTS `recipes`;
-CREATE TABLE recipes (
+CREATE TABLE IF NOT EXISTS recipes (
 recipeId int PRIMARY KEY AUTO_INCREMENT,
 userId int
 );
 
-DROP TABLE IF EXISTS `savedFoods`;
-CREATE TABLE savedFoods (
+CREATE TABLE IF NOT EXISTS savedFoods (
 userId int,
 foodId int
 );
 
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
 userId int PRIMARY KEY AUTO_INCREMENT,
 firstName varchar(50),
 lastName varchar(50),
@@ -70,3 +64,10 @@ username varchar(50),
 password varchar(50),
 isAdmin boolean
 );
+
+-- add code to initalize data
+
+
+GRANT ALL PRIVILEGES ON foogle.* TO 'user'@'%';
+
+FLUSH PRIVILEGES;
