@@ -75,9 +75,9 @@ class App extends React.Component{
                       </Navbar.Brand>
                     </>
                   : <>
-                      <Navbar.Brand>
+                      {/* <Navbar.Brand>
                         <Link className="text-white" to="/register">Register</Link>
-                      </Navbar.Brand>
+                      </Navbar.Brand> */}
                       <Navbar.Brand>
                         <Link className="text-white" to="/login">Login</Link>
                       </Navbar.Brand>
