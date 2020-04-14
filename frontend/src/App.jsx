@@ -1,6 +1,6 @@
 import React from 'react';
 import Routes from './Routes';
-import { Nav, Navbar, Form, Button } from 'react-bootstrap';
+import { Nav, Navbar, Form, Button, Dropdown } from 'react-bootstrap';
 import { Redirect, Link } from 'react-router-dom';
 
 class App extends React.Component{
@@ -31,8 +31,11 @@ class App extends React.Component{
   handleLogout(e) {
     window.sessionStorage.removeItem("auth");
     window.sessionStorage.removeItem("username");
+    window.sessionStorage.removeItem("account");
     this.setState({ isAuthenticated: false });
   }
+
+  
 
   render() {
 
@@ -46,7 +49,7 @@ class App extends React.Component{
 
     return (
       <>
-        <Navbar bg="dark" variant="dark" fluid="true" collapseOnSelect>
+        <Navbar id="nav" bg="dark" variant="dark" fluid="true" collapseOnSelect>
 					<Navbar.Brand>
             <Link className="text-white" to="/">Foogle</Link>
           </Navbar.Brand>
@@ -60,9 +63,7 @@ class App extends React.Component{
                 <Nav.Link href={`/profile/${window.sessionStorage.getItem("username")}`}>Profile</Nav.Link>}
             </Nav> */}
 
-            
-                  
-
+          
             <Navbar.Collapse>
               <Nav className="m-auto">
                 {/* {this.state.isAuthenticated */}{sessionStorage.getItem("auth")
@@ -92,14 +93,22 @@ class App extends React.Component{
                             value={this.state.searchQuery}
                             onChange={ e => this.setState({ searchQuery: e.target.value }) }
                             onKeyPress={ e => this.keyPressed(e) } />
-              <Button type="button"
-                      onClick={ e => this.searchResult(e) }
-                      disabled={ !(this.state.searchQuery.length > 0)}>
-                Search
-              </Button>
+              <Dropdown as={Button.Group}>
+                <Button type="button"
+                        onClick={ e => this.searchResult(e) }
+                        disabled={ !(this.state.searchQuery.length > 0)}>
+                          Search
+                </Button>
+                <Dropdown.Toggle split type="button" id="dropdown-split-basic" />
+                <Dropdown.Menu alignRight>
+                  <Dropdown.Item href="/search">Advanced Search</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
             </Form>
 				</Navbar>
-        <Routes appProps={ this.state } />
+        <div className="container-fluid py-3 content">
+          <Routes className="m-1" appProps={ this.state } />
+        </div>
       </>
     );
   }

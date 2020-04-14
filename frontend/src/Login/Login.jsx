@@ -31,6 +31,7 @@ export const Login = props => {
           props.userHasAuthenticated(true);
           window.sessionStorage.setItem("auth", true);
           window.sessionStorage.setItem("username", userAccount.username);
+          window.sessionStorage.setItem("account", JSON.stringify(userAccount));
       }
       catch(e) {
           alert(e.message)

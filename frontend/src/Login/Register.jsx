@@ -27,7 +27,8 @@ export const Register = props => {
           lastName, 
           email,
           username,
-          password);
+          password,
+          [], [], [], [], []);
 
       //local stoarge statements used for local testing till axios requests can be used
       if (!localStorage.getItem('accounts')) {
