@@ -1,53 +1,77 @@
 import React from 'react';
 import { AxiosRequests } from '../api';
-import { Account } from '../models';
+import { Group } from '../models';
+import { Link, Redirect } from 'react-router-dom';
 
 export class GroupEditor extends React.Component {
 
-    groupRequests = new AxiosRequests;
-
+    profileRequests = new AxiosRequests();
+    
     state = {
-        account: new Account('', '', '', '', '', [], [], [], [], [], [])
+        username: '',
+        groupName: '',
+        desc: '',
     }
-    //let account = JSON.parse(sessionStorage.getItem("account"));
+
+    validateForm() {
+        return this.state.groupName.length > 0 && this.state.desc.length > 0;
+    }
+
+    // onSubmit() {
+    //         this.accountRepository.updateAccount(this.state.id, this.state)
+    //             .then(() => {
+    //                 alert("Account Updated!");
+    //                 this.setState({ redirect: "/" });
+    //             });
+    // }
+
+    onSubmit() {
+        let account = JSON.parse(sessionStorage.getItem("account"));
+        account.groups.push(new Group(this.state.groupName, this.state.desc, account.firstName + " " + account.lastName, []));
+        window.alert("Group Added!");
+        sessionStorage.setItem("account", JSON.stringify(account));
+        this.setState({ redirect: "/profile/" + account.username + "/groups"});  
+    }
 
     render() {
+        if(this.state.redirect) {
+            return <Redirect to={ this.state.redirect } />
+        }
+
         return <>
-            <div>
-                {/* <p>My Groups ({props.account.groups.length})</p> */}
-                <p>My Groups ({this.state.account.groups.length})</p>
-                <ul className="list-group">
-                    { !this.state.account.groups.length && (
-                        <li className="list-group-item">
-                            You aren't a part of any groups!
-                        </li>)
-                    }
-                    {
-                        this.state.account.groups.map((p, i) => 
-                            <li className="list-group" key={ i } id="group">
-                                <div className=" list-group-item list-group-item-secondary">{ i + 1 }. { p.name }</div>
-                                <div className="list-group-item list-group-item-light">
-                                    Owner: { p.owner }
-                                    <ul className="list-group">
-                                    { !p.members.length && (
-                                        <li className="list-group-item">
-                                            There are no other members of this group!
-                                        </li>)
-                                    }
-                                    {
-                                        p.members.map((m,j) => 
-                                            <li className="list-group" key={ j } id="member">
-                                                <div className=" list-group-item list-group-item-secondary">{ j + 1 }. { m }</div>
-                                            </li>)
-                                    }
-                                    </ul>
-                                    <span className="text-dark">"{ p.description }"</span>
-                                    
-                                </div>
-                            </li>)
-                    }
-                </ul>
-            </div>
+            <form className="card p-3">
+                <h1>Group Editor</h1>
+                <div className="form-group">
+                    <label htmlFor="name">Group Name</label>
+                    <input type="text"
+                        id="name"
+                        name="name"
+                        className="form-control"
+                        value={this.state.name}
+                        onChange={ e => this.setState({ groupName: e.target.value }) } />
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="desc">Group Description</label>
+                    <textarea type="text"
+                        id="desc"
+                        name="desc"
+                        className="form-control"
+                        value={this.state.desc}
+                        onChange={ e => this.setState({ desc: e.target.value }) } />
+                </div>
+
+                <button type="button"
+                        disabled={!this.validateForm()}
+                        className="btn btn-primary btn-block"
+                        onClick={ e => this.onSubmit() }>
+                    Save
+                </button>
+                <Link className="btn btn-secondary btn-block" to={`/profile/${this.state.username}/groups`}>
+                    Return to My Groups
+                </Link>
+                
+            </form>
         </>
     }
 
@@ -58,7 +82,7 @@ export class GroupEditor extends React.Component {
         //     .then(account => this.setState(account)); 
         // }
         let account = JSON.parse(sessionStorage.getItem("account"));
-        this.setState({ account: account });  
+        this.setState({username: account.username});        
     }
 }
 

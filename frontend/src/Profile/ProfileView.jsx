@@ -4,7 +4,6 @@ import { Account } from '../models';
 import { Profile } from './Profile';
 import { LikesView } from './LikesView';
 import { SavedView } from './SavedView';
-import { GroupView } from './GroupView';
 import { DropdownButton, Dropdown, Form, Col, Button } from 'react-bootstrap';
 
 export class ProfileView extends React.Component {
@@ -44,10 +43,6 @@ export class ProfileView extends React.Component {
                         </Form.Group>
                     </Form>
                 </div>
-            </div>
-
-            <div className="card p-2 m-2">
-                <GroupView account={JSON.stringify(this.state.userAccount)} />
             </div>
 
             <div className="card p-2 m-2">
