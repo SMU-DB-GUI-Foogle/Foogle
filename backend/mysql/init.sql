@@ -7,13 +7,6 @@ CREATE TABLE IF NOT EXISTS `foogle`.`test_table` (
 
 INSERT INTO `foogle`.`test_table` (`value`) VALUES ('Sample Value');
 
-CREATE IF NOT EXISTS USER 'user'@'%' IDENTIFIED BY 'password';
-
-ALTER USER 'user'@'%' IDENTIFIED WITH MYSQL_NATIVE_PASSWORD BY 'password';
-
-
--- CREATE DATABASE IF NOT EXISTS Foogle_DB;
--- USE Foogle_DB;
 
 USE foogle;
 
@@ -65,9 +58,3 @@ password varchar(50),
 isAdmin boolean
 );
 
--- add code to initalize data
-
-
-GRANT ALL PRIVILEGES ON foogle.* TO 'user'@'%';
-
-FLUSH PRIVILEGES;

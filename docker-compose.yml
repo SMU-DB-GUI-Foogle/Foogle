@@ -3,36 +3,20 @@ version: "3.3"
 services:
   foogle-db:
     build: ./backend/mysql
-    # image: mysql:8
     restart: always
-    # command: --default-authentication-plugin=mysql_native_password
-    # environment:
-    #   # MySQL database db will be created and user/password will be
-    #   # granted all priviliges on that database.
-    #   # We are also setting the default root password for MySQL
-    #   MYSQL_DATABASE: 'foogle'
-    #   MYSQL_USER: 'user'
-    #   MYSQL_PASSWORD: 'password'
-    #   MYSQL_ROOT_PASSWORD: 'password'
     ports:
       # <Port exposed> : <MySQL Port running inside container>
       - '3306:3306'
     expose:
       - '3306'
-    volumes:
-      # We will use a volume to persist the data between starts and stops
-      # of the containers.
-      - foogle_vol:/var/lib/mysql
     networks:
-      - backend
+      - foogle-net
 
   backend-api:
-    # image: node:12
     build: ./backend
     restart: always
     volumes:
       - ./backend:/usr/src/app
-      # - /usr/src/app/node_modules
     working_dir: /usr/src/app
     depends_on:
       - foogle-db
@@ -40,8 +24,7 @@ services:
     ports:
       - 8000:8000
     networks:
-      - backend
-      - frontend
+      - foogle-net
 
   frontend-app:
     # image: node:12
@@ -57,14 +40,10 @@ services:
     ports:
       - 3000:3000
     networks:
-      - frontend
+      - foogle-net
 
 # we are using a network to connect these
 # two containers. They will be part of the same virtual network
 # called 'backend'.
 networks:
-  backend:
-  frontend:
-
-volumes:
-  foogle_vol:
+  foogle-net:
