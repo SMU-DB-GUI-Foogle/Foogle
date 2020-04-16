@@ -15,7 +15,7 @@ recipeId int
 
 CREATE TABLE IF NOT EXISTS foods (
 foodId int PRIMARY KEY AUTO_INCREMENT,
-foodName varchar(50),
+foodName varchar(500),
 servingPortion int,
 foodGroupId int,
 totalCalories int,
