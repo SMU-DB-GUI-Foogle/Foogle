@@ -9,6 +9,8 @@ services:
       - '3306:3306'
     expose:
       - '3306'
+    volumes:
+      - foogle-vol:/var/lib/mysql
     networks:
       - foogle-net
 
@@ -47,3 +49,6 @@ services:
 # called 'backend'.
 networks:
   foogle-net:
+
+volumes:
+  foogle-vol:
