@@ -47,6 +47,14 @@ app.get('/', (req, res) => {
     res.status(200).send('Go to localhost:3000.');
 })
 
+app.get('/:user/recipes', (req, res) => {
+    var user = req.param('user')
+    connection.query(`SELECT recipes.recipeId, foodName, numberOfServings FROM recipes JOIN users ON users.userId = recipes.userId JOIN ingredients ON ingredients.recipeId = recipes.recipeId JOIN foods ON ingredients.ingredientId = foods.foodId WHERE users.userId = ${user}`, (err, result, fields) => {
+        if(err) logger.error(err.stack)
+        res.end(JSON.stringify(result))
+    })
+})
+
 //connecting the express object to listen on a particular port as defined in the config object.
 app.listen(config.port, config.host, (e) => {
     if (e) {
