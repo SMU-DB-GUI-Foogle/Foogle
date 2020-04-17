@@ -8,7 +8,7 @@ DROP TABLE IF EXISTS savedFoods;
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE IF NOT EXISTS ingredients (
-ingredientId int,
+ingredient varchar,
 numberOfServings int,
 recipeId int
 );
@@ -36,6 +36,7 @@ foodGroup varchar(50)
 
 CREATE TABLE IF NOT EXISTS recipes (
 recipeId int PRIMARY KEY AUTO_INCREMENT,
+recipeName varchar(200),
 userId int
 );
 
@@ -46,12 +47,13 @@ foodId int
 
 CREATE TABLE IF NOT EXISTS users (
 userId int PRIMARY KEY AUTO_INCREMENT,
-firstName varchar(50),
-lastName varchar(50),
-emailAddress varchar(50),
-username varchar(50),
-password varchar(50),
-isAdmin boolean
+firstName varchar(100),
+lastName varchar(100),
+emailAddress varchar(100),
+username varchar(100),
+password varchar(100),
+isAdmin boolean,
+description varchar(500)
 );
 
 
