@@ -43,8 +43,13 @@ connection.connect(function (err) {
     logger.info("Connected to the DB!");
 });
 
+
 app.get('/', (req, res) => {
     res.status(200).send('Go to localhost:3000.');
+    // connection.query('SELECT * FROM foods',(err, result, fields) => {
+    //   if(err) logger.error(err.stack)
+    //   res.end(JSON.stringify(result))
+    // })
 })
 
 app.get('/:user/recipes', (req, res) => {
@@ -54,6 +59,13 @@ app.get('/:user/recipes', (req, res) => {
         res.end(JSON.stringify(result))
     })
 })
+
+// app.get('/profile/:username', (req,res) => {
+
+// }
+
+
+
 
 //connecting the express object to listen on a particular port as defined in the config object.
 app.listen(config.port, config.host, (e) => {

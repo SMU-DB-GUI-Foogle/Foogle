@@ -8,8 +8,8 @@ DROP TABLE IF EXISTS savedFoods;
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE IF NOT EXISTS ingredients (
-ingredient varchar,
-numberOfServings int,
+ingredient varchar(500),
+numberOfServings varchar(200),
 recipeId int
 );
 
@@ -36,7 +36,7 @@ foodGroup varchar(50)
 
 CREATE TABLE IF NOT EXISTS recipes (
 recipeId int PRIMARY KEY AUTO_INCREMENT,
-recipeName varchar(200),
+recipeName varchar(500),
 userId int
 );
 
@@ -52,11 +52,11 @@ lastName varchar(100),
 emailAddress varchar(100),
 username varchar(100),
 password varchar(100),
-isAdmin boolean,
+isAdmin int,
 description varchar(500)
 );
 
-
+-- foods TABLE DATA
 INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('1', 'Lemons', '100', '3', '29', '0.3', '0', '0.039', '0', '2', '9.32', '2.5', '1.1');				
 INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('2', 'Lemon Juice Raw', '100', '3', '22', '0.24', '0', '0.04', '0', '1', '6.9', '2.52', '0.35');				
 INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('3', 'Lemon Juice From Concentrate Canned Or Bottled', '100', '3', '17', '0.07', '0', '0.027', '0', '24', '5.62', '1.53', '0.45');				
@@ -181,4 +181,49 @@ INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories,
 INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('122', 'Kiwifruit Zespri Sungold Raw', '100', '3', '63', '0.28', '0', '0.065', '0', '3', '15.79', '12.3', '1.02');				
 INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('123', 'Cranberry Juice Blend 100% Juice Bottled With Added Vitamin C And Calcium', '100', '3', '45', '0.12', '0', '0.002', '0', '6', '10.91', '9.8', '0.27');				
 INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('124', 'Fruit Juice Smoothie Odwalla Strawberry Banana', '100', '3', '48', '0.32', '0', '0.059', '0', '2', '11.05', '9.9', '0.5');				
-INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('125', 'Fruit Juice Smoothie Naked Juice Strawberry Banana', '100', '3', '50', '0.27', '0', '0.061', '0', '2', '11.66', '10.05', '0.48');				
+INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('125', 'Fruit Juice Smoothie Naked Juice Strawberry Banana', '100', '3', '50', '0.27', '0', '0.061', '0', '2', '11.66', '10.05', '0.48');
+
+-- foodGroup TABLE DATA
+INSERT INTO foodGroups (id, foodGroup) VALUES ('1','Grains');
+INSERT INTO foodGroups (id, foodGroup) VALUES ('2','Vegetables');
+INSERT INTO foodGroups (id, foodGroup) VALUES ('3','Fruits');
+INSERT INTO foodGroups (id, foodGroup) VALUES ('4','Dairy etc.');
+INSERT INTO foodGroups (id, foodGroup) VALUES ('5','Meats and Beans');
+INSERT INTO foodGroups (id, foodGroup) VALUES ('6','Mix/Unknown');
+
+-- ingredients TABLE DATA
+INSERT INTO ingredients (ingredient, numberOfServings, recipeId) VALUES ('Sugar','1 cup','2');					
+INSERT INTO ingredients (ingredient, numberOfServings, recipeId) VALUES ('Butter','1 stick','2');					
+INSERT INTO ingredients (ingredient, numberOfServings, recipeId) VALUES ('Eggs','2','2');					
+INSERT INTO ingredients (ingredient, numberOfServings, recipeId) VALUES ('Bananas','3','2');					
+INSERT INTO ingredients (ingredient, numberOfServings, recipeId) VALUES ('Milk','1 tablespoon','2');					
+INSERT INTO ingredients (ingredient, numberOfServings, recipeId) VALUES ('Cinnamon','1 teaspoon','2');					
+INSERT INTO ingredients (ingredient, numberOfServings, recipeId) VALUES ('Baking Powder','1 teaspoon','2');					
+INSERT INTO ingredients (ingredient, numberOfServings, recipeId) VALUES ('Baking Soda','1 teaspoon','2');					
+INSERT INTO ingredients (ingredient, numberOfServings, recipeId) VALUES ('Salt','1 teaspoon','2');					
+INSERT INTO ingredients (ingredient, numberOfServings, recipeId) VALUES ('Bread','2 slices','1');					
+INSERT INTO ingredients (ingredient, numberOfServings, recipeId) VALUES ('Peanut Butter','1 tablespoon','1');					
+INSERT INTO ingredients (ingredient, numberOfServings, recipeId) VALUES ('Jelly','1 tablespoon','1');					
+INSERT INTO ingredients (ingredient, numberOfServings, recipeId) VALUES ('Apple','1','3');					
+INSERT INTO ingredients (ingredient, numberOfServings, recipeId) VALUES ('Turkey Sandwhich','1','3');					
+INSERT INTO ingredients (ingredient, numberOfServings, recipeId) VALUES ('Gatorade','1','3');
+
+-- recipes TABLE DATA
+INSERT INTO recipes (recipeId,recipeName,userId) VALUES ('1','Johns Test Recipe','1');
+INSERT INTO recipes (recipeId,recipeName,userId) VALUES ('2','Banana Bread','1');
+INSERT INTO recipes (recipeId,recipeName,userId) VALUES ('3','Boss Mans Lunch','2');
+
+-- users TABLE DATA
+INSERT INTO users (userId,firstName,lastName,emailAddress,username,password,isAdmin,description) VALUES ('1','John','Doe','johndoe@gmail.com','johndoe','password','0','Hello! My name is John Doe. I am an example user for Foogle, the search engine just for food!');
+INSERT INTO users (userId,firstName,lastName,emailAddress,username,password,isAdmin,description) VALUES ('2','Boss','Man','theboss@gmail.com','theboss','password','1','Hello! My name is Boss Man. I am an example Admin user for Foogle, the search engine just for food!');
+
+-- savedFoods TABLE DATA
+INSERT INTO savedFoods (userId,foodId) VALUES ('1','32');
+INSERT INTO savedFoods (userId,foodId) VALUES ('1','1');
+INSERT INTO savedFoods (userId,foodId) VALUES ('1','15');
+INSERT INTO savedFoods (userId,foodId) VALUES ('1','97');
+INSERT INTO savedFoods (userId,foodId) VALUES ('1','104');
+INSERT INTO savedFoods (userId,foodId) VALUES ('2','17');
+INSERT INTO savedFoods (userId,foodId) VALUES ('2','20');
+INSERT INTO savedFoods (userId,foodId) VALUES ('2','66');
+INSERT INTO savedFoods (userId,foodId) VALUES ('2','79');
