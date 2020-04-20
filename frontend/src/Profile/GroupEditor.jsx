@@ -30,7 +30,7 @@ export class GroupEditor extends React.Component {
         account.groups.push(new Group(this.state.groupName, this.state.desc, account.firstName + " " + account.lastName, []));
         window.alert("Group Added!");
         sessionStorage.setItem("account", JSON.stringify(account));
-        this.setState({ redirect: "/profile/" + account.username + "/groups"});  
+        this.setState({ redirect: "/" + account.username + "/groups"});  
     }
 
     render() {
@@ -67,7 +67,7 @@ export class GroupEditor extends React.Component {
                         onClick={ e => this.onSubmit() }>
                     Save
                 </button>
-                <Link className="btn btn-secondary btn-block" to={`/profile/${this.state.username}/groups`}>
+                <Link className="btn btn-secondary btn-block" to={`/${this.state.username}/groups`}>
                     Return to My Groups
                 </Link>
                 

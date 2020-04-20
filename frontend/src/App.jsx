@@ -72,7 +72,7 @@ class App extends React.Component{
                         <Link className="text-white" to="/" onClick={ e => this.handleLogout(e) }>Logout</Link>
                       </Navbar.Brand>
                       <Navbar.Brand>
-                        <Link className="text-white" to={`/profile/${window.sessionStorage.getItem("username")}`}>Profile</Link>
+                        <Link className="text-white" to={`/${window.sessionStorage.getItem("username")}`}>Profile</Link>
                       </Navbar.Brand>
                     </>
                   : <>

@@ -38,7 +38,7 @@ export class RecipeEditor extends React.Component {
         account.recipes.push(new Recipe(this.state.name, this.state.desc, account.firstName + " " + account.lastName, this.state.ingredients));
         window.alert("Recipe Added!");
         sessionStorage.setItem("account", JSON.stringify(account));
-        this.setState({ redirect: "/profile/" + account.username + "/recipes"});  
+        this.setState({ redirect: "/" + account.username + "/recipes"});  
     }
 
     render() {
@@ -92,7 +92,7 @@ export class RecipeEditor extends React.Component {
                         onClick={ e => this.onSubmit() }>
                     Save
                 </button>
-                <Link className="btn btn-secondary btn-block" to={`/profile/${this.state.username}/recipes`}>
+                <Link className="btn btn-secondary btn-block" to={`/${this.state.username}/recipes`}>
                     Return to My Recipes
                 </Link>
                 

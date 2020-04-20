@@ -40,7 +40,7 @@ export class ProfileEditor extends React.Component {
             }
             window.alert("Profile information updated!")
             sessionStorage.setItem("account", JSON.stringify(account));
-            this.setState({ redirect: "/profile/" + account.username})  
+            this.setState({ redirect: "/" + account.username})  
         }
         else {
             window.alert("Passwords do not match!")
@@ -121,7 +121,7 @@ export class ProfileEditor extends React.Component {
                         onClick={ e => this.onSubmit() }>
                     Save
                 </button>
-                <Link className="btn btn-secondary btn-block" to={`/profile/${this.state.username}`}>
+                <Link className="btn btn-secondary btn-block" to={`/${this.state.username}`}>
                     Return to Profile
                 </Link>
                 

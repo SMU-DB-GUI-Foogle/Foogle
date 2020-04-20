@@ -4,7 +4,7 @@ import { Image } from 'react-bootstrap';
 
 export const Profile = props => {
 
-    if(!sessionStorage.getItem("auth") || window.location.pathname !== `/profile/${sessionStorage.getItem("username")}`) {
+    if(!sessionStorage.getItem("auth") || window.location.pathname !== `/${sessionStorage.getItem("username")}`) {
         return (<Redirect to="/"/>);
     }
 

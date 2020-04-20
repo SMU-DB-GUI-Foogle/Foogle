@@ -82,7 +82,7 @@ export class RecipeView extends React.Component {
                             </li>)
                     }
                 </ul>
-                <Link className="btn btn-secondary btn-block mt-2" to={`/profile/${this.state.account.username}`}>
+                <Link className="btn btn-secondary btn-block mt-2" to={`/${this.state.account.username}`}>
                     Return to Profile
                 </Link>
             </div>
