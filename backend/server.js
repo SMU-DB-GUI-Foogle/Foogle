@@ -108,6 +108,42 @@ app.get('/:username', (req,res) => {
     })
 })
 
+app.delete('/:username', (req,res) => {
+  var userId = req.query.userId;
+
+  connection.query(`put the query here ${userId}`,(err,result,fields) => {
+    if(err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  })
+
+})
+
+//savedFoods
+app.get('/:username/saves', (req,res) => {
+  var userId = req.query.userId;
+  var foodName = req.query.foodName;
+
+  connection.query(`INSERT INTO savedFoods (userId, foodId) VALUES (${userId},(SELECT foodId FROM foods WHERE foodName = ${foodName}))`,(err,result,fields) => {
+      if(err) logger.error(err.stack);
+      res.end(JSON.stringify(result));
+  })
+})
+
+app.post('/product/saves', (req,res) => {
+  var userId = req.body.firstName;
+  var foodName = req.body.lastName;
+  var emailAddress = req.body.emailAddress;
+  var username = req.body.username;
+  var password = req.body.password;
+
+  connection.query('INSERT INTO users (firstName,lastName,emailAddress,username,password) VALUES (?,?,?,?,?)', [firstName, lastName, emailAddress, username, password], (err,result,fields) => {
+    if(err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+
+})
+
+
+
 
 // Product Requests
 
