@@ -8,19 +8,6 @@ export class AxiosRequests {
 
     }
 
-    getProductByName(foodName) {
-        var config = this.config;
-        config.params = { foodName }
-        return new Promise((resolve, reject) => {
-            axios.get(`${this.url}/products/${foodName}`, config)
-                .then(x => resolve(x.data))
-                .catch(x => {
-                    alert(x);
-                    reject(x);
-                });
-        });
-    }
-
     //login/register and update/delete account requests
     login(emailAddress, password) {
         var config = this.config;
@@ -280,6 +267,66 @@ export class AxiosRequests {
         config.params = { userId, recipeName };
         return new Promise((resolve, reject) => {
             axios.delete(`${this.url}/${userName}/recipes`, config)
+                .then(x => resolve(x.data))
+                .catch(x => {
+                    alert(x);
+                    reject(x);
+                })
+        });
+    }
+
+    //product requests (get, get all, add, update, delete)
+    getProductByName(foodName) {
+        var config = this.config;
+        config.params = { foodName }
+        return new Promise((resolve, reject) => {
+            axios.get(`${this.url}/product/${foodName}`, config)
+                .then(x => resolve(x.data))
+                .catch(x => {
+                    alert(x);
+                    reject(x);
+                });
+        });
+    }
+
+    getAllProducts() {
+        return new Promise((resolve, reject) => {
+            axios.get(`${this.url}/product`, this.config)
+                .then(x => resolve(x.data))
+                .catch(x => {
+                    alert(x);
+                    reject(x);
+                });
+        });
+    }
+
+    createProduct(foodName, servingPortion, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrates, sugars, protein) {
+        return new Promise((resolve, reject) => {
+            axios.post(`${this.url}/product/add`, { foodName, servingPortion, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrates, sugars, protein }, this.config)
+                .then(x => resolve(x.data))
+                .catch(x => {
+                    alert(x);
+                    reject(x);
+                })
+        });
+    }
+
+    updateProduct(foodName, servingPortion, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrates, sugars, protein) {
+        return new Promise((resolve, reject) => {
+            axios.put(`${this.url}/product/${foodName}`, { foodName, servingPortion, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrates, sugars, protein }, this.config)
+                .then(x => resolve(x.data))
+                .catch(x => {
+                    alert(x);
+                    reject(x);
+                })
+        });
+    }
+
+    deleteRecipe(foodName) {
+        var config = this.config;
+        config.params = { foodName };
+        return new Promise((resolve, reject) => {
+            axios.delete(`${this.url}/product/${foodName}`, config)
                 .then(x => resolve(x.data))
                 .catch(x => {
                     alert(x);

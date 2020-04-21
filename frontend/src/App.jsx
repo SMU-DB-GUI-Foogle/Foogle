@@ -32,6 +32,7 @@ class App extends React.Component{
     window.sessionStorage.removeItem("auth");
     window.sessionStorage.removeItem("username");
     window.sessionStorage.removeItem("account");
+    window.sessionStorage.removeItem("admin");
     this.setState({ isAuthenticated: false });
   }
 

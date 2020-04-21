@@ -3,6 +3,7 @@ import { AxiosRequests } from '../api';
 import { Food } from '../models';
 import { Product } from './Product';
 import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 export class ProductView extends React.Component {
 
@@ -98,9 +99,29 @@ export class ProductView extends React.Component {
                     <div>Login to see more features</div>
                 </>
                 }
+                {window.sessionStorage.getItem("admin")
+                ? <>
+                    <Link className="m-1 btn btn-warning"
+                            to='/' >
+                        Edit Product
+                    </Link>
+                </>
+                : <>
+                </>
+                }
             </>
             : <>
                 <h1 className="card bg-warning text-center">No Product found! Please click "Foogle" or Search Again!</h1>
+                {window.sessionStorage.getItem("admin")
+                ? <>
+                    <Link className="m-1 btn btn-warning"
+                            to='/' >
+                        Add Product
+                    </Link>
+                </>
+                : <>
+                </>
+                }
             </>
             }
             

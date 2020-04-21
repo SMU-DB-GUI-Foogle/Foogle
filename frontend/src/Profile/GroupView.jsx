@@ -8,7 +8,7 @@ export class GroupView extends React.Component {
     groupRequests = new AxiosRequests;
 
     state = {
-        account: new Account('', '', '', '', '', [], [], [], [], [], [])
+        groups: []
     }
     //let account = JSON.parse(sessionStorage.getItem("account"));
 
@@ -38,7 +38,7 @@ export class GroupView extends React.Component {
             <div className="card p-2">
                 {/* <p>My Groups ({props.account.groups.length})</p> */}
                 <p className="card-header">
-                    My Groups ({this.state.account.groups.length})
+                    My Groups ({this.state.groups.length})
                     <Link className="btn btn-primary float-right" to={window.location.pathname + "/edit"}>
                         Add a Group
                     </Link>
@@ -51,7 +51,7 @@ export class GroupView extends React.Component {
                         </li>)
                     }
                     {
-                        this.state.account.groups.map((p, i) => 
+                        this.state.groups.length && this.state.groups.map((p, i) => 
                             <li className="list-group" key={ i } id="group">
                                 <div className=" list-group-item list-group-item-secondary">
                                     { i + 1 }. { p.name }
@@ -61,7 +61,7 @@ export class GroupView extends React.Component {
                                         X
                                     </button>
                                 </div>
-                                <div className="list-group-item list-group-item-light">
+                                {/* <div className="list-group-item list-group-item-light">
                                     Owner: { p.owner }
                                     <ul className="list-group">
                                     { !p.members.length && (
@@ -77,7 +77,7 @@ export class GroupView extends React.Component {
                                     }
                                     </ul>
                                     <span className="text-dark">"{ p.description }"</span>
-                                </div>
+                                </div> */}
                             </li>)
                     }
                 </ul>
@@ -89,13 +89,9 @@ export class GroupView extends React.Component {
     }
 
     componentDidMount() {
-        // let accountId = this.props.match.params.id;
-        // if(accountId) {
-        //    this.accountRepository.getAccountById(accountId)
-        //     .then(account => this.setState(account)); 
-        // }
         let account = JSON.parse(sessionStorage.getItem("account"));
-        this.setState({ account: account });  
+        this.groupRequests.getAccountGroups(account.username, account.userId)
+            .then(groups => this.setState({ groups }));  
     }
 }
 
