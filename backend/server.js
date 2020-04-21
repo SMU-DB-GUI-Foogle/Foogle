@@ -82,6 +82,7 @@ app.post('/register', (req,res) => {
   connection.query('INSERT INTO users (firstName,lastName,emailAddress,username,password) VALUES (?,?,?,?,?)', [firstName, lastName, emailAddress, username, password], (err,result,fields) => {
     if(err) logger.error(err.stack);
     res.end(JSON.stringify(result));
+  })
 
 })
 
@@ -96,6 +97,7 @@ app.put('/:username', (req,res) => {
   connection.query('INSERT INTO users (firstName,lastName,emailAddress,username,password) VALUES (?,?,?,?,?)', [firstName, lastName, emailAddress, username, password], (err,result,fields) => {
     if(err) logger.error(err.stack);
     res.end(JSON.stringify(result));
+  })
 
 })
 
@@ -122,7 +124,7 @@ app.delete('/:username', (req,res) => {
 app.get('/:username/saves', (req,res) => {
   var userId = req.query.userId;
 
-  connection.query(`SELECT sf.foodId, foodName FROM savedFoods sf INNER JOIN foods f ON sf.foodId = f.foodId WHERE userId = ${userId}`,(err,result,fields) => {
+  connection.query(`SELECT f.foodName FROM savedFoods sf INNER JOIN foods f ON sf.foodId = f.foodId WHERE userId = ${userId}`,(err,result,fields) => {
     if(err) logger.error(err.stack);
     res.end(JSON.stringify(result));
   })
@@ -149,6 +151,71 @@ app.delete('/product/saves', (req,res) => {
     res.end(JSON.stringify(result));
   })
 
+})
+
+//likedFoods
+app.get('/:username/likes', (req,res) => {
+  var userId = req.query.userId;
+
+  connection.query(`SELECT f.foodName FROM likedFoods lf INNER JOIN foods f ON lf.foodId = f.foodId WHERE userId = ${userId}`,(err,result,fields) => {
+    if(err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  })
+
+})
+
+app.post('/product/likes', (req,res) => {
+  var userId = req.body.firstName;
+  var foodName = req.body.lastName;
+
+  connection.query(`INSERT INTO likedFoods (userId, foodId) VALUES (${userId},(SELECT foodId FROM foods WHERE foodName = ${foodName}))`,(err,result,fields) => {
+    if(err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  })
+
+})
+
+app.delete('/product/likes', (req,res) => {
+  var userId = req.query.userId;
+  var foodName = req.query.foodName;
+
+  connection.query(`DELETE FROM likedFoods WHERE userId = ${userId} AND foodId = (SELECT foodId FROM foods WHERE foodName = ${foodName})`,(err,result,fields) => {
+    if(err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  })
+
+})
+
+//dislikedFoods
+app.get('/:username/dislikes', (req,res) => {
+  var userId = req.query.userId;
+
+  connection.query(`SELECT f.foodName FROM dislikedFoods df INNER JOIN foods f ON df.foodId = f.foodId WHERE userId = ${userId}`,(err,result,fields) => {
+    if(err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  })
+
+})
+
+app.post('/product/dislikes', (req,res) => {
+  var userId = req.body.firstName;
+  var foodName = req.body.lastName;
+
+  connection.query(`INSERT INTO dislikedFoods (userId, foodId) VALUES (${userId},(SELECT foodId FROM foods WHERE foodName = ${foodName}))`,(err,result,fields) => {
+    if(err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  })
+
+})
+
+app.delete('/product/dislikes', (req,res) => {
+  var userId = req.query.userId;
+  var foodName = req.query.foodName;
+
+  connection.query(`DELETE FROM dislikedFoods WHERE userId = ${userId} AND foodId = (SELECT foodId FROM foods WHERE foodName = ${foodName})`,(err,result,fields) => {
+    if(err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  })
 
 })
 
@@ -156,12 +223,12 @@ app.delete('/product/saves', (req,res) => {
 
 // Product Requests
 
-app.get('/product/:foodId', (req,res) => {
-  var foodId = req.param('foodId');
+app.get('/product/:foodName', (req,res) => {
+  var foodName = req.query.foodName.replace('/+/g', ' ');
 
-  connection.query(`SELECT * FROM foods WHERE foodId = ${foodId}`,(err,result,fields) => {
-      if(err) logger.error(err.stack);
-      res.end(JSON.stringify(result));
+  connection.query(`SELECT * FROM foods WHERE foodName = ?`, [foodName], (err, result) => {
+    if(err) logger.error(err.stack)
+    res.end(JSON.stringify(result));
   })
 })
 
