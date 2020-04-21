@@ -61,7 +61,6 @@ app.get('/', (req, res) => {
 // })
 
 //Login
-
 app.get('/login', (req, res) => {
   console.log("gother")
   const emailAddress = req.query.emailAddress; 
@@ -72,6 +71,7 @@ app.get('/login', (req, res) => {
   })
 })
 
+//Register
 app.post('/register', (req,res) => {
   var firstName = req.body.firstName;
   var lastName = req.body.lastName;
@@ -79,16 +79,28 @@ app.post('/register', (req,res) => {
   var username = req.body.username;
   var password = req.body.password;
 
-  connection.query('INSERT INTO foods (firstName,lastName,emailAddress,username,password) VALUES (null,?,?,?,?,?,0,"")', [firstName, lastName, emailAddress, username, password], (err,result,fields) => {
+  connection.query('INSERT INTO users (firstName,lastName,emailAddress,username,password) VALUES (?,?,?,?,?)', [firstName, lastName, emailAddress, username, password], (err,result,fields) => {
     if(err) logger.error(err.stack);
     res.end(JSON.stringify(result));
 
 })
 
-// Profile Requests
+//Profile
+app.put('/:username', (req,res) => {
+  var firstName = req.body.firstName;
+  var lastName = req.body.lastName;
+  var emailAddress = req.body.emailAddress;
+  var username = req.body.username;
+  var password = req.body.password;
 
-app.get('/profile/:username', (req,res) => {
-    var userId = req.param('userId');
+  connection.query('INSERT INTO users (firstName,lastName,emailAddress,username,password) VALUES (?,?,?,?,?)', [firstName, lastName, emailAddress, username, password], (err,result,fields) => {
+    if(err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+
+})
+
+app.get('/:username', (req,res) => {
+    var userId = req.query.userId;
 
     connection.query(`SELECT * FROM users WHERE userId = ${userId}`,(err,result,fields) => {
         if(err) logger.error(err.stack);
