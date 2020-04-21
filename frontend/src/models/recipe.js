@@ -1,8 +1,7 @@
 export class Recipe {
-    constructor(name, description, creator, ingredients) {
-        this.name = name;
-        this.description = description;
-        this.creator = creator;
+    constructor(recipeName, userId, ingredients) {
+        this.recipeName = recipeName;
+        this.userId = userId;
         this.ingredients = ingredients;
     }
 }

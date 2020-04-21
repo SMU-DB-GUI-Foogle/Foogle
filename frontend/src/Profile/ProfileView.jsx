@@ -14,7 +14,8 @@ export class ProfileView extends React.Component {
         email: '',
         saves: [],
         likes: [],
-        dislikes: []
+        dislikes: [],
+        recipes: []
     }
 
     deleteAccount() {
@@ -39,7 +40,6 @@ export class ProfileView extends React.Component {
     deleteSaved(foodName) {
         if(window.confirm("Are you sure you want to delete this saved product from your profile?")) {
             let account = JSON.parse(sessionStorage.getItem('account'));
-            debugger;
             this.profileRequests.deleteSavedProduct(account.userId, foodName)
             .then(() => {
                 this.setState({ 
@@ -53,7 +53,6 @@ export class ProfileView extends React.Component {
     deleteLiked(foodName) {
         if(window.confirm("Are you sure you want to delete this liked product from your profile?")) {
             let account = JSON.parse(sessionStorage.getItem('account'));
-            debugger;
             this.profileRequests.deleteLikedProduct(account.userId, foodName)
             .then(() => {
                 this.setState({ 
@@ -67,7 +66,6 @@ export class ProfileView extends React.Component {
     deleteDisliked(foodName) {
         if(window.confirm("Are you sure you want to delete this disliked product from your profile?")) {
             let account = JSON.parse(sessionStorage.getItem('account'));
-            debugger;
             this.profileRequests.deleteDislikedProduct(account.userId, foodName)
             .then(() => {
                 this.setState({ 
@@ -85,7 +83,7 @@ export class ProfileView extends React.Component {
 
         return <>
             <div className="jumbotron p-4">
-                <Profile saves={this.state.saves} likes={this.state.likes} dislikes={this.state.dislikes} />
+                <Profile saves={this.state.saves} likes={this.state.likes} dislikes={this.state.dislikes} recipes={this.state.recipes} />
                 <div className="row mt-2 mr-2">
                     <DropdownButton className="col-3" id="dropdown-basic-button" title="View Options">
                         <Dropdown.Item href={window.location.pathname + `/edit`}>Edit Profile</Dropdown.Item>
@@ -132,6 +130,8 @@ export class ProfileView extends React.Component {
             .then(likes => this.setState({ likes }));
         this.profileRequests.getAccountDislikes(account.username, account.userId)
             .then(dislikes => this.setState({ dislikes }));
+        this.profileRequests.getAccountRecipes(account.username, account.userId)
+            .then(recipes => this.setState({ recipes }));
     }
 
 }

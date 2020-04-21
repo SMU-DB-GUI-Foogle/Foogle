@@ -21,17 +21,7 @@ export class AxiosRequests {
         });
     }
 
-    // getProfileAccount(userName) {
-    //     return new Promise((resolve, reject) => {
-    //         axios.get(`${this.url}/${userName}`, this.config)
-    //             .then(x => resolve(x.data))
-    //             .catch(x => {
-    //                 alert(x);
-    //                 reject(x);
-    //             });
-    //     });
-    // }
-
+    //login/register and update/delete account requests
     login(emailAddress, password) {
         var config = this.config;
         config.params = { emailAddress, password };
@@ -56,6 +46,17 @@ export class AxiosRequests {
         });
     }
 
+    updateProfile(userId, firstName, lastName, emailAddress, username, password) {
+        return new Promise((resolve, reject) => {
+            axios.put(`${this.url}/${username}`, { userId, firstName, lastName, emailAddress, username, password }, this.config)
+                .then(x => resolve(x.data))
+                .catch(x => {
+                    alert(x);
+                    reject(x);
+                })
+        });
+    }
+
     deleteAccount(userId) {
         var config = this.config;
         config.params = { userId };
@@ -69,6 +70,8 @@ export class AxiosRequests {
         });
     }
 
+
+    //saves requests (get, add remove)
     getAccountSaves(userName, userId) {
         var config = this.config;
         config.params = { userId };
@@ -106,6 +109,8 @@ export class AxiosRequests {
         });
     }
 
+
+    //likes requests (get, add remove)
     getAccountLikes(userName, userId) {
         var config = this.config;
         config.params = { userId };
@@ -143,6 +148,8 @@ export class AxiosRequests {
         });
     }
 
+
+    //dislikes requests (get, add remove)
     getAccountDislikes(userName, userId) {
         var config = this.config;
         config.params = { userId };
@@ -180,6 +187,7 @@ export class AxiosRequests {
         });
     }
 
+    //groups requests (get, add remove)
     getAccountGroups(userName, userId) {
         var config = this.config;
         config.params = { userId };
@@ -193,6 +201,8 @@ export class AxiosRequests {
         });
     }
 
+
+    //recipes requests (get, get individual, add, add ingredient, remove ingredient, remove)
     getAccountRecipes(userName, userId) {
         var config = this.config;
         config.params = { userId };
@@ -206,9 +216,70 @@ export class AxiosRequests {
         });
     }
 
-    updateProfile(userId, firstName, lastName, emailAddress, username, password) {
+    getRecipeByName(userName, userId, recipeName) {
+        var config = this.config;
+        config.params = { userId };
         return new Promise((resolve, reject) => {
-            axios.put(`${this.url}/${username}`, { userId, firstName, lastName, emailAddress, username, password }, this.config)
+            axios.get(`${this.url}/${userName}/recipes/${recipeName}`, config)
+                .then(x => resolve(x.data))
+                .catch(x => {
+                    alert(x);
+                    reject(x);
+                })
+        });
+    }
+
+    createRecipe(userName, userId, recipeName) {
+        return new Promise((resolve, reject) => {
+            axios.post(`${this.url}/${userName}/recipes`, { userId, recipeName }, this.config)
+                .then(x => resolve(x.data))
+                .catch(x => {
+                    alert(x);
+                    reject(x);
+                })
+        });
+    }
+
+    createIngredient(userName, userId, recipeName, ingredient, amount) {
+        return new Promise((resolve, reject) => {
+            axios.post(`${this.url}/${userName}/recipes/${recipeName}`, { userId, recipeName, ingredient, amount }, this.config)
+                .then(x => resolve(x.data))
+                .catch(x => {
+                    alert(x);
+                    reject(x);
+                })
+        });
+    }
+
+    updateRecipe(userName, userId, recipeName) {
+        return new Promise((resolve, reject) => {
+            axios.post(`${this.url}/${userName}/recipes/${recipeName}`, { userId, recipeName }, this.config)
+                .then(x => resolve(x.data))
+                .catch(x => {
+                    alert(x);
+                    reject(x);
+                })
+        });
+    }
+
+    deleteIngredient(userName, userId, recipeName, ingredient) {
+        var config = this.config;
+        config.params = { userId, ingredient };
+        return new Promise((resolve, reject) => {
+            axios.delete(`${this.url}/${userName}/recipes/${recipeName}`, config)
+                .then(x => resolve(x.data))
+                .catch(x => {
+                    alert(x);
+                    reject(x);
+                })
+        });
+    }
+
+    deleteRecipe(userName, userId, recipeName) {
+        var config = this.config;
+        config.params = { userId, recipeName };
+        return new Promise((resolve, reject) => {
+            axios.delete(`${this.url}/${userName}/recipes`, config)
                 .then(x => resolve(x.data))
                 .catch(x => {
                     alert(x);

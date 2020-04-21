@@ -17,7 +17,7 @@ export default function Routes({ appProps }) {
         <AppliedRoute path="/:username/groups" exact component={GroupView} appProps={appProps} />
         <AppliedRoute path="/:username/groups/edit" exact component={GroupEditor} appProps={appProps} />
         <AppliedRoute path="/:username/recipes" exact component={RecipeView} appProps={appProps} />
-        <AppliedRoute path="/:username/recipes/edit" exact component={RecipeEditor} appProps={appProps} />
+        <AppliedRoute path="/:username/recipes/:recipeName" exact component={RecipeEditor} appProps={appProps} />
         
         { /* Add catch for routes not found */ }
         {/* <Route component={NotFound} /> */}

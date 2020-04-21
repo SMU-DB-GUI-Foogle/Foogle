@@ -2,43 +2,56 @@ import React from 'react';
 import { AxiosRequests } from '../api';
 import { Recipe } from '../models';
 import { Link, Redirect } from 'react-router-dom';
-import { IngredientEditor } from './IngredientEditor'
+import { Button } from 'react-bootstrap';
+import { IngredientEditor } from './IngredientEditor';
 
 export class RecipeEditor extends React.Component {
 
-    profileRequests = new AxiosRequests();
+    recipeRequests = new AxiosRequests();
     
     state = {
-        username: '',
+        userId: '',
         name: '',
-        desc: '',
         ingredients: []
     }
 
     validateForm() {
-        return this.state.name.length > 0 && this.state.desc.length > 0 && this.state.ingredients.length > 0;
+        return this.state.name.length > 0 && this.state.ingredients.length > 0;
     }
 
     onIngredientAdded(ingredient) {
-        let ingredients = this.state.ingredients;
-        ingredients.push(ingredient);
-        this.setState({ ingredients });
+        let account = JSON.parse(sessionStorage.getItem("account"));
+        this.recipeRequests.createIngredient(account.username, account.userId, this.state.name, ingredient[0], ingredient[1])
+        .then(() => {
+            let ingredientList = this.state.ingredients;
+            ingredientList.push({ingredient: ingredient[0], numberOfServings: ingredient[1]});
+            this.setState({ 
+                recipes: ingredientList
+            });
+            alert("Ingredient Added!");
+        })
     }
 
-    // onSubmit() {
-    //         this.accountRepository.updateAccount(this.state.id, this.state)
-    //             .then(() => {
-    //                 alert("Account Updated!");
-    //                 this.setState({ redirect: "/" });
-    //             });
-    // }
+    deleteIngredient(ingredient) {
+        if(window.confirm("Are you sure you want to delete this ingredient?")) {
+            let account = JSON.parse(sessionStorage.getItem("account"));
+            this.recipeRequests.deleteIngredient(account.username, account.userId, this.state.name, ingredient)
+            .then(() => {
+                this.setState({ 
+                    ingredients: this.state.ingredients.filter(x => x.ingredient !== ingredient)
+                });
+                alert("Ingredient Deleted");
+            })
+        }
+    }
 
     onSubmit() {
         let account = JSON.parse(sessionStorage.getItem("account"));
-        account.recipes.push(new Recipe(this.state.name, this.state.desc, account.firstName + " " + account.lastName, this.state.ingredients));
-        window.alert("Recipe Added!");
-        sessionStorage.setItem("account", JSON.stringify(account));
-        this.setState({ redirect: "/" + account.username + "/recipes"});  
+        this.recipeRequests.updateProfile(account.username, account.userId, this.state.name)
+        .then(() => {
+            alert("Recipe Updated!");
+            this.setState({ redirect: "/" + account.username + '/recipes'}) 
+        })
     }
 
     render() {
@@ -59,16 +72,6 @@ export class RecipeEditor extends React.Component {
                         onChange={ e => this.setState({ name: e.target.value }) } />
                 </div>
 
-                <div className="form-group">
-                    <label htmlFor="desc">Recipe Description</label>
-                    <textarea type="text"
-                        id="desc"
-                        name="desc"
-                        className="form-control"
-                        value={this.state.desc}
-                        onChange={ e => this.setState({ desc: e.target.value }) } />
-                </div>
-
                 <IngredientEditor onIngredientAdded={ ingredient => this.onIngredientAdded(ingredient) }/>
                 <li className="list-group-item">Ingredients</li>
                 { !this.state.ingredients.length && (
@@ -77,12 +80,17 @@ export class RecipeEditor extends React.Component {
                     </li>)
                 }
                 {
-                    this.state.ingredients.map((p, i) => 
+                    this.state.ingredients.length && this.state.ingredients.map((p, i) => 
                         <li className="list-group-item" key={ i }>
-                            { p[0] }
-                            <span className="card float-right p-2">
-                                Amount: { p[1] }
+                            { p.ingredient }
+                            <Button className="float-right btn-danger" type="button" onClick={e => this.deleteIngredient(p.ingredient)} >X</Button>
+                            <span className="card float-right p-2 mr-2">
+                                Amount: { p.numberOfServings }
                             </span>
+                            <div className="">
+                                <Link to={`/product/${ p.ingredient }`}>Link to { p.ingredient }'s product page</Link>
+                                
+                            </div> 
                         </li>)
                 }
 
@@ -101,13 +109,18 @@ export class RecipeEditor extends React.Component {
     }
 
     componentDidMount() {
-        // let accountId = this.props.match.params.id;
-        // if(accountId) {
-        //    this.accountRepository.getAccountById(accountId)
-        //     .then(account => this.setState(account)); 
-        // }
+        debugger;
         let account = JSON.parse(sessionStorage.getItem("account"));
-        this.setState({username: account.username});        
+        let recipeName = window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1).replace(/%20/g, ' ');
+        this.setState({ name: recipeName,
+                        userId: account.userId,
+                        username: account.username });
+        this.recipeRequests.getRecipeByName(account.username, account.userId, recipeName)
+            .then(recipes => {
+                if(recipes.length > 0) {
+                    this.setState({ ingredients: recipes })
+                }
+            });       
     }
 }
 
