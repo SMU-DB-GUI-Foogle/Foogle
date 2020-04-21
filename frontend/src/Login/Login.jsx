@@ -1,17 +1,21 @@
 import React, { useState } from "react";
 import { Redirect } from 'react-router-dom';
 import loginImg from "../login.svg";
+import { AxiosRequests } from '../api'
 
 export const Login = props => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [invalidCred, setInvalidCred] = useState(false);
 
+  var accountRequests = new AxiosRequests();
+
   function validateForm() {
       return email.length > 0 && password.length > 0;
   }
 
-  async function login(event) {
+  function login(event) {
+
       const form = event.currentTarget;
       if(form.checkValidity() === false) {
           event.preventDefault();
@@ -19,19 +23,33 @@ export const Login = props => {
       }
 
       try {
-          //local stoarge statements used for local testing till axios requests can be used
-          let accounts = JSON.parse(localStorage.getItem('accounts'));
-          let userAccount = accounts.find(x => (x.email === email && x.password === password));
+          accountRequests.login(email, password)
+            .then(account => {
+              if (account.length == 0) {
+                  setInvalidCred(true);
+                  alert("Invalid email and/or password");
+                  return;
+              }
 
-          if (!(email && password) || !userAccount) {
-              setInvalidCred(true);
-              return;
-          }
+              window.sessionStorage.setItem("account", JSON.stringify(account[0]));
+              window.sessionStorage.setItem("auth", true);
+              window.sessionStorage.setItem("username", account[0].username);
+              props.userHasAuthenticated(true);
+            })
 
-          props.userHasAuthenticated(true);
-          window.sessionStorage.setItem("auth", true);
-          window.sessionStorage.setItem("username", userAccount.username);
-          window.sessionStorage.setItem("account", JSON.stringify(userAccount));
+          // //local stoarge statements used for local testing till axios requests can be used
+          // let accounts = JSON.parse(localStorage.getItem('accounts'));
+          // let userAccount = accounts.find(x => (x.email === email && x.password === password));
+
+          // if (!(email && password) || !userAccount) {
+          //     setInvalidCred(true);
+          //     return;
+          // }
+
+          // props.userHasAuthenticated(true);
+          // window.sessionStorage.setItem("auth", true);
+          // window.sessionStorage.setItem("username", userAccount.username);
+          // window.sessionStorage.setItem("account", JSON.stringify(userAccount));
       }
       catch(e) {
           alert(e.message)

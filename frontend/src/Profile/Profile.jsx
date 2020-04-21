@@ -18,13 +18,12 @@ export const Profile = props => {
             </div>
             <div className="col-6 card">
                 <h2 className="card-header">{account.firstName} {account.lastName}</h2>
-                {/* props.account.firstName + props.account.lastName; */}
                 <div className="card-body">
-                    <h4>Likes({account.likes.length})</h4> {/* props.account.likes.size */}
-                    <h4>Dislikes({account.dislikes.length})</h4> {/* props.account.dislikes.size */}
-                    <h4>Saved({account.saved.length})</h4> {/* props.account.saved.size */}
-                    <h4>Groups({account.groups.length})</h4> {/* props.account.groups.size */}
-                    <h4>Recipes({account.recipes.length})</h4> {/* props.account.recipies.size */}
+                    {/* <h4>Likes({account.likes.length})</h4>
+                    <h4>Dislikes({account.dislikes.length})</h4>*/}
+                    <h4>Saved({props.saves.length})</h4>
+                    {/* <h4>Groups({account.groups.length})</h4>
+                    <h4>Recipes({account.recipes.length})</h4>  */}
                 </div>
             </div>
         </div>

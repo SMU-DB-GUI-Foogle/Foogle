@@ -20,14 +20,6 @@ export class ProfileEditor extends React.Component {
                this.state.email.length > 0 && this.state.username.length > 0;
     }
 
-    // onSubmit() {
-    //         this.accountRepository.updateAccount(this.state.id, this.state)
-    //             .then(() => {
-    //                 alert("Account Updated!");
-    //                 this.setState({ redirect: "/" });
-    //             });
-    // }
-
     onSubmit() {
         if(!(this.state.password || this.state.password2) || this.state.password == this.state.password2) {
             let account = JSON.parse(sessionStorage.getItem("account"));
@@ -35,12 +27,16 @@ export class ProfileEditor extends React.Component {
             account.lastName = this.state.lastName;
             account.email = this.state.email;
             account.username = this.state.username;
+            let password = account.password;
             if(this.state.password) {
                 account.password = this.state.password;
+                password = this.state.password;
             }
             window.alert("Profile information updated!")
             sessionStorage.setItem("account", JSON.stringify(account));
-            this.setState({ redirect: "/" + account.username})  
+            sessionStorage.setItem("username", this.state.username);
+            this.profileRequests.updateProfile(account.userId, this.state.firstName, this.state.lastName, this.state.email, this.state.username, password)
+            this.setState({ redirect: "/" + account.username}) 
         }
         else {
             window.alert("Passwords do not match!")
@@ -130,15 +126,10 @@ export class ProfileEditor extends React.Component {
     }
 
     componentDidMount() {
-        // let accountId = this.props.match.params.id;
-        // if(accountId) {
-        //    this.accountRepository.getAccountById(accountId)
-        //     .then(account => this.setState(account)); 
-        // }
         let account = JSON.parse(sessionStorage.getItem("account"));
         this.setState({ firstName: account.firstName, 
                         lastName: account.lastName,
-                        email: account.email,
+                        email: account.emailAddress,
                         username: account.username});        
     }
 }

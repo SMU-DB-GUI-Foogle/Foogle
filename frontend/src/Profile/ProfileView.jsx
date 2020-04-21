@@ -1,24 +1,61 @@
 import React from 'react';
 import { AxiosRequests } from '../api';
-import { Account } from '../models';
 import { Profile } from './Profile';
 import { LikesView } from './LikesView';
 import { SavedView } from './SavedView';
 import { DropdownButton, Dropdown, Form, Col, Button } from 'react-bootstrap';
+import { Redirect } from 'react-router-dom';
 
 export class ProfileView extends React.Component {
 
-    productRequests = new AxiosRequests();
+    profileRequests = new AxiosRequests();
 
     state = {
-        userAccount: new Account(),
-        email: ''
+        email: '',
+        saves: []
+    }
+
+    deleteAccount() {
+        if(window.confirm("Are you sure you want to delete youy account?")) {
+            if(window.confirm("Deleting your account will result in loss of all your data.")) {
+                if(window.confirm("Delete account?")) {
+                    let account = JSON.parse(sessionStorage.getItem('account'));
+                    this.profileRequests.deleteAccount(account.userId)
+                    .then(() => {
+                        window.sessionStorage.removeItem("auth");
+                        window.sessionStorage.removeItem("username");
+                        window.sessionStorage.removeItem("account");
+                        this.setState({ saves: [], redirct: '/' });
+                        this.props.userHasAuthenticated(false);
+                        alert("Account Deleted :(");
+                    });
+                }
+            }
+        }
+    }
+
+    deleteSaved(foodName) {
+        if(window.confirm("Are you sure you want to delete this saved product from your profile?")) {
+            let account = JSON.parse(sessionStorage.getItem('account'));
+            debugger;
+            this.profileRequests.deleteSavedProduct(account.userId, foodName)
+            .then(() => {
+                this.setState({ 
+                    saves: this.state.saves.filter(x => x.foodName !== foodName)
+                });
+                alert("Saved Product Removed");
+            });
+        }
     }
 
     render() {
+        if(this.state.redirect) {
+            return (<Redirect to={ this.state.redirect }/>);
+        }
+
         return <>
             <div className="jumbotron p-4">
-                <Profile account={JSON.stringify(this.state.userAccount)} />
+                <Profile saves={this.state.saves} />
                 <div className="row mt-2 mr-2">
                     <DropdownButton className="col-3" id="dropdown-basic-button" title="View Options">
                         <Dropdown.Item href={window.location.pathname + `/edit`}>Edit Profile</Dropdown.Item>
@@ -45,21 +82,23 @@ export class ProfileView extends React.Component {
                 </div>
             </div>
 
-            <div className="card p-2 m-2">
+            {/* <div className="card p-2 m-2">
                 <LikesView account={JSON.stringify(this.state.userAccount)} />
-            </div>
+            </div>  */}
             
             <div className="card p-2 m-2">
-                <SavedView account={JSON.stringify(this.state.userAccount)} />
-            </div>
+                <SavedView deleteSaved={name => this.deleteSaved(name)} saves={this.state.saves} />
+            </div> 
+
+            <Button className="btn-danger" type="button" onClick={e => this.deleteAccount() }>Delete Account</Button>
         </>
     }
 
-    // componentDidMount(userName) {
-    //     this.productRequests.getProfileAccount(userName)
-    //         .then(userAccount => this.setState(userAccount)
-    //         .catch(alert(`No user with userName ${userName} in database :(`)));
-    // }
+    componentDidMount() {
+        let account = JSON.parse(sessionStorage.getItem("account"));
+        this.profileRequests.getAccountSaves(account.username, account.userId)
+            .then(saves => this.setState({ saves }));
+    }
 
 }
 

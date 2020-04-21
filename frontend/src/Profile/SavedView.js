@@ -4,25 +4,22 @@ import { Button } from 'react-bootstrap';
 
 export const SavedView = props => {
 
-    let account = JSON.parse(sessionStorage.getItem("account"));
-
     return <>
         <div>
-            {/* <p>My Groups ({props.account.saved.length})</p> */}
-            <p>My Saved Items ({account.saved.length})</p>
+            <p>My Saved Items ({props.saves.length})</p>
             <ul className="list-group">
-                { !account.saved.length && (
+                { !props.saves.length && (
                     <li className="list-group-item">
-                        You aren't a part of any groups!
+                        You don't have any saved items!
                     </li>)
                 }
                 {
-                    account.saved.map((p, i) => 
-                        <li className="list-group" key={ i } id="group">
-                            <div className=" list-group-item list-group-item-secondary">{ i + 1 }. { p }</div>
+                    props.saves.length && props.saves.map((p, i) => 
+                        <li className="list-group m-1" key={ i } id="group">
+                            <div className=" list-group-item list-group-item-secondary">{ i + 1 }. { p.foodName }</div>
                             <div className="list-group-item">
-                                <Link to={`/product/${ p }`}>Link to { p }'s product page</Link>
-                                <Button className="float-right" type="button">Add to Recipe</Button>
+                                <Link to={`/product/${ p.foodName }`}>Link to { p.foodName }'s product page</Link>
+                                <Button className="float-right btn-danger" type="button" onClick={e => props.deleteSaved(p.foodName)}>X</Button>
                             </div>
                         </li>)
                 }
