@@ -45,6 +45,16 @@ userId int,
 foodId int
 );
 
+CREATE TABLE IF NOT EXISTS likedFoods (
+userId int,
+foodId int
+);
+
+CREATE TABLE IF NOT EXISTS dislikedFoods (
+userId int,
+foodId int
+);
+
 CREATE TABLE IF NOT EXISTS users (
 userId int PRIMARY KEY AUTO_INCREMENT,
 firstName varchar(100),
@@ -181,7 +191,6 @@ INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories,
 INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('122', 'Kiwifruit Zespri Sungold Raw', '100', '3', '63', '0.28', '0', '0.065', '0', '3', '15.79', '12.3', '1.02');				
 INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('123', 'Cranberry Juice Blend 100% Juice Bottled With Added Vitamin C And Calcium', '100', '3', '45', '0.12', '0', '0.002', '0', '6', '10.91', '9.8', '0.27');				
 INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('124', 'Fruit Juice Smoothie Odwalla Strawberry Banana', '100', '3', '48', '0.32', '0', '0.059', '0', '2', '11.05', '9.9', '0.5');				
-INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('125', 'Fruit Juice Smoothie Naked Juice Strawberry Banana', '100', '3', '50', '0.27', '0', '0.061', '0', '2', '11.66', '10.05', '0.48');
 INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('125', 'Fruit Juice Smoothie Naked Juice Strawberry Banana', '100', '3', '50', '0.27', '0', '0.061', '0', '2', '11.66', '10.05', '0.48');				
 INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('126', 'Pork Fresh Loin Sirloin (Chops) Bone-In Separable Lean And Fat Cooked Broiled', '100', '5', '222', '11.82', '0.05', '4.045', '87', '86', '0', '0', '26.96');				
 INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('127', 'Pork Fresh Loin Sirloin (Roasts) Bone-In Separable Lean And Fat Cooked Roasted', '100', '5', '230', '12.87', '0.103', '4.113', '89', '57', '0', '0', '26.64');				
@@ -1061,7 +1070,7 @@ INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories,
 INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('1001', 'Wheat Hard Red Spring', '100', '1', '329', '1.92', '0', '0.314', '0', '2', '68.03', '0.41', '15.4');				
 INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('1002', 'Wheat Hard Red Winter', '100', '1', '327', '1.54', '0', '0.269', '0', '2', '71.18', '0.41', '12.61');				
 INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('1003', 'Wheat Soft Red Winter', '100', '1', '331', '1.56', '0', '0.289', '0', '2', '74.24', '0.41', '10.35');				
-INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('1004', 'Wheat Germ Crude', '100', '1', '360', '9.72', '0', '1.665', '0', '12', '51.8', 'NULL', '23.15');				
+INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('1004', 'Wheat Germ Crude', '100', '1', '360', '9.72', '0', '1.665', '0', '12', '51.8', '0', '23.15');				
 INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('1005', 'Wheat Flour Whole-Grain', '100', '1', '340', '2.5', '0', '0.43', '0', '2', '71.97', '0.41', '13.21');				
 INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('1006', 'Wheat Flour White All-Purpose Enriched Bleached', '100', '1', '364', '0.98', '0', '0.155', '0', '2', '76.31', '0.27', '10.33');				
 INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('1007', 'Wheat Flour White All-Purpose Self-Rising Enriched', '100', '1', '354', '0.97', '0', '0.154', '0', '1193', '74.22', '0.22', '9.89');				
@@ -1320,7 +1329,7 @@ INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories,
 INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('1260', 'Salsify Cooked Boiled Drained Without Salt', '100', '2', '68', '0.17', '0', '0.041', '0', '16', '15.36', '2.9', '2.73');				
 INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('1261', 'Sauerkraut', '100', '2', '19', '0.14', '0', '0.034', '0', '661', '4.28', '1.78', '0.91');				
 INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('1262', 'Seaweed Agar Raw', '100', '2', '26', '0.03', '0', '0.006', '0', '9', '6.75', '0.28', '0.54');				
-INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('1263', 'Sesbania Flower Cooked Steamed Without Salt', '100', '2', '22', '0.05', '0', 'NULL', '0', '11', '5.23', '0.28', '1.14');				
+INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('1263', 'Sesbania Flower Cooked Steamed Without Salt', '100', '2', '22', '0.05', '0', '0', '0', '11', '5.23', '0.28', '1.14');				
 INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('1264', 'Green Soybeans', '100', '2', '147', '6.8', '0', '0.786', '0', '15', '11.05', '0.28', '12.95');				
 INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('1265', 'Cooked Green Soybeans', '100', '2', '141', '6.4', '0', '0.74', '0', '14', '11.05', '0.28', '12.35');				
 INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('1266', 'Soybean Sprouts', '100', '2', '122', '6.7', '0', '0.929', '0', '14', '9.57', '0.28', '13.09');				
@@ -1367,7 +1376,7 @@ INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories,
 INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('1307', 'Beans Snap Green Frozen Cooked Boiled Drained With Salt', '100', '2', '28', '0.17', '0', '0.044', '0', '245', '6.45', '1.88', '1.49');				
 INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('1308', 'Beans Snap Yellow Frozen Cooked Boiled Drained Without Salt', '100', '2', '28', '0.17', '0', '0.044', '0', '9', '6.45', '1.88', '1.49');				
 INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('1309', 'Beans Snap Yellow Frozen Cooked Boiled Drained With Salt', '100', '2', '28', '0.17', '0', '0.044', '0', '245', '6.45', '1.88', '1.49');				
-INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('1310', 'Broadbeans Immature Seeds Cooked Boiled Drained With Salt', '100', '2', '62', '0.5', '0', '0.142', '0', '277', '10.1', 'NULL', '4.8');				
+INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('1310', 'Broadbeans Immature Seeds Cooked Boiled Drained With Salt', '100', '2', '62', '0.5', '0', '0.142', '0', '277', '10.1', '0', '4.8');				
 INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('1311', 'Broccoli Leaves Raw', '100', '2', '28', '0.35', '0', '0.054', '0', '27', '5.06', '1.48', '2.98');				
 INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('1312', 'Broccoli Flower Clusters Raw', '100', '2', '28', '0.35', '0', '0.054', '0', '27', '5.06', '1.48', '2.98');				
 INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('1313', 'Broccoli Stalks Raw', '100', '2', '28', '0.35', '0', '0.054', '0', '27', '5.24', '1.48', '2.98');				
@@ -1564,7 +1573,7 @@ INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories,
 INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('1504', 'Beef Round Bottom Round Roast Separable Lean And Fat Trimmed To 1/8 Inch Fat Select Cooked Roasted', '100', '5', '212', '10.85', '0.329', '4.116', '84', '35', '0', '0', '26.77');				
 INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('1505', 'Beef Round Eye Of Round Roast Separable Lean And Fat Trimmed To 1/8 Inch Fat All Grades Raw', '100', '5', '166', '8.24', '0.329', '3.245', '68', '58', '0', '0', '21.49');				
 INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('1506', 'Beef Round Eye Of Round Roast Separable Lean And Fat Trimmed To 1/8 Inch Fat All Grades Cooked Roasted', '100', '5', '208', '9.65', '0.329', '3.664', '84', '37', '0', '0', '28.31');				
-INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('1507', 'Beef Round Tip Round Separable Lean And Fat Trimmed To 1/8 Inch Fat All Grades Raw', '100', '5', '189', '11.67', '0.329', '4.6', '65', '58', '0', 'NULL', '19.6');				
+INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('1507', 'Beef Round Tip Round Separable Lean And Fat Trimmed To 1/8 Inch Fat All Grades Raw', '100', '5', '189', '11.67', '0.329', '4.6', '65', '58', '0', '0', '19.6');				
 INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('1508', 'Beef Round Tip Round Roast Separable Lean And Fat Trimmed To 1/8 Inch Fat All Grades Cooked Roasted', '100', '5', '219', '11.34', '0.329', '4.24', '82', '63', '0', '0', '27.45');				
 INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('1509', 'Beef Round Tip Round Separable Lean And Fat Trimmed To 1/8 Inch Fat Choice Raw', '100', '5', '199', '12.83', '0.329', '5.04', '65', '58', '0', '0', '19.48');				
 INSERT INTO foods (foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) VALUES ('1510', 'Beef Round Tip Round Roast Separable Lean And Fat Trimmed To 1/8 Inch Fat Choice Cooked Roasted', '100', '5', '228', '12.34', '0.329', '4.63', '82', '63', '0', '0', '27.27');				
@@ -1725,3 +1734,25 @@ INSERT INTO savedFoods (userId,foodId) VALUES ('2','17');
 INSERT INTO savedFoods (userId,foodId) VALUES ('2','20');
 INSERT INTO savedFoods (userId,foodId) VALUES ('2','66');
 INSERT INTO savedFoods (userId,foodId) VALUES ('2','79');
+
+-- likedFoods TABLE DATA
+INSERT INTO likedFoods (userId,foodId) VALUES ('1','99');
+INSERT INTO likedFoods (userId,foodId) VALUES ('1','85');
+INSERT INTO likedFoods (userId,foodId) VALUES ('1','29');
+INSERT INTO likedFoods (userId,foodId) VALUES ('1','12');
+INSERT INTO likedFoods (userId,foodId) VALUES ('1','16');
+INSERT INTO likedFoods (userId,foodId) VALUES ('2','75');
+INSERT INTO likedFoods (userId,foodId) VALUES ('2','61');
+INSERT INTO likedFoods (userId,foodId) VALUES ('2','38');
+INSERT INTO likedFoods (userId,foodId) VALUES ('2','73');
+
+-- dislikedFoods TABLE DATA
+INSERT INTO dislikedFoods (userId,foodId) VALUES ('1','20');
+INSERT INTO dislikedFoods (userId,foodId) VALUES ('1','79');
+INSERT INTO dislikedFoods (userId,foodId) VALUES ('1','23');
+INSERT INTO dislikedFoods (userId,foodId) VALUES ('1','94');
+INSERT INTO dislikedFoods (userId,foodId) VALUES ('1','93');
+INSERT INTO dislikedFoods (userId,foodId) VALUES ('2','46');
+INSERT INTO dislikedFoods (userId,foodId) VALUES ('2','90');
+INSERT INTO dislikedFoods (userId,foodId) VALUES ('2','79');
+INSERT INTO dislikedFoods (userId,foodId) VALUES ('2','21');
