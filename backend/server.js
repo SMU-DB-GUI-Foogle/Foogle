@@ -60,6 +60,31 @@ app.get('/', (req, res) => {
 //     })
 // })
 
+//Login
+
+app.get('/login', (req, res) => {
+  console.log("gother")
+  const emailAddress = req.query.emailAddress; 
+  const password = req.query.password;
+  connection.query(`SELECT * FROM users WHERE emailAddress = ? AND password = ?`, [emailAddress, password], (err, result) => {
+    if(err) logger.error(err.stack)
+    res.end(JSON.stringify(result));
+  })
+})
+
+app.post('/register', (req,res) => {
+  var firstName = req.body.firstName;
+  var lastName = req.body.lastName;
+  var emailAddress = req.body.emailAddress;
+  var username = req.body.username;
+  var password = req.body.password;
+
+  connection.query('INSERT INTO foods (firstName,lastName,emailAddress,username,password) VALUES (null,?,?,?,?,?,0,"")', [firstName, lastName, emailAddress, username, password], (err,result,fields) => {
+    if(err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+
+})
+
 // Profile Requests
 
 app.get('/profile/:username', (req,res) => {
