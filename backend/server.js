@@ -71,6 +71,7 @@ app.get('/login', (req, res) => {
   })
 })
 
+
 //Register
 app.post('/register', (req,res) => {
   var firstName = req.body.firstName;
@@ -85,6 +86,7 @@ app.post('/register', (req,res) => {
   })
 
 })
+
 
 //Profile
 app.put('/:username', (req,res) => {
@@ -121,6 +123,7 @@ app.delete('/:username', (req,res) => {
 
 })
 
+
 //savedFoods
 app.get('/:username/saves', (req,res) => {
   var userId = req.query.userId;
@@ -155,6 +158,7 @@ app.delete('/product/saves', (req,res) => {
 
 })
 
+
 //likedFoods
 app.get('/:username/likes', (req,res) => {
   var userId = req.query.userId;
@@ -187,6 +191,7 @@ app.delete('/product/likes', (req,res) => {
   })
 
 })
+
 
 //dislikedFoods
 app.get('/:username/dislikes', (req,res) => {
@@ -225,7 +230,6 @@ app.delete('/product/dislikes', (req,res) => {
 
 
 // Product Requests
-
 app.get('/product/:foodName', (req,res) => {
   var foodName = req.query.foodName.replace('/+/g', ' ');
 
