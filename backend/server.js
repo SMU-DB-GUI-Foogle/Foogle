@@ -241,7 +241,7 @@ app.get('/:username/recipes', (req,res) => {
 
 app.get('/:username/recipes/:recipeName', (req,res) => {
   var userId = req.query.userId;
-  var recipeName = req.params("recipeName");
+  var recipeName = req.params.recipeName;
 
   connection.query(`SELECT * FROM ingredients WHERE recipeId = (SELECT recipeId FROM recipes WHERE recipeName = ? AND userId = ?)`, [recipeName, userId], (err,result,fields) => {
     if(err) logger.error(err.stack);
@@ -271,17 +271,26 @@ app.post('/:username/recipes/:recipeName', (req,res) => {
   })
 })
 
-// app.post('/:username/recipes/:recipeName', (req,res) => {
-//   var userId = req.body.userId;
-//   var recipeName = req.body.recipeName;
-//   var ingredient = req.body.ingredient;
-//   var numberOfServings = req.body.amount;
+app.delete('/:username/recipes', (req,res) => {
+  var userId = req.query.userId;
+  var recipeName = req.query.recipeName;
 
-//   connection.query(`INSERT INTO ingredients (ingredient, numberOfServings, recipeId) VALUES (?,?,(SELECT recipeId FROM recipes WHERE recipeName = ? AND userId = ?))`, [ingredient, numberOfServings, recipeName, userId],(err,result,fields) => {
-//     if(err) logger.error(err.stack);
-//     res.end(JSON.stringify(result));
-//   })
-// })
+  connection.query(`DELETE FROM recipes WHERE recipeName = ? AND userId = ?`, [recipeName, userId],(err,result,fields) => {
+    if(err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  })
+})
+
+app.delete('/:username/recipes/:recipeName', (req,res) => {
+  var userId = req.query.userId;
+  var ingredient = req.query.ingredient;
+  var recipeName = req.params.recipeName;
+
+  connection.query(`DELETE FROM ingredients WHERE ingredient = ? AND recipeId = (SELECT recipeId FROM recipes WHERE recipeName = ? AND userId = ?)`, [ingredient, recipeName, userId],(err,result,fields) => {
+    if(err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  })
+})
 
 
 
