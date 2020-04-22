@@ -228,6 +228,64 @@ app.delete('/product/dislikes', (req,res) => {
 })
 
 
+//Recipes
+app.get('/:username/recipes', (req,res) => {
+  var userId = req.query.userId;
+
+  connection.query(`SELECT recipeName FROM recipes WHERE userId = ${userId}`,(err,result,fields) => {
+    if(err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  })
+
+})
+
+app.get('/:username/recipes/:recipeName', (req,res) => {
+  var userId = req.query.userId;
+  var recipeName = req.params("recipeName");
+
+  connection.query(`SELECT * FROM ingredients WHERE recipeId = (SELECT recipeId FROM recipes WHERE recipeName = ? AND userId = ?)`, [recipeName, userId], (err,result,fields) => {
+    if(err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  })
+})
+
+app.post('/:username/recipes', (req,res) => {
+  var userId = req.body.userId;
+  var recipeName = req.body.recipeName;
+
+  connection.query(`INSERT INTO recipes (recipeName, userId) VALUES (?,?)`, [recipeName, userId],(err,result,fields) => {
+    if(err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  })
+})
+
+app.post('/:username/recipes/:recipeName', (req,res) => {
+  var userId = req.body.userId;
+  var recipeName = req.body.recipeName;
+  var ingredient = req.body.ingredient;
+  var numberOfServings = req.body.amount;
+
+  connection.query(`INSERT INTO ingredients (ingredient, numberOfServings, recipeId) VALUES (?,?,(SELECT recipeId FROM recipes WHERE recipeName = ? AND userId = ?))`, [ingredient, numberOfServings, recipeName, userId],(err,result,fields) => {
+    if(err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  })
+})
+
+// app.post('/:username/recipes/:recipeName', (req,res) => {
+//   var userId = req.body.userId;
+//   var recipeName = req.body.recipeName;
+//   var ingredient = req.body.ingredient;
+//   var numberOfServings = req.body.amount;
+
+//   connection.query(`INSERT INTO ingredients (ingredient, numberOfServings, recipeId) VALUES (?,?,(SELECT recipeId FROM recipes WHERE recipeName = ? AND userId = ?))`, [ingredient, numberOfServings, recipeName, userId],(err,result,fields) => {
+//     if(err) logger.error(err.stack);
+//     res.end(JSON.stringify(result));
+//   })
+// })
+
+
+
+
 
 // Product Requests
 app.get('/product/:foodName', (req,res) => {
