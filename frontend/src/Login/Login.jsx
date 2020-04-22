@@ -71,14 +71,14 @@ export const Login = props => {
   return <>
   
     <div className="base-container" ref={props.containerRef}>
-      <div className="header">Login to FOOGLE</div>
+      <div id="inForm" className="header"><h3>Login to FOOGLE</h3></div>
       <div className="content">
         {/* <div className="image">
           <img src={loginImg} />
         </div> */}
         <div className="form">
           <div className="form-group">
-            <label htmlFor="email">Email</label>
+            <label id="inForm" htmlFor="email">Email</label>
             <input type="email"
                    name="email"
                    placeholder="Email"
@@ -86,7 +86,7 @@ export const Login = props => {
                    onChange={ e => setEmail(e.target.value) } />
           </div>
           <div className="form-group">
-            <label htmlFor="password">Password</label>
+            <label id="inForm" htmlFor="password">Password</label>
             <input type="password"
                    name="password"
                    placeholder="Password"

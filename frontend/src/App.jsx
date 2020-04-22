@@ -52,7 +52,7 @@ class App extends React.Component{
       <>
         <Navbar id="nav" bg="dark" variant="dark" fluid="true" collapseOnSelect>
 					<Navbar.Brand>
-            <Link className="text-white" to="/">Foogle</Link>
+            <Link id="navLink" to="/">Foogle</Link>
           </Navbar.Brand>
           <Navbar.Toggle />
             {/* <Nav className="m-auto">
@@ -70,21 +70,21 @@ class App extends React.Component{
                 {/* {this.state.isAuthenticated */}{sessionStorage.getItem("auth")
                   ? <>
                       <Navbar.Brand>
-                        <Link className="text-white" to="/" onClick={ e => this.handleLogout(e) }>Logout</Link>
+                        <Link id = "navLink" to="/" onClick={ e => this.handleLogout(e) }>Logout</Link>
                       </Navbar.Brand>
                       <Navbar.Brand>
-                        <Link className="text-white" to={`/${window.sessionStorage.getItem("username")}`}>Profile</Link>
+                        <Link id = "navLink" to={`/${window.sessionStorage.getItem("username")}`}>Profile</Link>
                       </Navbar.Brand>
                     </>
                   : <>
-                      {/* <Navbar.Brand>
-                        <Link className="text-white" to="/register">Register</Link>
-                      </Navbar.Brand> */}
                       <Navbar.Brand>
-                        <Link className="text-white" to="/login">Login</Link>
+                        <Link id = "navLink" to="/login">Login</Link>
                       </Navbar.Brand>
                     </>
                 }
+                <Navbar.Brand>
+                  <Link id = "navLink" to = "/about">About</Link>
+                </Navbar.Brand>
               </Nav>
             </Navbar.Collapse>
             <Form inline>
@@ -95,12 +95,13 @@ class App extends React.Component{
                             onChange={ e => this.setState({ searchQuery: e.target.value }) }
                             onKeyPress={ e => this.keyPressed(e) } />
               <Dropdown as={Button.Group}>
-                <Button type="button"
+                <Button id="buttonRules"
+                        type="button"
                         onClick={ e => this.searchResult(e) }
                         disabled={ !(this.state.searchQuery.length > 0)}>
                           Search
                 </Button>
-                <Dropdown.Toggle split type="button" id="dropdown-split-basic" />
+                <Dropdown.Toggle split type="button" id="buttonRules" />
                 <Dropdown.Menu alignRight>
                   <Dropdown.Item href="/search">Advanced Search</Dropdown.Item>
                 </Dropdown.Menu>

@@ -86,7 +86,7 @@ export class ProfileView extends React.Component {
             <div className="jumbotron p-4">
                 <Profile saves={this.state.saves} likes={this.state.likes} dislikes={this.state.dislikes} recipes={this.state.recipes} />
                 <div className="row mt-2 mr-2">
-                    <DropdownButton className="col-3" id="dropdown-basic-button" title="View Options">
+                    <DropdownButton className="col-3" id="buttonRules" title="View Options">
                         <Dropdown.Item href={window.location.pathname + `/edit`}>Edit Profile</Dropdown.Item>
                         <Dropdown.Divider />
                         <Dropdown.Item href={window.location.pathname + `/groups`} account={this.state.account}>Edit Groups</Dropdown.Item>
@@ -103,6 +103,7 @@ export class ProfileView extends React.Component {
                                                   onChange={ e => this.setState({ email: e.target.value }) } />
                                 </Col>
                                 <Button className="ml-3"
+                                        id = "buttonRules"
                                         type="button"
                                         disabled={!(this.state.email.length > 0)}
                                         onClick={() => {window.alert("Invitation Sent"); this.setState({ email: '' }) } }>Send Invite</Button>
