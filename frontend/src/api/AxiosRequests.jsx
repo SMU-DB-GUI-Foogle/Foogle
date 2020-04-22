@@ -311,7 +311,7 @@ export class AxiosRequests {
         });
     }
 
-    deleteRecipe(foodName) {
+    deleteProduct(foodName) {
         var config = this.config;
         config.params = { foodName };
         return new Promise((resolve, reject) => {
