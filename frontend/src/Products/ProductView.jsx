@@ -72,21 +72,24 @@ export class ProductView extends React.Component {
                 ? <>
                     <div className="card align-content-start">
                         <div>
-                            <Button className="m-1"
+                            <Button id = "buttonRules"
+                                    className="m-1"
                                     type="button" 
                                     onClick={e => this.likeProduct( window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1)) }>
                                 Like
                             </Button>
                         </div>
                         <div>
-                            <Button className="m-1"
+                            <Button id = "buttonRules"
+                                    className="m-1"
                                     type="button"
                                     onClick={e => this.dislikeProduct(window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1))}>
                                 Dislike
                             </Button>
                         </div>
                         <div>
-                            <Button className="m-1"
+                            <Button id = "buttonRules"
+                                    className="m-1"
                                     type="button"
                                     onClick={e => this.saveProduct(window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1))}>
                                 Save

@@ -4,7 +4,7 @@
 
 html,
 .content {
-  background-color: lightblue;
+  background-color: #00FA9A;
   margin-top: 2rem;
 }
 
@@ -30,4 +30,101 @@ code {
     height: 50px;
     z-index: 1;
 
+}
+
+#navLink{
+  color: #00FA9A;
+}
+.ml-3 {
+  background-color: #00FA9A;
+}
+#landingPage body {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  background-color: #00FA9A;
+}
+#landingPage section {
+  margin: 0 120px;
+  position: relative;
+}
+#landingPage header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 50px;
+}
+#landingPage header div {
+  margin-left: 30px;
+  font-size: 20px;
+}
+#landingPage header ul a {
+   display: inline-block; /* this will make the menu options in a horizontal line */
+   margin-left: 700px;
+   margin: 0 20px;
+}
+.landingPage #main {
+  margin: 0 120px;
+  margin-top: 200px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+#main .main-text {
+  font-size: 45px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+#landingPage span {
+  border-bottom: 2px solid;
+  border-color: white;
+}
+#bigLogo {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  left: 630px;
+  bottom: -200px;
+}
+#landingPage span {
+  color:  #FFF;
+  bottom: 20px;
+}
+#routingLinks{
+  color: #FFF;
+}
+.aboutInfo {
+  display: block;
+  position: relative;
+  margin-right: 500px;
+  padding-bottom: 300px;
+  margin-left: 100px;
+}
+.DropDownArrow {
+  background-color: #00FA9A;
+  color: #00FA9A;
+}
+#searchButton {
+  background-color: #00FA9A;
+  border-color: white;
+  color: white;
+}
+#buttonRules {
+  background-color: #00FA9A;
+  border-color: #FFF;
+  color: #FFF;
+}
+#howTo {
+  position: absolute;
+  margin-left: 200px;
+  margin-bottom: 100px;
+  color: white;
+  text-decoration-style: bold;
+}
+#howTo ul {
+  list-style-type: square;
+}
+#howTo li {
+  font-size: 30px;
+}
+#aStyle {
+  color: white;
 }
