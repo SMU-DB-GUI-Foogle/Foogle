@@ -46,10 +46,6 @@ connection.connect(function (err) {
 
 app.get('/', (req, res) => {
     res.status(200).send('Go to localhost:3000.');
-    // connection.query('SELECT * FROM foods',(err, result, fields) => {
-    //   if(err) logger.error(err.stack)
-    //   res.end(JSON.stringify(result))
-    // })
 })
 
 //Login
@@ -76,7 +72,6 @@ app.post('/register', (req,res) => {
     if(err) logger.error(err.stack);
     res.end(JSON.stringify(result));
   })
-
 })
 
 
@@ -93,7 +88,6 @@ app.put('/:username', (req,res) => {
     if(err) logger.error(err.stack);
     res.end(JSON.stringify(result));
   })
-
 })
 
 app.get('/:username', (req,res) => {
@@ -124,7 +118,6 @@ app.get('/:username/saves', (req,res) => {
     if(err) logger.error(err.stack);
     res.end(JSON.stringify(result));
   })
-
 })
 
 app.post('/product/saves', (req,res) => {
@@ -136,7 +129,6 @@ app.post('/product/saves', (req,res) => {
     if(err) logger.error(err.stack);
     res.end(JSON.stringify(result));
   })
-
 })
 
 app.delete('/product/saves', (req,res) => {
@@ -147,7 +139,6 @@ app.delete('/product/saves', (req,res) => {
     if(err) logger.error(err.stack);
     res.end(JSON.stringify(result));
   })
-
 })
 
 
@@ -159,7 +150,6 @@ app.get('/:username/likes', (req,res) => {
     if(err) logger.error(err.stack);
     res.end(JSON.stringify(result));
   })
-
 })
 
 app.post('/product/likes', (req,res) => {
@@ -170,7 +160,6 @@ app.post('/product/likes', (req,res) => {
     if(err) logger.error(err.stack);
     res.end(JSON.stringify(result));
   })
-
 })
 
 app.delete('/product/likes', (req,res) => {
@@ -181,7 +170,6 @@ app.delete('/product/likes', (req,res) => {
     if(err) logger.error(err.stack);
     res.end(JSON.stringify(result));
   })
-
 })
 
 
@@ -193,7 +181,6 @@ app.get('/:username/dislikes', (req,res) => {
     if(err) logger.error(err.stack);
     res.end(JSON.stringify(result));
   })
-
 })
 
 app.post('/product/dislikes', (req,res) => {
@@ -205,7 +192,6 @@ app.post('/product/dislikes', (req,res) => {
     if(err) logger.error(err.stack);
     res.end(JSON.stringify(result));
   })
-
 })
 
 app.delete('/product/dislikes', (req,res) => {
@@ -216,7 +202,6 @@ app.delete('/product/dislikes', (req,res) => {
     if(err) logger.error(err.stack);
     res.end(JSON.stringify(result));
   })
-
 })
 
 
@@ -228,7 +213,6 @@ app.get('/:username/recipes', (req,res) => {
     if(err) logger.error(err.stack);
     res.end(JSON.stringify(result));
   })
-
 })
 
 app.get('/:username/recipes/:recipeName', (req,res) => {
@@ -290,7 +274,7 @@ app.delete('/:username/recipes/:recipeName', (req,res) => {
 app.get('/product/:foodName', (req,res) => {
   var foodName = req.query.foodName.replace('/+/g', ' ');
 
-  connection.query(`SELECT * FROM foods WHERE foodName = ?`, [foodName], (err, result) => {
+  connection.query('SELECT * FROM foods WHERE foodName = ?', [foodName], (err, result) => {
     if(err) logger.error(err.stack)
     res.end(JSON.stringify(result));
   })
@@ -310,17 +294,71 @@ app.post('/product/add',  (req,res) => {
     var sugars = req.body.sugars;
     var protein = req.body.protein;
 
-    connection.query(`INSERT INTO foods (foodName,servingPortion,foodGroupId,totalCalories,totalFat,transFat,saturatedFat,cholesterol,sodium,totalCarbohydrate,sugars,protein) VALUES ('${foodName}',${servingPortion},${foodGroupId},${totalCalories},${totalFat},${transFat},${saturatedFat},${cholesterol},${sodium},${totalCarbohydrate},${sugars},${protein}`,(err,result,fields) => {
+    connection.query('INSERT INTO foods (foodName,servingPortion,foodGroupId,totalCalories,totalFat,transFat,saturatedFat,cholesterol,sodium,totalCarbohydrate,sugars,protein) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)', [foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein],(err,result,fields) => {
       if(err) logger.error(err.stack);
       res.end(JSON.stringify(result));
     })
 })
 
+app.delete('/product/:foodName', (req,res) => {
+  var foodName = req.query.foodName;
+
+  connection.query(`DELETE FROM foods WHERE foodName = ?`, [foodName],(err,result,fields) => {
+    if(err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  })
+})
+
+app.put('/product/:foodId', (req,res) => {
+  var foodId = req.body.foodId;
+  var foodName = req.body.foodName;
+  var servingPortion = req.body.servingPortion;
+  var foodGroupId = req.body.foodGroupId;
+  var totalCalories = req.body.totalCalories;
+  var totalFat = req.body.totalFat;
+  var transFat = req.body.transFat;
+  var saturatedFat = req.body.saturatedFat;
+  var cholesterol = req.body.cholesterol;
+  var sodium = req.body.sodium;
+  var totalCarbohydrate = req.body.totalCarbohydrate;
+  var sugars = req.body.sugars;
+  var protein = req.body.protein;
+
+  connection.query('UPDATE foods SET foodName = ?, servingPortion = ?, foodGroupId = ?, totalCalories = ?, totalFat = ?, transFat = ?, saturatedFat = ?, cholesterol = ?, sodium = ?, totalCarbohydrate = ?, sugars = ?, protein = ? WHERE foodId = ?', [foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein, foodId],(err,result,fields) => {
+    if(err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  })
+})
+
+app.get('/product/', (req,res) => {
+  connection.query('SELECT foodName FROM foods', (err, result) => {
+    if(err) logger.error(err.stack)
+    res.end(JSON.stringify(result));
+  })
+})
 
 
+//search by foodGroup
+app.get('/search/group', (req,res) => {
+  var foodGroup = req.query.foodGroup;
 
+  connection.query('SELECT foodName FROM foods WHERE foodGroup = ?', foodGroup, (err, result) => {
+    if(err) logger.error(err.stack)
+    res.end(JSON.stringify(result));
+  })
+})
 
+//search by nutritional value
+app.get('/search/nutrition', (req,res) => {
+  var fieldName = req.query.fieldName;
+  var lowerLimit = req.query.lowerLimit;
+  var upperLimit = req.query.upperLimit;
 
+  connection.query('SELECT foodName FROM foods WHERE ? >= ? AND ? <= ?', [fieldName, lowerLimit, fieldName, upperLimit], (err, result) => {
+    if(err) logger.error(err.stack)
+    res.end(JSON.stringify(result));
+  })
+})
 
 
 //connecting the express object to listen on a particular port as defined in the config object.
