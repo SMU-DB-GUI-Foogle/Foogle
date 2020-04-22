@@ -132,10 +132,11 @@ app.get('/:username/saves', (req,res) => {
 })
 
 app.post('/product/saves', (req,res) => {
-  var userId = req.body.firstName;
-  var foodName = req.body.lastName;
+  var userId = req.body.userId;
+  var foodName = req.body.foodName.replace('/+/g', ' ');
+  console.log(foodName)
 
-  connection.query(`INSERT INTO savedFoods (userId, foodId) VALUES (${userId},(SELECT foodId FROM foods WHERE foodName = ${foodName}))`,(err,result,fields) => {
+  connection.query(`INSERT INTO savedFoods (userId, foodId) VALUES (?,(SELECT foodId FROM foods WHERE foodName = ?))`, [userId, foodName], (err,result,fields) => {
     if(err) logger.error(err.stack);
     res.end(JSON.stringify(result));
   })
@@ -144,9 +145,9 @@ app.post('/product/saves', (req,res) => {
 
 app.delete('/product/saves', (req,res) => {
   var userId = req.query.userId;
-  var foodName = req.query.foodName;
+  var foodName = req.query.foodName.replace('/+/g', ' ');;
 
-  connection.query(`DELETE FROM savedFoods WHERE userId = ${userId} AND foodId = (SELECT foodId FROM foods WHERE foodName = ${foodName})`,(err,result,fields) => {
+  connection.query(`DELETE FROM savedFoods WHERE userId = ? AND foodId = (SELECT foodId FROM foods WHERE foodName = ?)`, [userId, foodName], (err,result,fields) => {
     if(err) logger.error(err.stack);
     res.end(JSON.stringify(result));
   })
@@ -165,10 +166,10 @@ app.get('/:username/likes', (req,res) => {
 })
 
 app.post('/product/likes', (req,res) => {
-  var userId = req.body.firstName;
-  var foodName = req.body.lastName;
+  var userId = req.body.userId;
+  var foodName = req.body.foodName.replace('/+/g', ' ');;
 
-  connection.query(`INSERT INTO likedFoods (userId, foodId) VALUES (${userId},(SELECT foodId FROM foods WHERE foodName = ${foodName}))`,(err,result,fields) => {
+  connection.query(`INSERT INTO likedFoods (userId, foodId) VALUES (? ,(SELECT foodId FROM foods WHERE foodName = ?))`, [userId, foodName],(err,result,fields) => {
     if(err) logger.error(err.stack);
     res.end(JSON.stringify(result));
   })
@@ -177,9 +178,9 @@ app.post('/product/likes', (req,res) => {
 
 app.delete('/product/likes', (req,res) => {
   var userId = req.query.userId;
-  var foodName = req.query.foodName;
+  var foodName = req.query.foodName.replace('/+/g', ' ');;
 
-  connection.query(`DELETE FROM likedFoods WHERE userId = ${userId} AND foodId = (SELECT foodId FROM foods WHERE foodName = ${foodName})`,(err,result,fields) => {
+  connection.query(`DELETE FROM likedFoods WHERE userId = ? AND foodId = (SELECT foodId FROM foods WHERE foodName = ?)`, [userId, foodName],(err,result,fields) => {
     if(err) logger.error(err.stack);
     res.end(JSON.stringify(result));
   })
@@ -198,10 +199,11 @@ app.get('/:username/dislikes', (req,res) => {
 })
 
 app.post('/product/dislikes', (req,res) => {
-  var userId = req.body.firstName;
-  var foodName = req.body.lastName;
+  var userId = req.body.userId;
+  var foodName = req.body.foodName.replace('/+/g', ' ');
 
-  connection.query(`INSERT INTO dislikedFoods (userId, foodId) VALUES (${userId},(SELECT foodId FROM foods WHERE foodName = ${foodName}))`,(err,result,fields) => {
+
+  connection.query(`INSERT INTO dislikedFoods (userId, foodId) VALUES (? ,(SELECT foodId FROM foods WHERE foodName = ?))`, [userId, foodName],(err,result,fields) => {
     if(err) logger.error(err.stack);
     res.end(JSON.stringify(result));
   })
@@ -210,9 +212,9 @@ app.post('/product/dislikes', (req,res) => {
 
 app.delete('/product/dislikes', (req,res) => {
   var userId = req.query.userId;
-  var foodName = req.query.foodName;
+  var foodName = req.query.foodName.replace('/+/g', ' ');;
 
-  connection.query(`DELETE FROM dislikedFoods WHERE userId = ${userId} AND foodId = (SELECT foodId FROM foods WHERE foodName = ${foodName})`,(err,result,fields) => {
+  connection.query(`DELETE FROM dislikedFoods WHERE userId = ? AND foodId = (SELECT foodId FROM foods WHERE foodName = ?)`, [userId, foodName],(err,result,fields) => {
     if(err) logger.error(err.stack);
     res.end(JSON.stringify(result));
   })
