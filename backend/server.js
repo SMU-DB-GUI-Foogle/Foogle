@@ -88,13 +88,14 @@ app.post('/register', (req,res) => {
 
 //Profile
 app.put('/:username', (req,res) => {
+  var userId = req.body.userId;
   var firstName = req.body.firstName;
   var lastName = req.body.lastName;
   var emailAddress = req.body.emailAddress;
   var username = req.body.username;
   var password = req.body.password;
 
-  connection.query('INSERT INTO users (firstName,lastName,emailAddress,username,password) VALUES (?,?,?,?,?)', [firstName, lastName, emailAddress, username, password], (err,result,fields) => {
+  connection.query('UPDATE users firstName = ?, lastName = ?, emailAddress = ?, username = ?, password = ? WHERE userId = ?', [firstName, lastName, emailAddress, username, password, userId], (err,result,fields) => {
     if(err) logger.error(err.stack);
     res.end(JSON.stringify(result));
   })
@@ -113,7 +114,7 @@ app.get('/:username', (req,res) => {
 app.delete('/:username', (req,res) => {
   var userId = req.query.userId;
 
-  connection.query(`put the query here ${userId}`,(err,result,fields) => {
+  connection.query(`DELETE FROM users WHERE userId = ?`, [userId], (err,result,fields) => {
     if(err) logger.error(err.stack);
     res.end(JSON.stringify(result));
   })
