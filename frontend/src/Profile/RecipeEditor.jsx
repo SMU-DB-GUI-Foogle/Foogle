@@ -16,7 +16,7 @@ export class RecipeEditor extends React.Component {
     }
 
     validateForm() {
-        return this.state.name.length > 0 && this.state.ingredients.length > 0;
+        return this.state.ingredients.length > 0;
     }
 
     onIngredientAdded(ingredient) {
@@ -47,11 +47,8 @@ export class RecipeEditor extends React.Component {
 
     onSubmit() {
         let account = JSON.parse(sessionStorage.getItem("account"));
-        this.recipeRequests.updateProfile(account.username, account.userId, this.state.name)
-        .then(() => {
-            alert("Recipe Updated!");
-            this.setState({ redirect: "/" + account.username + '/recipes'}) 
-        })
+        alert("Recipe Updated!");
+        this.setState({ redirect: "/" + account.username + '/recipes'}) 
     }
 
     render() {
@@ -68,8 +65,7 @@ export class RecipeEditor extends React.Component {
                         id="name"
                         name="name"
                         className="form-control"
-                        value={this.state.name}
-                        onChange={ e => this.setState({ name: e.target.value }) } />
+                        value={this.state.name} />
                 </div>
 
                 <IngredientEditor onIngredientAdded={ ingredient => this.onIngredientAdded(ingredient) }/>

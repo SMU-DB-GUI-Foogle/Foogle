@@ -238,17 +238,6 @@ export class AxiosRequests {
         });
     }
 
-    updateRecipe(userName, userId, recipeName) {
-        return new Promise((resolve, reject) => {
-            axios.post(`${this.url}/${userName}/recipes/${recipeName}`, { userId, recipeName }, this.config)
-                .then(x => resolve(x.data))
-                .catch(x => {
-                    alert(x);
-                    reject(x);
-                })
-        });
-    }
-
     deleteIngredient(userName, userId, recipeName, ingredient) {
         var config = this.config;
         config.params = { userId, ingredient };
