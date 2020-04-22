@@ -52,14 +52,6 @@ app.get('/', (req, res) => {
     // })
 })
 
-// app.get('/:user/recipes', (req, res) => {
-//     var user = req.param('user')
-//     connection.query(`SELECT recipes.recipeId, foodName, numberOfServings FROM recipes JOIN users ON users.userId = recipes.userId JOIN ingredients ON ingredients.recipeId = recipes.recipeId JOIN foods ON ingredients.ingredientId = foods.foodId WHERE users.userId = ${user}`, (err, result, fields) => {
-//         if(err) logger.error(err.stack)
-//         res.end(JSON.stringify(result))
-//     })
-// })
-
 //Login
 app.get('/login', (req, res) => {
   console.log("gother")
@@ -294,8 +286,6 @@ app.delete('/:username/recipes/:recipeName', (req,res) => {
 
 
 
-
-
 // Product Requests
 app.get('/product/:foodName', (req,res) => {
   var foodName = req.query.foodName.replace('/+/g', ' ');
@@ -307,18 +297,18 @@ app.get('/product/:foodName', (req,res) => {
 })
 
 app.post('/product/add',  (req,res) => {
-    var foodName = req.param('foodName');
-    var servingPortion = req.param('servingPortion');
-    var foodGroupId = req.param('foodGroupId');
-    var totalCalories = req.param('totalCalories');
-    var totalFat = req.param('totalFat');
-    var transFat = req.param('transFat');
-    var saturatedFat = req.param('saturatedFat');
-    var cholesterol = req.param('cholesterol');
-    var sodium = req.param('sodium');
-    var totalCarbohydrate = req.param('totalCarbohydrate');
-    var sugars = req.param('sugars');
-    var protein = req.param('protein');
+    var foodName = req.body.foodName;
+    var servingPortion = req.body.servingPortion;
+    var foodGroupId = req.body.foodGroupId;
+    var totalCalories = req.body.totalCalories;
+    var totalFat = req.body.totalFat;
+    var transFat = req.body.transFat;
+    var saturatedFat = req.body.saturatedFat;
+    var cholesterol = req.body.cholesterol;
+    var sodium = req.body.sodium;
+    var totalCarbohydrate = req.body.totalCarbohydrate;
+    var sugars = req.body.sugars;
+    var protein = req.body.protein;
 
     connection.query(`INSERT INTO foods (foodName,servingPortion,foodGroupId,totalCalories,totalFat,transFat,saturatedFat,cholesterol,sodium,totalCarbohydrate,sugars,protein) VALUES ('${foodName}',${servingPortion},${foodGroupId},${totalCalories},${totalFat},${transFat},${saturatedFat},${cholesterol},${sodium},${totalCarbohydrate},${sugars},${protein}`,(err,result,fields) => {
       if(err) logger.error(err.stack);
