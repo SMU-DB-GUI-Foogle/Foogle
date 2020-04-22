@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Redirect } from 'react-router-dom';
 import { Account } from '../models';
 import loginImg from "../login.svg";
+import { AxiosRequests } from "../api";
 
 export const Register = props => {
   const [firstName, setFirstName] = useState("");
@@ -10,6 +11,8 @@ export const Register = props => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [registered, setRegistered] = useState(false);
+
+  let accountRequests = new AxiosRequests();
 
   function validateForm() {
       return firstName.length > 0 && lastName.length > 0 && email.length > 0 && username.length > 0 && password.length > 0;
@@ -21,23 +24,9 @@ export const Register = props => {
           event.preventDefault();
           event.stopPropagation();
       }
-      
-      let account = new Account(
-          firstName, 
-          lastName, 
-          email,
-          username,
-          password,
-          [], [], [], [], []);
 
-      //local stoarge statements used for local testing till axios requests can be used
-      if (!localStorage.getItem('accounts')) {
-          localStorage.setItem('accounts', JSON.stringify([]));
-      }
-
-      let accounts = JSON.parse(localStorage.getItem('accounts'));
-      accounts.push(account);
-      localStorage.setItem('accounts', JSON.stringify(accounts));
+      accountRequests.register(firstName, lastName, email, username, password)
+        .then(alert("Account Created!"));
 
       setRegistered(true);
   }
@@ -52,8 +41,8 @@ export const Register = props => {
 
   return <>
     <div className="base-container" ref={props.containerRef}>
-      <div className="header">Register for FOOGLE</div>
-      <div className="content">
+      <div id="inForm" className="header"><h3>Register for FOOGLE</h3></div>
+      <div id="inForm" className="content">
         {/* <div className="image">
           <img src={loginImg} />
         </div> */}

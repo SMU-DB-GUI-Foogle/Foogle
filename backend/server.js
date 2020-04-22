@@ -52,17 +52,273 @@ app.get('/', (req, res) => {
     // })
 })
 
-app.get('/:user/recipes', (req, res) => {
-    var user = req.param('user')
-    connection.query(`SELECT recipes.recipeId, foodName, numberOfServings FROM recipes JOIN users ON users.userId = recipes.userId JOIN ingredients ON ingredients.recipeId = recipes.recipeId JOIN foods ON ingredients.ingredientId = foods.foodId WHERE users.userId = ${user}`, (err, result, fields) => {
-        if(err) logger.error(err.stack)
-        res.end(JSON.stringify(result))
+//Login
+app.get('/login', (req, res) => {
+  console.log("gother")
+  const emailAddress = req.query.emailAddress; 
+  const password = req.query.password;
+  connection.query(`SELECT * FROM users WHERE emailAddress = ? AND password = ?`, [emailAddress, password], (err, result) => {
+    if(err) logger.error(err.stack)
+    res.end(JSON.stringify(result));
+  })
+})
+
+
+//Register
+app.post('/register', (req,res) => {
+  var firstName = req.body.firstName;
+  var lastName = req.body.lastName;
+  var emailAddress = req.body.emailAddress;
+  var username = req.body.username;
+  var password = req.body.password;
+
+  connection.query('INSERT INTO users (firstName,lastName,emailAddress,username,password) VALUES (?,?,?,?,?)', [firstName, lastName, emailAddress, username, password], (err,result,fields) => {
+    if(err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  })
+
+})
+
+
+//Profile
+app.put('/:username', (req,res) => {
+  var userId = req.body.userId;
+  var firstName = req.body.firstName;
+  var lastName = req.body.lastName;
+  var emailAddress = req.body.emailAddress;
+  var username = req.body.username;
+  var password = req.body.password;
+
+  connection.query('UPDATE users firstName = ?, lastName = ?, emailAddress = ?, username = ?, password = ? WHERE userId = ?', [firstName, lastName, emailAddress, username, password, userId], (err,result,fields) => {
+    if(err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  })
+
+})
+
+app.get('/:username', (req,res) => {
+    var userId = req.query.userId;
+
+    connection.query(`SELECT * FROM users WHERE userId = ${userId}`,(err,result,fields) => {
+        if(err) logger.error(err.stack);
+        res.end(JSON.stringify(result));
     })
 })
 
-// app.get('/profile/:username', (req,res) => {
+app.delete('/:username', (req,res) => {
+  var userId = req.query.userId;
 
-// }
+  connection.query(`DELETE FROM users WHERE userId = ?`, [userId], (err,result,fields) => {
+    if(err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  })
+
+})
+
+
+//savedFoods
+app.get('/:username/saves', (req,res) => {
+  var userId = req.query.userId;
+
+  connection.query(`SELECT f.foodName FROM savedFoods sf INNER JOIN foods f ON sf.foodId = f.foodId WHERE userId = ${userId}`,(err,result,fields) => {
+    if(err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  })
+
+})
+
+app.post('/product/saves', (req,res) => {
+  var userId = req.body.userId;
+  var foodName = req.body.foodName.replace('/+/g', ' ');
+  console.log(foodName)
+
+  connection.query(`INSERT INTO savedFoods (userId, foodId) VALUES (?,(SELECT foodId FROM foods WHERE foodName = ?))`, [userId, foodName], (err,result,fields) => {
+    if(err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  })
+
+})
+
+app.delete('/product/saves', (req,res) => {
+  var userId = req.query.userId;
+  var foodName = req.query.foodName.replace('/+/g', ' ');;
+
+  connection.query(`DELETE FROM savedFoods WHERE userId = ? AND foodId = (SELECT foodId FROM foods WHERE foodName = ?)`, [userId, foodName], (err,result,fields) => {
+    if(err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  })
+
+})
+
+
+//likedFoods
+app.get('/:username/likes', (req,res) => {
+  var userId = req.query.userId;
+
+  connection.query(`SELECT f.foodName FROM likedFoods lf INNER JOIN foods f ON lf.foodId = f.foodId WHERE userId = ${userId}`,(err,result,fields) => {
+    if(err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  })
+
+})
+
+app.post('/product/likes', (req,res) => {
+  var userId = req.body.userId;
+  var foodName = req.body.foodName.replace('/+/g', ' ');;
+
+  connection.query(`INSERT INTO likedFoods (userId, foodId) VALUES (? ,(SELECT foodId FROM foods WHERE foodName = ?))`, [userId, foodName],(err,result,fields) => {
+    if(err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  })
+
+})
+
+app.delete('/product/likes', (req,res) => {
+  var userId = req.query.userId;
+  var foodName = req.query.foodName.replace('/+/g', ' ');;
+
+  connection.query(`DELETE FROM likedFoods WHERE userId = ? AND foodId = (SELECT foodId FROM foods WHERE foodName = ?)`, [userId, foodName],(err,result,fields) => {
+    if(err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  })
+
+})
+
+
+//dislikedFoods
+app.get('/:username/dislikes', (req,res) => {
+  var userId = req.query.userId;
+
+  connection.query(`SELECT f.foodName FROM dislikedFoods df INNER JOIN foods f ON df.foodId = f.foodId WHERE userId = ${userId}`,(err,result,fields) => {
+    if(err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  })
+
+})
+
+app.post('/product/dislikes', (req,res) => {
+  var userId = req.body.userId;
+  var foodName = req.body.foodName.replace('/+/g', ' ');
+
+
+  connection.query(`INSERT INTO dislikedFoods (userId, foodId) VALUES (? ,(SELECT foodId FROM foods WHERE foodName = ?))`, [userId, foodName],(err,result,fields) => {
+    if(err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  })
+
+})
+
+app.delete('/product/dislikes', (req,res) => {
+  var userId = req.query.userId;
+  var foodName = req.query.foodName.replace('/+/g', ' ');;
+
+  connection.query(`DELETE FROM dislikedFoods WHERE userId = ? AND foodId = (SELECT foodId FROM foods WHERE foodName = ?)`, [userId, foodName],(err,result,fields) => {
+    if(err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  })
+
+})
+
+
+//Recipes
+app.get('/:username/recipes', (req,res) => {
+  var userId = req.query.userId;
+
+  connection.query(`SELECT recipeName FROM recipes WHERE userId = ${userId}`,(err,result,fields) => {
+    if(err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  })
+
+})
+
+app.get('/:username/recipes/:recipeName', (req,res) => {
+  var userId = req.query.userId;
+  var recipeName = req.params.recipeName;
+
+  connection.query(`SELECT * FROM ingredients WHERE recipeId = (SELECT recipeId FROM recipes WHERE recipeName = ? AND userId = ?)`, [recipeName, userId], (err,result,fields) => {
+    if(err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  })
+})
+
+app.post('/:username/recipes', (req,res) => {
+  var userId = req.body.userId;
+  var recipeName = req.body.recipeName;
+
+  connection.query(`INSERT INTO recipes (recipeName, userId) VALUES (?,?)`, [recipeName, userId],(err,result,fields) => {
+    if(err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  })
+})
+
+app.post('/:username/recipes/:recipeName', (req,res) => {
+  var userId = req.body.userId;
+  var recipeName = req.body.recipeName;
+  var ingredient = req.body.ingredient;
+  var numberOfServings = req.body.amount;
+
+  connection.query(`INSERT INTO ingredients (ingredient, numberOfServings, recipeId) VALUES (?,?,(SELECT recipeId FROM recipes WHERE recipeName = ? AND userId = ?))`, [ingredient, numberOfServings, recipeName, userId],(err,result,fields) => {
+    if(err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  })
+})
+
+app.delete('/:username/recipes', (req,res) => {
+  var userId = req.query.userId;
+  var recipeName = req.query.recipeName;
+
+  connection.query(`DELETE FROM recipes WHERE recipeName = ? AND userId = ?`, [recipeName, userId],(err,result,fields) => {
+    if(err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  })
+})
+
+app.delete('/:username/recipes/:recipeName', (req,res) => {
+  var userId = req.query.userId;
+  var ingredient = req.query.ingredient;
+  var recipeName = req.params.recipeName;
+
+  connection.query(`DELETE FROM ingredients WHERE ingredient = ? AND recipeId = (SELECT recipeId FROM recipes WHERE recipeName = ? AND userId = ?)`, [ingredient, recipeName, userId],(err,result,fields) => {
+    if(err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  })
+})
+
+
+
+// Product Requests
+app.get('/product/:foodName', (req,res) => {
+  var foodName = req.query.foodName.replace('/+/g', ' ');
+
+  connection.query(`SELECT * FROM foods WHERE foodName = ?`, [foodName], (err, result) => {
+    if(err) logger.error(err.stack)
+    res.end(JSON.stringify(result));
+  })
+})
+
+app.post('/product/add',  (req,res) => {
+    var foodName = req.body.foodName;
+    var servingPortion = req.body.servingPortion;
+    var foodGroupId = req.body.foodGroupId;
+    var totalCalories = req.body.totalCalories;
+    var totalFat = req.body.totalFat;
+    var transFat = req.body.transFat;
+    var saturatedFat = req.body.saturatedFat;
+    var cholesterol = req.body.cholesterol;
+    var sodium = req.body.sodium;
+    var totalCarbohydrate = req.body.totalCarbohydrate;
+    var sugars = req.body.sugars;
+    var protein = req.body.protein;
+
+    connection.query(`INSERT INTO foods (foodName,servingPortion,foodGroupId,totalCalories,totalFat,transFat,saturatedFat,cholesterol,sodium,totalCarbohydrate,sugars,protein) VALUES ('${foodName}',${servingPortion},${foodGroupId},${totalCalories},${totalFat},${transFat},${saturatedFat},${cholesterol},${sodium},${totalCarbohydrate},${sugars},${protein}`,(err,result,fields) => {
+      if(err) logger.error(err.stack);
+      res.end(JSON.stringify(result));
+    })
+})
+
+
+
+
 
 
 

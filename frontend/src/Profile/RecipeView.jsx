@@ -9,80 +9,75 @@ export class RecipeView extends React.Component {
     recipeRequests = new AxiosRequests;
 
     state = {
-        account: new Account('', '', '', '', '', [], [], [], [], [])
+        recipes: []
     }
-    //let account = JSON.parse(sessionStorage.getItem("account"));
 
-    onDelete(recipe) {
+    onDelete(recipeName) {
         if(window.confirm("Are you sure you want to delete this recipe?")) {
-            // this.accountRepository.deleteAccount(accountId)
-            // .then(() => {
-            //     this.setState({ 
-            //         accounts: this.state.accounts.filter(x => x.id !== accountId)
-            //     });
-            //     alert("Account Deleted");
-            // });
-            let account = this.state.account;
-            if(account.recipes.find(x => (x === recipe)))
-            {
-                let itemToRemove = account.recipes.indexOf(recipe);
-                account.recipes.splice(itemToRemove, itemToRemove + 1);
-            }
-            sessionStorage.setItem("account", JSON.stringify(account));
-            this.setState({ account: account });
-            window.alert("Recipe Deleted!");
+            let account = JSON.parse(sessionStorage.getItem("account"));
+            this.recipeRequests.deleteRecipe(account.username, account.userId, recipeName)
+            .then(() => {
+                this.setState({ 
+                    recipes: this.state.recipes.filter(x => x.recipeName !== recipeName)
+                });
+                alert("Recipe Deleted");
+            })
+        }
+    }
+
+    createRecipe() {
+        let recipeName = prompt("Please enter a name for the new recipe", "");
+
+        if (recipeName == null || recipeName == "") {
+            alert("Addition Cancelled")
+        }
+        else {
+            let account = JSON.parse(sessionStorage.getItem("account"));
+            this.recipeRequests.createRecipe(account.username, account.userId, recipeName)
+            .then(() => {
+                let recipeList = this.state.recipes;
+                recipeList.push({recipeName: recipeName});
+                this.setState({ 
+                    recipes: recipeList
+                });
+                alert("Recipe Added!");
+            })
         }
     }
 
     render() {
         return <>
             <div className="card p-2">
-                {/* <p>My Groups ({props.account.saved.length})</p> */}
                 <p className="card-header">
-                    My Recipes ({this.state.account.recipes.length})
-                    <Link className="btn btn-primary float-right" to={window.location.pathname + "/edit"}>
+                    My Recipes ({this.state.recipes.length})
+                    <Button className="btn btn-primary float-right" type="button" onClick={e => this.createRecipe()}>
                         Add a Recipe
-                    </Link>
+                    </Button>
                 </p>
                 <ul className="list-group">
-                    { !this.state.account.recipes.length && (
+                    { !this.state.recipes.length && (
                         <li className="list-group-item">
                             You don't have any recipes!
                         </li>)
                     }
                     {
-                        this.state.account.recipes.map((p, i) => 
+                        this.state.recipes.length && this.state.recipes.map((p, i) => 
                             <li className="list-group mt-2" key={ i } id="group">
                                 <div className=" list-group-item list-group-item-secondary">
-                                    { i + 1 }. { p.name }
+                                    { i + 1 }. { p.recipeName }
                                     <button type="button"
                                             className="btn btn-sm btn-danger float-right"
-                                            onClick={ e => this.onDelete(p) }>
+                                            onClick={ e => this.onDelete(p.recipeName) }>
                                         X
                                     </button>
                                 </div>
-                                <p className="list-group-item">Description: { p.description }</p>
-                                { !p.ingredients.length && (
-                                        <li className="list-group-item">
-                                            There are no ingredients in this recipe!
-                                        </li>)
-                                }
-                                {
-                                    p.ingredients.map((m,j) => 
-                                        <li className="list-group-item" key={ j } id="member">
-                                            { j + 1 }. { m[0] }
-                                            <span className="card float-right p-2">
-                                                Amount: { m[1] }
-                                            </span>
-                                            <div className="">
-                                                <Link to={`/product/${ m[0] }`}>Link to { m[0] }'s product page</Link>
-                                            </div>                                            
-                                        </li>)
-                                }
+                                <div>
+                                    <Link className="btn btn-primary m-1" to={`/${sessionStorage.getItem("username")}/recipes/${ p.recipeName }`}>Edit { p.recipeName }'s' Recipe</Link>
+                                </div>  
                             </li>)
                     }
                 </ul>
-                <Link className="btn btn-secondary btn-block mt-2" to={`/${this.state.account.username}`}>
+                <Link className="btn btn-secondary btn-block mt-2" to={`/${sessionStorage.getItem("username")}`}>
                     Return to Profile
                 </Link>
             </div>
@@ -90,13 +85,9 @@ export class RecipeView extends React.Component {
     }
 
     componentDidMount() {
-        // let accountId = this.props.match.params.id;
-        // if(accountId) {
-        //    this.accountRepository.getAccountById(accountId)
-        //     .then(account => this.setState(account)); 
-        // }
         let account = JSON.parse(sessionStorage.getItem("account"));
-        this.setState({ account: account });        
+        this.recipeRequests.getAccountRecipes(account.username, account.userId)
+            .then(recipes => this.setState({ recipes }));    
     }
 }
 
