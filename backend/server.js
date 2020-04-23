@@ -342,7 +342,7 @@ app.get('/product/', (req,res) => {
 app.get('/search/group', (req,res) => {
   var foodGroup = req.query.foodGroup;
 
-  connection.query('SELECT foodName FROM foods WHERE foodGroup = ?', foodGroup, (err, result) => {
+  connection.query('SELECT foodName FROM foods WHERE foodGroupId = ?', foodGroup, (err, result) => {
     if(err) logger.error(err.stack)
     res.end(JSON.stringify(result));
   })

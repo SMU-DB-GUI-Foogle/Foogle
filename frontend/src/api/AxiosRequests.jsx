@@ -325,7 +325,18 @@ export class AxiosRequests {
     }
 
     //Search Requests
-    
+    getProductsByFoodGroup(foodGroup) {
+        var config = this.config;
+        config.params = { foodGroup };
+        return new Promise((resolve, reject) => {
+            axios.get(`${this.url}/search/group`, config)
+                .then(x => resolve(x.data))
+                .catch(x => {
+                    alert(x);
+                    reject(x);
+                })
+        });
+    }
 
 }
 

@@ -16,7 +16,7 @@ export class AdvancedSearch extends React.Component {
     foodProperties = ["Serving Portion", "Total Calories", "Total Fat", "Trans Fat", "Saturated Fat", "Cholesterol", "Sodium", "Total Carbohydrates", "Sugars", "Protein"];
     foodPropertiesNames = ["servingPortion", "totalCalories", "totalFat", "transFat", "saturatedFat", "cholesterol", "sodium", "totalCarbohydrate", "sugars", "protein"];
 
-    foodGroups = ["1"];
+    foodGroups = ["1", "2", "3", "4", "5", "6"];
 
     searchRequests = new AxiosRequests();
 
@@ -25,7 +25,13 @@ export class AdvancedSearch extends React.Component {
     }
 
     groupSearch() {
-        
+        let foodGroupId = this.foodGroups.indexOf(this.state.foodGroup) + 1;
+        this.searchRequests.getProductsByFoodGroup(foodGroupId)
+            .then(products => {debugger;
+                this.setState({ results: products });
+                alert("Search Complete - See Bottom For Results!");
+            })
+            
     }
 
     render() {
@@ -118,17 +124,19 @@ export class AdvancedSearch extends React.Component {
                 {
                     this.state.results.length > 0
                     ? <>  
-                        {this.state.results.map(product =>
-                            <div key={ product.id } className="card p-3 m-3 align-items-center col-3 justify-content-between">
-                                <h4 className="text-center text-wrap">{ product.foodName }</h4>
-                                <div className="align-self-stretch">
-                                    <Link to={`/product/${product.foodName}`}
-                                        className="btn btn-block btn-info my-1">
-                                        Product Details
-                                    </Link>
+                        <div id="products" className="d-flex flex-wrap">
+                            {this.state.results.map(product =>
+                                <div key={ product.id } className="card p-3 m-3 align-items-center col-3 justify-content-between">
+                                    <h4 className="text-center text-wrap">{ product.foodName }</h4>
+                                    <div className="align-self-stretch">
+                                        <Link to={`/product/${product.foodName}`}
+                                            className="btn btn-block btn-info my-1">
+                                            Product Details
+                                        </Link>
+                                    </div>
                                 </div>
-                            </div>
-                        )})
+                            )}
+                        </div>)
                     </>
                     : <>
                         <h2 className="card bg-info text-center mt-2">No Results!</h2>
