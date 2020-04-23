@@ -289,9 +289,9 @@ export class AxiosRequests {
         });
     }
 
-    createProduct(foodName, servingPortion, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrates, sugars, protein) {
+    createProduct(foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) {
         return new Promise((resolve, reject) => {
-            axios.post(`${this.url}/product/add`, { foodName, servingPortion, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrates, sugars, protein }, this.config)
+            axios.post(`${this.url}/product/add`, { foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein }, this.config)
                 .then(x => resolve(x.data))
                 .catch(x => {
                     alert(x);
@@ -300,9 +300,9 @@ export class AxiosRequests {
         });
     }
 
-    updateProduct(foodName, servingPortion, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrates, sugars, protein) {
+    updateProduct(foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein) {
         return new Promise((resolve, reject) => {
-            axios.put(`${this.url}/product/${foodName}`, { foodName, servingPortion, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrates, sugars, protein }, this.config)
+            axios.put(`${this.url}/product/${foodName}`, { foodId, foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein }, this.config)
                 .then(x => resolve(x.data))
                 .catch(x => {
                     alert(x);

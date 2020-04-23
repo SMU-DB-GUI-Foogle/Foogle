@@ -73,6 +73,14 @@ export class RecipeView extends React.Component {
                                 </div>
                                 <div>
                                     <Link className="btn btn-primary m-1" to={`/${sessionStorage.getItem("username")}/recipes/${ p.recipeName }`}>Edit { p.recipeName }'s' Recipe</Link>
+                                    <textarea id="hidden" class="js-copytextarea" rows="1" cols="1">{ window.location.href }</textarea>
+                                    <Button className="btn btn-info m-1 float-right" type="button" onClick={ e => { 
+                                        let copyText = document.querySelector('.js-copytextarea');
+                                        copyText.select();
+                                        document.execCommand("copy");
+                                        alert("Link Copied to Clipboard!") } }>
+                                        Share this Recipe
+                                    </Button>
                                 </div>  
                             </li>)
                     }

@@ -27,9 +27,11 @@ code {
     top: 0;
     right: 0;
     left: 0;
-    height: 50px;
     z-index: 1;
+}
 
+#hidden {
+  opacity: 0;
 }
 
 #navLink{
