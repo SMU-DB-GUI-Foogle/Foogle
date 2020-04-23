@@ -64,26 +64,6 @@ export class ProductEditor extends React.Component {
                 this.setState({ redirect: "/product/" + this.state.foodName });
                 })
         }
-        // if(!(this.state.password || this.state.password2) || this.state.password == this.state.password2) {
-        //     let account = JSON.parse(sessionStorage.getItem("account"));
-        //     account.firstName = this.state.firstName;
-        //     account.lastName = this.state.lastName;
-        //     account.email = this.state.email;
-        //     account.username = this.state.username;
-        //     let password = account.password;
-        //     if(this.state.password) {
-        //         account.password = this.state.password;
-        //         password = this.state.password;
-        //     }
-        //     window.alert("Profile information updated!")
-        //     sessionStorage.setItem("account", JSON.stringify(account));
-        //     sessionStorage.setItem("username", this.state.username);
-        //     this.profileRequests.updateProfile(account.userId, this.state.firstName, this.state.lastName, this.state.email, this.state.username, password)
-        //     this.setState({ redirect: "/" + account.username}) 
-        // }
-        // else {
-        //     window.alert("Passwords do not match!")
-        // }
     }
 
     render() {
