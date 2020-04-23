@@ -89,7 +89,6 @@ export class ProfileView extends React.Component {
                     <DropdownButton className="col-3" id="buttonRules" title="View Options">
                         <Dropdown.Item href={window.location.pathname + `/edit`}>Edit Profile</Dropdown.Item>
                         <Dropdown.Divider />
-                        <Dropdown.Item href={window.location.pathname + `/groups`} account={this.state.account}>Edit Groups</Dropdown.Item>
                         <Dropdown.Item href={window.location.pathname + `/recipes`}>Edit Recipes</Dropdown.Item>
                     </DropdownButton>
 

@@ -27,11 +27,48 @@ export class AdvancedSearch extends React.Component {
     groupSearch() {
         let foodGroupId = this.foodGroups.indexOf(this.state.foodGroup) + 1;
         this.searchRequests.getProductsByFoodGroup(foodGroupId)
-            .then(products => {debugger;
+            .then(products => {
+                this.setState({ results: products });
+                alert("Search Complete - See Bottom For Results!");
+            })
+    }
+
+    customSearch() {
+        let foodProp = this.foodPropertiesNames[this.foodProperties.indexOf(this.state.property)];
+        this.searchRequests.getProductsByNutrition(foodProp, this.state.lowerBound, this.state.upperBound)
+            .then(products => {
                 this.setState({ results: products });
                 alert("Search Complete - See Bottom For Results!");
             })
             
+    }
+
+    workoutSearch(start) {
+        this.searchRequests.getProductsByNutrition("protein", start, 100)
+            .then(products => {
+                this.setState({ results: products });
+                alert("Search Complete - See Bottom For Results!");
+            })
+    }
+
+    sicknessSearch() {
+        this.searchRequests.getProductsByNutrition("totalCalories", 400, 800)
+            .then(products => {
+                this.setState({ results: products });
+                alert("Search Complete - See Bottom For Results!");
+            })
+    }
+
+    babyFoodSearch() {
+        this.searchRequests.getAllProducts()
+            .then(products => {
+                let baby = [];
+                for(let i = 0; i < products.length; i++)
+                    if (products[i].foodName.indexOf("Babyfood") !== -1)
+                        baby.push(products[i]); 
+                debugger;this.setState({ results: baby });
+                alert("Search Complete - See Bottom For Results!");
+            })
     }
 
     render() {
@@ -43,16 +80,16 @@ export class AdvancedSearch extends React.Component {
                     <div className="list-group-item">
                         Filter for Workout: 
                         <div>          
-                            <Button className="m-2">Workout (High Protein)</Button>
-                            <Button className="m-2">Recovery (High Protein and Carbs)</Button>
-                            <Button className="m-2">Performance (High Protein/Carbohydrates/Calcium)</Button>
+                            <Button className="m-2" onClick={ e => this.workoutSearch(20) }>Workout (High Protein)</Button>
+                            <Button className="m-2" onClick={ e => this.workoutSearch(30) }>Recovery (High Protein and Carbs)</Button>
+                            <Button className="m-2" onClick={ e => this.workoutSearch(40) }>Performance (High Protein/Carbohydrates/Calcium)</Button>
                         </div>  
                     </div>
                     <div className="list-group-item">
                         Filter for Other Situations:
                         <div>             
-                            <Button className="m-2">Sickness (WIP High Protein/Calories)</Button>
-                            <Button className="m-2">Formulas (Baby Foods)</Button>
+                            <Button className="m-2" onClick={ e => this.sicknessSearch() }>Sickness (High Protein/Calories)</Button>
+                            <Button className="m-2" onClick={ e => this.babyFoodSearch() }>Formulas (Baby Foods)</Button>
                         </div>
                     </div>
                     <div className="list-group-item">
@@ -113,7 +150,11 @@ export class AdvancedSearch extends React.Component {
                                     onChange={ e => this.setState({ upperBound: e.target.value }) } />
                             </div>
                         </div>
-                        <Button className="btn-lg btn-info m-2" disabled={!this.validateFormCustom()}>Search</Button>
+                        <Button className="btn-lg btn-info m-2"
+                                disabled={ !this.validateFormCustom() }
+                                onClick={ e => this.customSearch() } >
+                            Search
+                        </Button>
                     </div>
                 </div>
             </div>
@@ -136,7 +177,7 @@ export class AdvancedSearch extends React.Component {
                                     </div>
                                 </div>
                             )}
-                        </div>)
+                        </div>
                     </>
                     : <>
                         <h2 className="card bg-info text-center mt-2">No Results!</h2>

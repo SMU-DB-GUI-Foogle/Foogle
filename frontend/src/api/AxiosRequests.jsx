@@ -280,7 +280,7 @@ export class AxiosRequests {
 
     getAllProducts() {
         return new Promise((resolve, reject) => {
-            axios.get(`${this.url}/product`, this.config)
+            axios.get(`${this.url}/products/get`, this.config)
                 .then(x => resolve(x.data))
                 .catch(x => {
                     alert(x);
@@ -330,6 +330,19 @@ export class AxiosRequests {
         config.params = { foodGroup };
         return new Promise((resolve, reject) => {
             axios.get(`${this.url}/search/group`, config)
+                .then(x => resolve(x.data))
+                .catch(x => {
+                    alert(x);
+                    reject(x);
+                })
+        });
+    }
+
+    getProductsByNutrition(fieldName, lowerLimit, upperLimit) {
+        var config = this.config;
+        config.params = { fieldName, lowerLimit, upperLimit };
+        return new Promise((resolve, reject) => {
+            axios.get(`${this.url}/search/nutrition`, config)
                 .then(x => resolve(x.data))
                 .catch(x => {
                     alert(x);

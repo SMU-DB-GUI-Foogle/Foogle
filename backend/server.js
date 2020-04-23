@@ -273,7 +273,7 @@ app.delete('/:username/recipes/:recipeName', (req,res) => {
 // Product Requests
 app.get('/product/:foodName', (req,res) => {
   var foodName = req.query.foodName.replace('/+/g', ' ');
-
+  console.log(foodName)
   connection.query('SELECT * FROM foods WHERE foodName = ?', [foodName], (err, result) => {
     if(err) logger.error(err.stack)
     res.end(JSON.stringify(result));
@@ -330,7 +330,7 @@ app.put('/product/:foodId', (req,res) => {
   })
 })
 
-app.get('/product/', (req,res) => {
+app.get('/products/get', (req,res) => {
   connection.query('SELECT foodName FROM foods', (err, result) => {
     if(err) logger.error(err.stack)
     res.end(JSON.stringify(result));
@@ -354,7 +354,7 @@ app.get('/search/nutrition', (req,res) => {
   var lowerLimit = req.query.lowerLimit;
   var upperLimit = req.query.upperLimit;
 
-  connection.query('SELECT foodName FROM foods WHERE ? >= ? AND ? <= ?', [fieldName, lowerLimit, fieldName, upperLimit], (err, result) => {
+  connection.query(`SELECT foodName FROM foods WHERE ${fieldName} >= ? AND ${fieldName} <= ?`, [lowerLimit, upperLimit], (err, result) => {
     if(err) logger.error(err.stack)
     res.end(JSON.stringify(result));
   })
