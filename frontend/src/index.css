@@ -30,6 +30,10 @@ code {
     z-index: 1;
 }
 
+#hidden {
+  opacity: 0;
+}
+
 #navLink{
   color: #00FA9A;
 }

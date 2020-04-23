@@ -18,8 +18,6 @@ export default function Routes({ appProps }) {
         <AppliedRoute path="/search" exact component={AdvancedSearch} appProps={appProps} />
         <AppliedRoute path="/:username" exact component={ProfileView} appProps={appProps} />
         <AppliedRoute path="/:username/edit" exact component={ProfileEditor} appProps={appProps} />
-        <AppliedRoute path="/:username/groups" exact component={GroupView} appProps={appProps} />
-        <AppliedRoute path="/:username/groups/edit" exact component={GroupEditor} appProps={appProps} />
         <AppliedRoute path="/:username/recipes" exact component={RecipeView} appProps={appProps} />
         <AppliedRoute path="/:username/recipes/:recipeName" exact component={RecipeEditor} appProps={appProps} />
         <AppliedRoute path="/product/:name" exact component={ProductView} appProps={appProps} />

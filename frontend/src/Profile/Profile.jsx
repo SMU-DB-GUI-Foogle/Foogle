@@ -22,7 +22,6 @@ export const Profile = props => {
                     <h4>Likes({props.likes.length})</h4>
                     <h4>Dislikes({props.dislikes.length})</h4>
                     <h4>Saved({props.saves.length})</h4>
-                    {/* <h4>Groups({account.groups.length})</h4>*/}
                     <h4>Recipes({props.recipes.length})</h4>  
                 </div>
             </div>
