@@ -3,7 +3,7 @@ import { AxiosRequests } from '../api';
 import { Food } from '../models';
 import { Product } from './Product';
 import { Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 export class ProductView extends React.Component {
 
@@ -19,20 +19,6 @@ export class ProductView extends React.Component {
         let foodName = product.replace(/%20/g, ' ');
         this.productRequests.likeProduct(account.userId, foodName)
             .then(alert("Product Liked"))
-        // let account = JSON.parse(sessionStorage.getItem("account"));
-        // if(account.likes.find(x => (x === product))) {
-        //     window.alert("Product already liked");
-        // }
-        // else {
-        //     if(account.dislikes.find(x => (x === product)))
-        //     {
-        //         let itemToRemove = account.dislikes.indexOf(product);
-        //         account.dislikes.splice(itemToRemove, itemToRemove + 1);
-        //     }
-        //     account.likes.push(product);
-        //     sessionStorage.setItem("account", JSON.stringify(account));
-        //     window.alert("Product Liked!");
-        // } 
     }
 
     dislikeProduct(product) {
@@ -40,20 +26,6 @@ export class ProductView extends React.Component {
         let foodName = product.replace(/%20/g, ' ');
         this.productRequests.dislikeProduct(account.userId, foodName)
             .then(alert("Product Disliked"))
-        // let account = JSON.parse(sessionStorage.getItem("account"));
-        // if(account.dislikes.find(x => (x === product))) {
-        //     window.alert("Product already disliked");
-        // }
-        // else {
-        //     if(account.likes.find(x => (x === product)))
-        //     {
-        //         let itemToRemove = account.likes.indexOf(product);
-        //         account.likes.splice(itemToRemove, itemToRemove + 1);
-        //     }
-        //     account.dislikes.push(product);
-        //     sessionStorage.setItem("account", JSON.stringify(account));
-        //     window.alert("Product Disliked!");
-        // } 
     }
 
     saveProduct(product) {
@@ -63,7 +35,23 @@ export class ProductView extends React.Component {
             .then(alert("Product Saved"))
     }
 
+    deleteProduct() {
+        if(window.confirm("Are you sure you want to delete this product?")) {
+            let foodName = this.props.match.params.name;
+            this.productRequests.deleteProduct(foodName)
+                .then(() => {
+                    this.setState({ redirect: '/' });
+                    alert("Product Deleted "); 
+                });
+        }
+    }
+
     render() {
+
+        if(this.state.redirect) {
+            return <Redirect to={ this.state.redirect } />
+        }
+
         return <>
             {this.state.product
             ? <>
@@ -99,15 +87,20 @@ export class ProductView extends React.Component {
                 
                 </>
                 : <>
-                    <div>Login to see more features</div>
+                    <h2 className="card bg-info text-center mt-2">Login to see more features!</h2>
                 </>
                 }
                 {window.sessionStorage.getItem("admin")
                 ? <>
                     <Link className="m-1 btn btn-warning"
-                            to='/' >
+                            to={`${window.location.pathname}/edit`} >
                         Edit Product
                     </Link>
+                    <Button className="m-1 btn btn-danger float-right"
+                            type="button" 
+                            onClick={e => this.deleteProduct() } >
+                        Delete Product
+                    </Button>
                 </>
                 : <>
                 </>
@@ -118,7 +111,7 @@ export class ProductView extends React.Component {
                 {window.sessionStorage.getItem("admin")
                 ? <>
                     <Link className="m-1 btn btn-warning"
-                            to='/' >
+                            to={`${window.location.pathname}/edit`} >
                         Add Product
                     </Link>
                 </>

@@ -8,7 +8,8 @@ class App extends React.Component{
     isAuthenticated: false,
     userHasAuthenticated: x => this.setState({ isAuthenticated: x }),
     search: false,
-    searchQuery: ""
+    searchQuery: "",
+    navExpanded: false
   }
 
   searchResult(e) {
@@ -36,7 +37,9 @@ class App extends React.Component{
     this.setState({ isAuthenticated: false });
   }
 
-  
+  setNavExpanded(expanded) {
+    this.setState({ navExpanded: expanded });
+  }
 
   render() {
 
@@ -49,75 +52,64 @@ class App extends React.Component{
     }
 
     return (
-      <>
-        <Navbar id="nav" bg="dark" variant="dark" fluid="true" collapseOnSelect>
-					<Navbar.Brand>
-            <Link id="navLink" to="/">Foogle</Link>
+      <div className="">
+        <Navbar id="nav" bg="dark" variant="dark" expand="lg" onSelect={this.setNavExpanded} expanded={this.state.navExpanded}>
+					<Navbar.Brand >
+            <Link id="navLink" className="" to="/" onClick={() => this.setNavExpanded(false)}>Foogle</Link>
           </Navbar.Brand>
-          <Navbar.Toggle />
-            {/* <Nav className="m-auto">
-              {!this.state.isAuthenticated && 
-                <Nav.Link href="/login">Login</Nav.Link>}
-              {this.state.isAuthenticated && 
-                <Nav.Link href="/" onClick={this.handlelogout}>Logout</Nav.Link>}
-              {this.state.isAuthenticated && 
-                <Nav.Link href={`/profile/${window.sessionStorage.getItem("username")}`}>Profile</Nav.Link>}
-            </Nav> */}
-
-          
-            <Navbar.Collapse>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" onClick={() => this.setNavExpanded(this.state.navExpanded ? false : "expanded")}/>
+            <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="m-auto">
-                {/* {this.state.isAuthenticated */}{sessionStorage.getItem("auth")
+                {sessionStorage.getItem("auth")
                   ? <>
                       <Navbar.Brand>
-                        <Link id = "navLink" to="/" onClick={ e => this.handleLogout(e) }>Logout</Link>
+                        <Link id = "navLink" to="/" onClick={ e => { this.setNavExpanded(false); this.handleLogout(e) } } >Logout</Link>
                       </Navbar.Brand>
                       <Navbar.Brand>
-                        <Link id = "navLink" to={`/${window.sessionStorage.getItem("username")}`}>Profile</Link>
+                        <Link id = "navLink" to={`/${window.sessionStorage.getItem("username")}`} onClick={() => this.setNavExpanded(false)}>Profile</Link>
                       </Navbar.Brand>
                     </>
                   : <>
                       <Navbar.Brand>
-                        <Link id = "navLink" to="/login">Login</Link>
+                        <Link id = "navLink" to="/login" onClick={() => this.setNavExpanded(false)}>Login</Link>
                       </Navbar.Brand>
                     </>
                 }
                 <Navbar.Brand>
-                  <Link id = "navLink" to = "/about">About</Link>
+                  <Link id = "navLink" to = "/about" onClick={() => this.setNavExpanded(false)}>About</Link>
                 </Navbar.Brand>
               </Nav>
+            
+              <Form inline>
+                <Form.Control type="text"
+                              placeholder="Search for a Food"
+                              className=" mr-sm-2"
+                              value={this.state.searchQuery}
+                              onChange={ e => this.setState({ searchQuery: e.target.value }) }
+                              onKeyPress={ e => this.keyPressed(e) } />
+                <Dropdown as={Button.Group}>
+                  <Button id="buttonRules"
+                          type="button"
+                          onClick={ e => { this.setNavExpanded(false); this.searchResult(e) }}
+                          disabled={ !(this.state.searchQuery.length > 0)}>
+                            Search
+                  </Button>
+                  <Dropdown.Toggle split type="button" id="buttonRules" />
+                  <Dropdown.Menu alignRight>
+                    <Dropdown.Item href="/search">Advanced Search</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+              </Form>
             </Navbar.Collapse>
-            <Form inline>
-              <Form.Control type="text"
-                            placeholder="Search for a Food"
-                            className=" mr-sm-2"
-                            value={this.state.searchQuery}
-                            onChange={ e => this.setState({ searchQuery: e.target.value }) }
-                            onKeyPress={ e => this.keyPressed(e) } />
-              <Dropdown as={Button.Group}>
-                <Button id="buttonRules"
-                        type="button"
-                        onClick={ e => this.searchResult(e) }
-                        disabled={ !(this.state.searchQuery.length > 0)}>
-                          Search
-                </Button>
-                <Dropdown.Toggle split type="button" id="buttonRules" />
-                <Dropdown.Menu alignRight>
-                  <Dropdown.Item href="/search">Advanced Search</Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-            </Form>
 				</Navbar>
+        
         <div className="container-fluid py-3 content">
           <Routes className="m-1" appProps={ this.state } />
         </div>
-      </>
+      </div>
     );
   }
 
-  componentDidUpdate() {
-
-  }
 }
 
 export default App;
