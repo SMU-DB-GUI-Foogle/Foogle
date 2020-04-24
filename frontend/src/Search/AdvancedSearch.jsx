@@ -115,7 +115,7 @@ export class AdvancedSearch extends React.Component {
                     </div>
                     <div className="list-group-item">
                         Custom Search (based on Nutrition Facts):             
-                        <div className="col-12 d-flex">
+                        <div className="col-12 d-flex flex-wrap">
                             <select
                                 name="prop"
                                 id="prop"
@@ -167,7 +167,7 @@ export class AdvancedSearch extends React.Component {
                     ? <>  
                         <div id="products" className="d-flex flex-wrap">
                             {this.state.results.map(product =>
-                                <div key={ product.id } className="card p-3 m-3 align-items-center col-3 justify-content-between">
+                                <div key={ product.id } className="card p-3 my-1 align-items-center col-6 ">
                                     <h4 className="text-center text-wrap">{ product.foodName }</h4>
                                     <div className="align-self-stretch">
                                         <Link to={`/product/${product.foodName}`}

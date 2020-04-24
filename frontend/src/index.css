@@ -130,3 +130,9 @@ code {
 #aStyle {
   color: white;
 }
+
+@media (max-width: 575px) {
+  div > div > img {
+    display: none;
+  }
+}
