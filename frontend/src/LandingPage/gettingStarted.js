@@ -14,7 +14,7 @@ export class gettingStarted extends React.Component {
   productRequests = new AxiosRequests();
 
   render() {
-    return (
+    return <div id="pushLeftWhenSmall">
       <div id = "landingPage">
       <section>
         <header>
@@ -27,8 +27,7 @@ export class gettingStarted extends React.Component {
         <div className="main-text">
           <span>FOOGLE</span> <br />  <br />
           
-        </div>
-          
+        </div> 
         <div id = "howTo">
               <ul>
                 <li>To start, create and account by going to LOGIN->REGISTER!</li>
@@ -53,7 +52,7 @@ export class gettingStarted extends React.Component {
         
       </section>
     </div>
-    )
+    </div>
   }
 
   componentDidMount() {

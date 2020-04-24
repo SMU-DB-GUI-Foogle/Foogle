@@ -135,4 +135,12 @@ code {
   div > div > img {
     display: none;
   }
+
+  #hideImg {
+    display: none;
+  }
+
+  #pushLeftWhenSmall {
+    float: left;
+  }
 }

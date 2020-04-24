@@ -3,7 +3,7 @@ import logo from '../logo2White.png';
 import './App.css';
 
 export const backgroundPage = props => {
-  return (
+  return <div id="pushLeftWhenSmall">
     <div id = "landingPage">
     <section>
       <header>
@@ -25,7 +25,7 @@ export const backgroundPage = props => {
        
     </section>
   </div>
-  );
+  </div>;
 }
 
 export default backgroundPage;

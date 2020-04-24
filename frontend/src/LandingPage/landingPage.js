@@ -3,7 +3,7 @@ import logo from '../logo2White.png';
 import './App.css';
 
 export const landingPage = props => {
-  return (
+  return <div id="pushLeftWhenSmall">
     <div id = "landingPage">
     <section>
       <header>
@@ -18,13 +18,14 @@ export const landingPage = props => {
         fingertips.
       </div>
         
+        <div id="hideImg"> 
           <img src={logo} alt="Logo" id = "bigLogo" />
-    
+        </div>
 
        
     </section>
   </div>
-  );
+  </div>
 }
 
 export default landingPage;
