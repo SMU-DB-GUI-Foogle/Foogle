@@ -3,6 +3,7 @@ import { AxiosRequests } from '../api';
 import { Profile } from './Profile';
 import { DropdownButton, Dropdown, Form, Col, Button } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
+import { SendOutlined } from '@ant-design/icons';
 
 export class ProfileView extends React.Component {
 
@@ -41,11 +42,11 @@ export class ProfileView extends React.Component {
             return (<Redirect to={ this.state.redirect }/>);
         }
 
-        return <div className="container">
-            <div className="jumbotron p-4">
+        return <div className="container d-flex flex-wrap">
+            <div className="card px-4 py-3 col-12 mb-2">
                 <Profile saves={this.state.saves} likes={this.state.likes} dislikes={this.state.dislikes} recipes={this.state.recipes} />
                 <div className="row mt-2 mr-2 align-items-center">
-                    <DropdownButton className="col-6" id="buttonRules" title="View Options">
+                    <DropdownButton className="px-2 pt-2 mb-2 col-sm-3 col-md-4" id="buttonRules" title="View Options">
                         <Dropdown.Item href={window.location.pathname + `/edit`}>Edit Profile</Dropdown.Item>
                         <Dropdown.Item href={window.location.pathname + `/recipes`}>Edit Recipes</Dropdown.Item>
                         <Dropdown.Divider />
@@ -53,20 +54,23 @@ export class ProfileView extends React.Component {
                         <Dropdown.Item href={window.location.pathname + `/saved`}>View Saved</Dropdown.Item>
                     </DropdownButton>
 
-                    <Form className="card px-2 pt-2 col-6">
+                    <Form className="card px-2 pt-2 col-sm-2 col-md-8">
                         <Form.Group as={Form.Row} controlId="email">
-                                <Form.Label column sm="5">Invite Someone to the Site</Form.Label>
+                                <Form.Label column sm="4">Invite Someone to the Site</Form.Label>
                                 <Col sm="7">
                                     <Form.Control type="email"
                                                   placeholder="Email"
                                                   value={this.state.email}
                                                   onChange={ e => this.setState({ email: e.target.value }) } />
                                 </Col>
-                                <Button className="ml-3"
+                                <Button sm="1"
+                                        className="ml-2"
                                         id = "buttonRules"
                                         type="button"
                                         disabled={!(this.state.email.length > 0)}
-                                        onClick={() => {window.alert("Invitation Sent"); this.setState({ email: '' }) } }>Send Invite</Button>
+                                        onClick={() => {window.alert("Invitation Sent"); this.setState({ email: '' }) } }>
+                                    <SendOutlined className="align-middle" />
+                                </Button>
                         </Form.Group>
                     </Form>
                 </div>

@@ -2,6 +2,7 @@ import React from 'react';
 import { Likes } from './Likes';
 import { AxiosRequests } from '../api';
 import { Link } from 'react-router-dom';
+import { notification } from 'antd';
 
 export class LikesView extends React.Component {
 
@@ -12,36 +13,58 @@ export class LikesView extends React.Component {
         dislikes: []
     }
 
+    handleDeleteLiked(foodName) {
+        notification.open({
+            key: "like",
+            message: "Are you sure you want to delete this liked product from your profile?",
+            duration: 0,
+            btn: <button type="button" className="btn btn-primary" size="small" onClick={e => { 
+                    this.deleteLiked(foodName);
+                    notification.close("like"); }}>Confirm</button>
+        })
+    }
+
+    handleDeleteDisliked(foodName) {
+        notification.open({
+            key: "dislike",
+            message: "Are you sure you want to delete this disliked product from your profile?",
+            duration: 0,
+            btn: <button type="button" className="btn btn-primary" size="small" onClick={e => { 
+                    this.deleteDisliked(foodName);
+                    notification.close("dislike"); }}>Confirm</button>
+        })
+    }
+
     deleteLiked(foodName) {
-        if(window.confirm("Are you sure you want to delete this liked product from your profile?")) {
-            let account = JSON.parse(sessionStorage.getItem('account'));
-            this.profileRequests.deleteLikedProduct(account.userId, foodName)
-            .then(() => {
-                this.setState({ 
-                    likes: this.state.likes.filter(x => x.foodName !== foodName)
-                });
-                alert("Liked Product Removed");
+        let account = JSON.parse(sessionStorage.getItem('account'));
+        this.profileRequests.deleteLikedProduct(account.userId, foodName)
+        .then(() => {
+            this.setState({ 
+                likes: this.state.likes.filter(x => x.foodName !== foodName)
             });
-        }
+            notification.success({
+                message: 'Liked Product Removed!'
+            });
+        });
     }
 
     deleteDisliked(foodName) {
-        if(window.confirm("Are you sure you want to delete this disliked product from your profile?")) {
-            let account = JSON.parse(sessionStorage.getItem('account'));
-            this.profileRequests.deleteDislikedProduct(account.userId, foodName)
-            .then(() => {
-                this.setState({ 
-                    dislikes: this.state.dislikes.filter(x => x.foodName !== foodName)
-                });
-                alert("Disliked Product Removed");
+        let account = JSON.parse(sessionStorage.getItem('account'));
+        this.profileRequests.deleteDislikedProduct(account.userId, foodName)
+        .then(() => {
+            this.setState({ 
+                dislikes: this.state.dislikes.filter(x => x.foodName !== foodName)
             });
-        }
+            notification.success({
+                message: 'Disliked Product Removed!'
+            });
+        });
     }
 
     render() {
         return <>
             <div>
-                <Likes deleteLiked={name => this.deleteLiked(name)} likes={this.state.likes} deleteDisliked={name => this.deleteDisliked(name)} dislikes={this.state.dislikes} />
+                <Likes deleteLiked={name => this.handleDeleteLiked(name)} likes={this.state.likes} deleteDisliked={name => this.handleDeleteDisliked(name)} dislikes={this.state.dislikes} />
                 <Link className="btn btn-secondary btn-block mt-2" to={`/${sessionStorage.getItem("username")}`}>
                     Return to Profile
                 </Link>
