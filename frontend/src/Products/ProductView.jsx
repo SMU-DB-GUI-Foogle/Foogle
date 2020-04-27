@@ -4,9 +4,8 @@ import { Food } from '../models';
 import { Product } from './Product';
 import { Button } from 'react-bootstrap';
 import { Link, Redirect } from 'react-router-dom';
-import { Card } from 'antd';
-import { DislikeTwoTone, HeartTwoTone, StarTwoTone } from '@ant-design/icons';
-import 'antd/dist/antd.css';
+import { Card, notification } from 'antd';
+import { DislikeTwoTone, LikeTwoTone, StarTwoTone } from '@ant-design/icons';
 
 export class ProductView extends React.Component {
 
@@ -22,10 +21,17 @@ export class ProductView extends React.Component {
             let account = JSON.parse(sessionStorage.getItem("account"));
             let foodName = product.replace(/%20/g, ' ');
             this.productRequests.likeProduct(account.userId, foodName)
-                .then(alert("Product Liked"))
+                .then(notification.success({
+                    message: 'Product Liked!',
+                    description: `Successfully liked the product ${this.state.product.foodName}. Go to your profile to view it.`
+                }))
         }
         else {
-            alert("Login to use this Feature!")
+            notification.error({
+                message: 'Login to Like this Product',
+                description:
+                  'You must be logged in to like this product.',
+              });
         }
     }
 
@@ -34,10 +40,17 @@ export class ProductView extends React.Component {
             let account = JSON.parse(sessionStorage.getItem("account"));
             let foodName = product.replace(/%20/g, ' ');
             this.productRequests.dislikeProduct(account.userId, foodName)
-                .then(alert("Product Disliked"))
+                .then(notification.success({
+                    message: 'Product Disliked!',
+                    description: `Successfully disliked the product ${this.state.product.foodName}. Go to your profile to view it.`
+                }))
         }
         else {
-            alert("Login to use this Feature!")
+            notification.error({
+                message: 'Login to Dislike this Product',
+                description:
+                  'You must be logged in to dislike this product.',
+              });
         }
     }
 
@@ -46,10 +59,17 @@ export class ProductView extends React.Component {
             let account = JSON.parse(sessionStorage.getItem("account"));
             let foodName = product.replace(/%20/g, ' ');
             this.productRequests.saveProduct(account.userId, foodName)
-                .then(alert("Product Saved"))
+                .then(notification.success({
+                    message: 'Product Saved!',
+                    description: `Successfully saved the product ${this.state.product.foodName}. Go to your profile to view it.`
+                }))
         }
         else {
-            alert("Login to use this Feature!")
+            notification.error({
+                message: 'Login to Save this Product',
+                description:
+                  'You must be logged in to save this product.',
+              });
         }
 
     }
@@ -75,8 +95,8 @@ export class ProductView extends React.Component {
             {this.state.product
             ? <>
                 <Card key={this.state.product.foodId} className="bg-info"
-                      actions={ [<HeartTwoTone key="heart" twoToneColor="#eb2f96" onClick={ e => this.likeProduct( window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1)) } />,    
-                      <DislikeTwoTone key="frown" onClick={ e => this.dislikeProduct(window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1)) } />,
+                      actions={ [<LikeTwoTone key="like"  onClick={ e => this.likeProduct( window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1)) } />,    
+                      <DislikeTwoTone key="dislike" twoToneColor="#eb2f96" onClick={ e => this.dislikeProduct(window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1)) } />,
                       <StarTwoTone key="star" twoToneColor="#f7db02" onClick={ e => this.saveProduct(window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1)) } />,] }>
                     <Product product={this.state.product} />
                 </Card>

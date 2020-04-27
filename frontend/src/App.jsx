@@ -2,6 +2,7 @@ import React from 'react';
 import Routes from './Routes';
 import { Nav, Navbar, Form, Button, Dropdown } from 'react-bootstrap';
 import { Redirect, Link } from 'react-router-dom';
+import { SearchOutlined } from '@ant-design/icons';
 
 class App extends React.Component{
   state = {
@@ -95,7 +96,7 @@ class App extends React.Component{
                           type="button"
                           onClick={ e => { this.setNavExpanded(false); this.searchResult(e) }}
                           disabled={ !(this.state.searchQuery.length > 0)}>
-                            Search
+                          <SearchOutlined className="align-middle" />
                   </Button>
                   <Dropdown.Toggle split type="button" id="buttonRules" />
                   <Dropdown.Menu alignRight>

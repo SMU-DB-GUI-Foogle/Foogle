@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { DeleteTwoTone } from '@ant-design/icons';
 
 export const LikesView = props => {
 
@@ -19,7 +20,9 @@ export const LikesView = props => {
                             <div className=" list-group-item list-group-item-secondary">{ i + 1 }. { p.foodName }</div>
                             <div className="list-group-item">
                                 <Link to={`/product/${ p.foodName }`}>Link to { p.foodName }'s product page</Link>
-                                <Button className="float-right btn-danger" type="button" onClick={e => props.deleteLiked(p.foodName)}>X</Button>
+                                <Button className="float-right btn-danger" type="button" onClick={e => props.deleteLiked(p.foodName)}>
+                                    <DeleteTwoTone className="align-middle" twoToneColor="#a8a8a8"/>
+                                </Button>
                             </div>
                         </li>)
                 }
@@ -38,7 +41,9 @@ export const LikesView = props => {
                             <div className=" list-group-item list-group-item-secondary">{ i + 1 }. { p.foodName }</div>
                             <div className="list-group-item">
                                 <Link to={`/product/${ p.foodName }`}>Link to { p.foodName }'s product page</Link>
-                                <Button className="float-right btn-danger" type="button" onClick={e => props.deleteDisliked(p.foodName)}>X</Button>
+                                <Button className="float-right btn-danger" type="button" onClick={e => props.deleteDisliked(p.foodName)}>
+                                    <DeleteTwoTone className="align-middle" twoToneColor="#a8a8a8"/>
+                                </Button>
                             </div>
                         </li>)
                 }

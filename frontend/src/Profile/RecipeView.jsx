@@ -3,6 +3,7 @@ import { AxiosRequests } from '../api';
 import { Account } from '../models';
 import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
+import { DeleteTwoTone } from '@ant-design/icons';
 
 export class RecipeView extends React.Component {
 
@@ -68,7 +69,7 @@ export class RecipeView extends React.Component {
                                     <button type="button"
                                             className="btn btn-sm btn-danger float-right"
                                             onClick={ e => this.onDelete(p.recipeName) }>
-                                        X
+                                        <DeleteTwoTone className="align-middle" twoToneColor="#a8a8a8"/>
                                     </button>
                                 </div>
                                 <div>
