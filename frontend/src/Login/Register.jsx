@@ -42,7 +42,7 @@ export const Register = props => {
   return <>
     <div className="base-container" ref={props.containerRef}>
       <div id="inForm" className="header"><h3>Register for FOOGLE</h3></div>
-      <div id="inForm" className="content">
+      <div id="inForm" className="">
         {/* <div className="image">
           <img src={loginImg} />
         </div> */}

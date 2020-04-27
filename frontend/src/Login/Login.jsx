@@ -72,7 +72,7 @@ export const Login = props => {
   
     <div className="base-container" ref={props.containerRef}>
       <div id="inForm" className="header"><h3>Login to FOOGLE</h3></div>
-      <div className="content">
+      <div className="">
         {/* <div className="image">
           <img src={loginImg} />
         </div> */}
