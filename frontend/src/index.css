@@ -142,3 +142,17 @@ code {
 #root {
   min-height: 100vh;
 }
+
+@media (max-width: 575px) {
+  div > div > img {
+    display: none;
+  }
+
+  #hideImg {
+    display: none;
+  }
+
+  #pushLeftWhenSmall {
+    float: left;
+  }
+}
