@@ -5,7 +5,8 @@ import { Product } from './Product';
 import { Button } from 'react-bootstrap';
 import { Link, Redirect } from 'react-router-dom';
 import { Card } from 'antd';
-import { FrownOutlined, HeartOutlined, StarOutlined } from '@ant-design/icons';
+import { DislikeTwoTone, HeartTwoTone, StarTwoTone } from '@ant-design/icons';
+import 'antd/dist/antd.css';
 
 export class ProductView extends React.Component {
 
@@ -74,9 +75,9 @@ export class ProductView extends React.Component {
             {this.state.product
             ? <>
                 <Card key={this.state.product.foodId} className="bg-info"
-                      actions={ [<HeartOutlined key="heart" onClick={ e => this.likeProduct( window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1)) } />,    
-                      <FrownOutlined key="frown" onClick={ e => this.dislikeProduct(window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1)) } />,
-                      <StarOutlined key="star" onClick={ e => this.saveProduct(window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1)) } />,] }>
+                      actions={ [<HeartTwoTone key="heart" twoToneColor="#eb2f96" onClick={ e => this.likeProduct( window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1)) } />,    
+                      <DislikeTwoTone key="frown" onClick={ e => this.dislikeProduct(window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1)) } />,
+                      <StarTwoTone key="star" twoToneColor="#f7db02" onClick={ e => this.saveProduct(window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1)) } />,] }>
                     <Product product={this.state.product} />
                 </Card>
                 
