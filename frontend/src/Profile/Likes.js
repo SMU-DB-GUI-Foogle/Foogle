@@ -3,11 +3,11 @@ import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { DeleteTwoTone } from '@ant-design/icons';
 
-export const LikesView = props => {
+export const Likes = props => {
 
     return <>
-        <div>
-            <p>My Likes ({props.likes.length})</p>
+        <div className="card p-2 m-2">
+            <h2>My Likes ({props.likes.length})</h2>
             <ul className="list-group">
                 { !props.likes.length && (
                     <li className="list-group-item">
@@ -27,8 +27,9 @@ export const LikesView = props => {
                         </li>)
                 }
             </ul>
-
-            <p>My Dislikes ({props.dislikes.length})</p>
+        </div>
+        <div className="card p-2 m-2">
+            <h2>My Dislikes ({props.dislikes.length})</h2>
             <ul className="list-group">
                 { !props.dislikes.length && (
                     <li className="list-group-item">
@@ -52,4 +53,4 @@ export const LikesView = props => {
     </>
 }
 
-export default LikesView;
+export default Likes;

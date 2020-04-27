@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch } from 'react-router-dom';
 import AppliedRoute from './AppliedRoute';
-import { ProfileView, ProfileEditor, GroupView, GroupEditor, RecipeView, RecipeEditor } from './Profile';
+import { ProfileView, ProfileEditor, LikesView, SavedView, RecipeView, RecipeEditor } from './Profile';
 import { loginLanding } from './Login'
 import { ProductView, ProductEditor } from './Products';
 import { landingPage, about, gettingStarted, backgroundPage, Foods } from './LandingPage';
@@ -18,6 +18,8 @@ export default function Routes({ appProps }) {
         <AppliedRoute path="/login" exact component={loginLanding} appProps={appProps} />
         <AppliedRoute path="/search" exact component={AdvancedSearch} appProps={appProps} />
         <AppliedRoute path="/:username" exact component={ProfileView} appProps={appProps} />
+        <AppliedRoute path="/:username/likes" exact component={LikesView} appProps={appProps} />
+        <AppliedRoute path="/:username/saved" exact component={SavedView} appProps={appProps} />
         <AppliedRoute path="/:username/edit" exact component={ProfileEditor} appProps={appProps} />
         <AppliedRoute path="/:username/recipes" exact component={RecipeView} appProps={appProps} />
         <AppliedRoute path="/:username/recipes/:recipeName" exact component={RecipeEditor} appProps={appProps} />

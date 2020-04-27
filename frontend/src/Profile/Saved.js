@@ -3,11 +3,10 @@ import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { DeleteTwoTone } from '@ant-design/icons';
 
-export const SavedView = props => {
+export const Saved = props => {
 
     return <>
         <div>
-            <p>My Saved Items ({props.saves.length})</p>
             <ul className="list-group">
                 { !props.saves.length && (
                     <li className="list-group-item">
@@ -31,4 +30,4 @@ export const SavedView = props => {
     </>
 }
 
-export default SavedView;
+export default Saved;

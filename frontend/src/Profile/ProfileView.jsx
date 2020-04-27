@@ -1,8 +1,6 @@
 import React from 'react';
 import { AxiosRequests } from '../api';
 import { Profile } from './Profile';
-import { LikesView } from './LikesView';
-import { SavedView } from './SavedView';
 import { DropdownButton, Dropdown, Form, Col, Button } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
 
@@ -38,45 +36,6 @@ export class ProfileView extends React.Component {
         }
     }
 
-    deleteSaved(foodName) {
-        if(window.confirm("Are you sure you want to delete this saved product from your profile?")) {
-            let account = JSON.parse(sessionStorage.getItem('account'));
-            this.profileRequests.deleteSavedProduct(account.userId, foodName)
-            .then(() => {
-                this.setState({ 
-                    saves: this.state.saves.filter(x => x.foodName !== foodName)
-                });
-                alert("Saved Product Removed");
-            });
-        }
-    }
-
-    deleteLiked(foodName) {
-        if(window.confirm("Are you sure you want to delete this liked product from your profile?")) {
-            let account = JSON.parse(sessionStorage.getItem('account'));
-            this.profileRequests.deleteLikedProduct(account.userId, foodName)
-            .then(() => {
-                this.setState({ 
-                    likes: this.state.likes.filter(x => x.foodName !== foodName)
-                });
-                alert("Liked Product Removed");
-            });
-        }
-    }
-
-    deleteDisliked(foodName) {
-        if(window.confirm("Are you sure you want to delete this disliked product from your profile?")) {
-            let account = JSON.parse(sessionStorage.getItem('account'));
-            this.profileRequests.deleteDislikedProduct(account.userId, foodName)
-            .then(() => {
-                this.setState({ 
-                    dislikes: this.state.dislikes.filter(x => x.foodName !== foodName)
-                });
-                alert("Disliked Product Removed");
-            });
-        }
-    }
-
     render() {
         if(this.state.redirect) {
             return (<Redirect to={ this.state.redirect }/>);
@@ -88,8 +47,10 @@ export class ProfileView extends React.Component {
                 <div className="row mt-2 mr-2 align-items-center">
                     <DropdownButton className="col-6" id="buttonRules" title="View Options">
                         <Dropdown.Item href={window.location.pathname + `/edit`}>Edit Profile</Dropdown.Item>
-                        <Dropdown.Divider />
                         <Dropdown.Item href={window.location.pathname + `/recipes`}>Edit Recipes</Dropdown.Item>
+                        <Dropdown.Divider />
+                        <Dropdown.Item href={window.location.pathname + `/likes`}>View Likes/Dislikes</Dropdown.Item>
+                        <Dropdown.Item href={window.location.pathname + `/saved`}>View Saved</Dropdown.Item>
                     </DropdownButton>
 
                     <Form className="card px-2 pt-2 col-6">
@@ -110,14 +71,6 @@ export class ProfileView extends React.Component {
                     </Form>
                 </div>
             </div>
-
-            <div className="card p-2 m-2">
-                <LikesView deleteLiked={name => this.deleteLiked(name)} likes={this.state.likes} deleteDisliked={name => this.deleteDisliked(name)} dislikes={this.state.dislikes} />
-            </div> 
-            
-            <div className="card p-2 m-2">
-                <SavedView deleteSaved={name => this.deleteSaved(name)} saves={this.state.saves} />
-            </div> 
 
             <Button className="btn-danger" type="button" onClick={e => this.deleteAccount() }>Delete Account</Button>
         </div>
