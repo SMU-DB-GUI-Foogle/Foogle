@@ -5,3 +5,5 @@ backend/node_modules/
 notworking.json
 frontend/node_modules/
 backend/yarn.lock
+node_modules/
+.vs/

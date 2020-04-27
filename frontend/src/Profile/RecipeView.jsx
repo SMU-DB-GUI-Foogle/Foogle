@@ -46,7 +46,7 @@ export class RecipeView extends React.Component {
     }
 
     render() {
-        return <>
+        return <div className="container">
             <div className="card p-2">
                 <p className="card-header">
                     My Recipes ({this.state.recipes.length})
@@ -89,7 +89,7 @@ export class RecipeView extends React.Component {
                     Return to Profile
                 </Link>
             </div>
-        </>
+        </div>
     }
 
     componentDidMount() {

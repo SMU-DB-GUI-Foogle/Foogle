@@ -4,6 +4,8 @@ import { Food } from '../models';
 import { Product } from './Product';
 import { Button } from 'react-bootstrap';
 import { Link, Redirect } from 'react-router-dom';
+import { Card } from 'antd';
+import { FrownOutlined, HeartOutlined, StarOutlined } from '@ant-design/icons';
 
 export class ProductView extends React.Component {
 
@@ -15,24 +17,40 @@ export class ProductView extends React.Component {
     }
 
     likeProduct(product) {
-        let account = JSON.parse(sessionStorage.getItem("account"));
-        let foodName = product.replace(/%20/g, ' ');
-        this.productRequests.likeProduct(account.userId, foodName)
-            .then(alert("Product Liked"))
+        if(window.sessionStorage.getItem("auth")) {
+            let account = JSON.parse(sessionStorage.getItem("account"));
+            let foodName = product.replace(/%20/g, ' ');
+            this.productRequests.likeProduct(account.userId, foodName)
+                .then(alert("Product Liked"))
+        }
+        else {
+            alert("Login to use this Feature!")
+        }
     }
 
     dislikeProduct(product) {
-        let account = JSON.parse(sessionStorage.getItem("account"));
-        let foodName = product.replace(/%20/g, ' ');
-        this.productRequests.dislikeProduct(account.userId, foodName)
-            .then(alert("Product Disliked"))
+        if(window.sessionStorage.getItem("auth")) {
+            let account = JSON.parse(sessionStorage.getItem("account"));
+            let foodName = product.replace(/%20/g, ' ');
+            this.productRequests.dislikeProduct(account.userId, foodName)
+                .then(alert("Product Disliked"))
+        }
+        else {
+            alert("Login to use this Feature!")
+        }
     }
 
     saveProduct(product) {
-        let account = JSON.parse(sessionStorage.getItem("account"));
-        let foodName = product.replace(/%20/g, ' ');
-        this.productRequests.saveProduct(account.userId, foodName)
-            .then(alert("Product Saved"))
+        if(window.sessionStorage.getItem("auth")) {
+            let account = JSON.parse(sessionStorage.getItem("account"));
+            let foodName = product.replace(/%20/g, ' ');
+            this.productRequests.saveProduct(account.userId, foodName)
+                .then(alert("Product Saved"))
+        }
+        else {
+            alert("Login to use this Feature!")
+        }
+
     }
 
     deleteProduct() {
@@ -52,44 +70,16 @@ export class ProductView extends React.Component {
             return <Redirect to={ this.state.redirect } />
         }
 
-        return <>
+        return <div className="container">
             {this.state.product
             ? <>
-                <Product product={this.state.product} />
-                {window.sessionStorage.getItem("auth")
-                ? <>
-                    <div className="card align-content-start">
-                        <div>
-                            <Button id = "buttonRules"
-                                    className="m-1"
-                                    type="button" 
-                                    onClick={e => this.likeProduct( window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1)) }>
-                                Like
-                            </Button>
-                        </div>
-                        <div>
-                            <Button id = "buttonRules"
-                                    className="m-1"
-                                    type="button"
-                                    onClick={e => this.dislikeProduct(window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1))}>
-                                Dislike
-                            </Button>
-                        </div>
-                        <div>
-                            <Button id = "buttonRules"
-                                    className="m-1"
-                                    type="button"
-                                    onClick={e => this.saveProduct(window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1))}>
-                                Save
-                            </Button>
-                        </div>
-                    </div>
+                <Card key={this.state.product.foodId} className="bg-info"
+                      actions={ [<HeartOutlined key="heart" onClick={ e => this.likeProduct( window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1)) } />,    
+                      <FrownOutlined key="frown" onClick={ e => this.dislikeProduct(window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1)) } />,
+                      <StarOutlined key="star" onClick={ e => this.saveProduct(window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1)) } />,] }>
+                    <Product product={this.state.product} />
+                </Card>
                 
-                </>
-                : <>
-                    <h2 className="card bg-info text-center mt-2">Login to see more features!</h2>
-                </>
-                }
                 {window.sessionStorage.getItem("admin")
                 ? <>
                     <Link className="m-1 btn btn-warning"
@@ -121,7 +111,7 @@ export class ProductView extends React.Component {
             </>
             }
             
-        </>
+        </div>
     }
 
     componentDidMount() {

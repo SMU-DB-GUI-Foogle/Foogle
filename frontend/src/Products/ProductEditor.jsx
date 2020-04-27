@@ -71,7 +71,7 @@ export class ProductEditor extends React.Component {
             return <Redirect to={ this.state.redirect } />
         }
 
-        return <>
+        return <div className="container">
             <form className="card p-3">
                 <h1>Product Editor</h1>
                 <div className="form-group d-flex">
@@ -211,7 +211,7 @@ export class ProductEditor extends React.Component {
                     Return to Product
                 </Link>
             </form>
-        </>
+        </div>
     }
 
     componentDidMount() {

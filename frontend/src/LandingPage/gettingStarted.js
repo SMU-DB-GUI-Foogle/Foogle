@@ -1,6 +1,5 @@
 import React from 'react';
 import logo from '../logo2White.png';
-import './App.css';
 import { Food } from '../models';
 import { Product } from '../Products';
 import { AxiosRequests } from '../api';

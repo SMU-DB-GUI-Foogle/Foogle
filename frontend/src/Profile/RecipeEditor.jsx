@@ -56,7 +56,7 @@ export class RecipeEditor extends React.Component {
             return <Redirect to={ this.state.redirect } />
         }
 
-        return <>
+        return <div className="container">
             <form className="card p-3">
                 <h1>Recipe Editor</h1>
                 <div className="form-group">
@@ -101,7 +101,7 @@ export class RecipeEditor extends React.Component {
                 </Link>
                 
             </form>
-        </>
+        </div>
     }
 
     componentDidMount() {

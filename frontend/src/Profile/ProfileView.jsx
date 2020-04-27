@@ -82,7 +82,7 @@ export class ProfileView extends React.Component {
             return (<Redirect to={ this.state.redirect }/>);
         }
 
-        return <>
+        return <div className="container">
             <div className="jumbotron p-4">
                 <Profile saves={this.state.saves} likes={this.state.likes} dislikes={this.state.dislikes} recipes={this.state.recipes} />
                 <div className="row mt-2 mr-2 align-items-center">
@@ -120,7 +120,7 @@ export class ProfileView extends React.Component {
             </div> 
 
             <Button className="btn-danger" type="button" onClick={e => this.deleteAccount() }>Delete Account</Button>
-        </>
+        </div>
     }
 
     componentDidMount() {

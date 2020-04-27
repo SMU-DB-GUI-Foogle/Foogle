@@ -72,7 +72,7 @@ export class AdvancedSearch extends React.Component {
     }
 
     render() {
-        return <div className="container-fluid">
+        return <div className="container">
             <div className="card p-3 mb-3">
                 <h1>Advanced Search (See Results At Bottom)</h1>
                 <div className="list-group p-4">

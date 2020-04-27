@@ -48,7 +48,7 @@ export class ProfileEditor extends React.Component {
             return <Redirect to={ this.state.redirect } />
         }
 
-        return <>
+        return <div className="container">
             <form className="card p-3">
                 <h1>Account Editor</h1>
                 <div className="form-group">
@@ -122,7 +122,7 @@ export class ProfileEditor extends React.Component {
                 </Link>
                 
             </form>
-        </>
+        </div>
     }
 
     componentDidMount() {
