@@ -85,15 +85,14 @@ export class ProfileView extends React.Component {
         return <>
             <div className="jumbotron p-4">
                 <Profile saves={this.state.saves} likes={this.state.likes} dislikes={this.state.dislikes} recipes={this.state.recipes} />
-                <div className="row mt-2 mr-2">
-                    <DropdownButton className="col-3" id="buttonRules" title="View Options">
+                <div className="row mt-2 mr-2 align-items-center">
+                    <DropdownButton className="col-6" id="buttonRules" title="View Options">
                         <Dropdown.Item href={window.location.pathname + `/edit`}>Edit Profile</Dropdown.Item>
                         <Dropdown.Divider />
-                        <Dropdown.Item href={window.location.pathname + `/groups`} account={this.state.account}>Edit Groups</Dropdown.Item>
                         <Dropdown.Item href={window.location.pathname + `/recipes`}>Edit Recipes</Dropdown.Item>
                     </DropdownButton>
 
-                    <Form className="card px-2 pt-2 col-9">
+                    <Form className="card px-2 pt-2 col-6">
                         <Form.Group as={Form.Row} controlId="email">
                                 <Form.Label column sm="5">Invite Someone to the Site</Form.Label>
                                 <Col sm="7">

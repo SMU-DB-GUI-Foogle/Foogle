@@ -294,6 +294,7 @@ app.delete('/:username/recipes/:recipeName', (req, res) => {
 
 
 // Product Requests
+
 app.get('/product/:foodName', (req, res) => {
   var foodName = req.params.foodName.replace('/+/g', ' ');
 
@@ -347,8 +348,15 @@ app.put('/product/:foodId', (req, res) => {
   var sugars = req.body.sugars;
   var protein = req.body.protein;
 
-  connection.query('UPDATE foods SET foodName = ?, servingPortion = ?, foodGroupId = ?, totalCalories = ?, totalFat = ?, transFat = ?, saturatedFat = ?, cholesterol = ?, sodium = ?, totalCarbohydrate = ?, sugars = ?, protein = ? WHERE foodId = ?', [foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein, foodId], (err, result, fields) => {
-    if (err) logger.error(err.stack);
+  connection.query('UPDATE foods SET foodName = ?, servingPortion = ?, foodGroupId = ?, totalCalories = ?, totalFat = ?, transFat = ?, saturatedFat = ?, cholesterol = ?, sodium = ?, totalCarbohydrate = ?, sugars = ?, protein = ? WHERE foodId = ?', [foodName, servingPortion, foodGroupId, totalCalories, totalFat, transFat, saturatedFat, cholesterol, sodium, totalCarbohydrate, sugars, protein, foodId],(err,result,fields) => {
+    if(err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  })
+})
+
+app.get('/products/get', (req,res) => {
+  connection.query('SELECT foodName FROM foods', (err, result) => {
+    if(err) logger.error(err.stack)
     res.end(JSON.stringify(result));
   })
 })
@@ -358,8 +366,8 @@ app.put('/product/:foodId', (req, res) => {
 app.get('/search/group', (req, res) => {
   var foodGroup = req.query.foodGroup;
 
-  connection.query('SELECT foodName FROM foods WHERE foodGroup = ?', foodGroup, (err, result) => {
-    if (err) logger.error(err.stack)
+  connection.query('SELECT foodName FROM foods WHERE foodGroupId = ?', foodGroup, (err, result) => {
+    if(err) logger.error(err.stack)
     res.end(JSON.stringify(result));
   })
 })
@@ -370,8 +378,8 @@ app.get('/search/nutrition', (req, res) => {
   var lowerLimit = req.query.lowerLimit;
   var upperLimit = req.query.upperLimit;
 
-  connection.query('SELECT foodName FROM foods WHERE ? >= ? AND ? <= ?', [fieldName, lowerLimit, fieldName, upperLimit], (err, result) => {
-    if (err) logger.error(err.stack)
+  connection.query(`SELECT foodName FROM foods WHERE ${fieldName} >= ? AND ${fieldName} <= ?`, [lowerLimit, upperLimit], (err, result) => {
+    if(err) logger.error(err.stack)
     res.end(JSON.stringify(result));
   })
 })

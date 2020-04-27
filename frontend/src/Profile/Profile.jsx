@@ -12,11 +12,11 @@ export const Profile = props => {
     
 
     return <>
-        <div className="row">
-            <div className="col-5">
+        <div className="row d-flex justify-content-center">
+            <div className="col-4">
                 <Image src="https://placehold.it/200x200" rounded />
             </div>
-            <div className="col-6 card">
+            <div className="col-8 card">
                 <h2 className="card-header">{account.firstName} {account.lastName}</h2>
                 <div className="card-body">
                     <h4>Likes({props.likes.length})</h4>
