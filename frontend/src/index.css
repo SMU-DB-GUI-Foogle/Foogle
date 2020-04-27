@@ -8,6 +8,8 @@ html,
   margin-top: 2rem;
 }
 
+
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -40,6 +42,10 @@ code {
 .ml-3 {
   background-color: #00FA9A;
 }
+
+#landingPage  {
+  min-height: 100vh
+}
 #landingPage body {
   margin: 0;
   padding: 0;
@@ -64,11 +70,12 @@ code {
    margin-left: 700px;
    margin: 0 20px;
 }
-.landingPage #main {
+#landingPage #main {
   margin: 0 120px;
   margin-top: 200px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  justify-content: space-between
+  
 }
 #main .main-text {
   font-size: 45px;
@@ -80,11 +87,11 @@ code {
   border-color: white;
 }
 #bigLogo {
-  position: absolute;
+   position: absolute; 
   width: 400px;
   height: 400px;
-  left: 630px;
-  bottom: -200px;
+   left: 630px; 
+  bottom: -100px; 
 }
 #landingPage span {
   color:  #FFF;
@@ -131,16 +138,6 @@ code {
   color: white;
 }
 
-@media (max-width: 575px) {
-  div > div > img {
-    display: none;
-  }
-
-  #hideImg {
-    display: none;
-  }
-
-  #pushLeftWhenSmall {
-    float: left;
-  }
+#root {
+  min-height: 100vh;
 }
