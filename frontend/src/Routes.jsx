@@ -4,7 +4,7 @@ import AppliedRoute from './AppliedRoute';
 import { ProfileView, ProfileEditor, GroupView, GroupEditor, RecipeView, RecipeEditor } from './Profile';
 import { loginLanding } from './Login'
 import { ProductView, ProductEditor } from './Products';
-import { landingPage, about, gettingStarted, backgroundPage } from './LandingPage';
+import { landingPage, about, gettingStarted, backgroundPage, Foods } from './LandingPage';
 import { AdvancedSearch } from './Search'
 
 export default function Routes({ appProps }) {
@@ -12,6 +12,7 @@ export default function Routes({ appProps }) {
       <Switch>
         <AppliedRoute path="/" exact component={landingPage} appProps={appProps} />
         <AppliedRoute path="/about" exact component={about} appProps={appProps} />
+        <AppliedRoute path="/foodsNew" exact component={Foods} appProps={appProps} />
         <AppliedRoute path="/gettingStarted" exact component={gettingStarted} appProps={appProps} />
         <AppliedRoute path="/backgroundPage" exact component={backgroundPage} appProps={appProps} />
         <AppliedRoute path="/login" exact component={loginLanding} appProps={appProps} />

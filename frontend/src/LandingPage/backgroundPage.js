@@ -14,7 +14,7 @@ export const backgroundPage = props => {
 
     <section id="main">
       <div className="main-text">
-        <span>FOOGLE</span> <br />  <br />
+        <span>FOOGLE</span> <br />  <br /> 
         
       </div>
         

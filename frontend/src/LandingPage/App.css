@@ -1,0 +1,20 @@
+
+.main-text{
+    position: relative;
+}
+.main-text .ant-btn{
+    position: absolute;
+    bottom: -50px;
+    left: 0;
+}
+#foods{
+    padding: 20px;
+}
+#foods .each-food{
+    display: inline-block;
+    margin: 20px 33px;
+}
+#foods .pagination-list{
+    padding-top: 20px;
+    text-align: center;
+}
