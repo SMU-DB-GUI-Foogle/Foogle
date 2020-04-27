@@ -68,6 +68,9 @@ class App extends React.Component{
                       <Navbar.Brand>
                         <Link id = "navLink" to={`/${window.sessionStorage.getItem("username")}`} onClick={() => this.setNavExpanded(false)}>Profile</Link>
                       </Navbar.Brand>
+                      <Navbar.Brand>
+                        <Link id = "navLink" to={`/foodsNew`}>Foods</Link>
+                      </Navbar.Brand>
                     </>
                   : <>
                       <Navbar.Brand>
@@ -80,7 +83,7 @@ class App extends React.Component{
                 </Navbar.Brand>
               </Nav>
             
-              <Form inline>
+              { <Form inline>
                 <Form.Control type="text"
                               placeholder="Search for a Food"
                               className=" mr-sm-2"
@@ -99,7 +102,7 @@ class App extends React.Component{
                     <Dropdown.Item href="/search">Advanced Search</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
-              </Form>
+              </Form> }
             </Navbar.Collapse>
 				</Navbar>
         
