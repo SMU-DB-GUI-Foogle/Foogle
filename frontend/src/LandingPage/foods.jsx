@@ -230,7 +230,7 @@ export class Foods extends Component {
                                         }
                                         actions={[
                                             
-                                            <HeartOutlined key="heart" onClick={() =>this.props.history.push('/product/'+item.foodName)} />,
+                                            <EllipsisOutlined key="heart" onClick={() =>this.props.history.push('/product/'+item.foodName)} />,
 
                                         ]}
                                     >
