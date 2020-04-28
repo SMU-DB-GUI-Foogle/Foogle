@@ -2,6 +2,7 @@ import React from 'react';
 import { AxiosRequests } from '../api';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { notification } from 'antd';
 
 export class AdvancedSearch extends React.Component {
 
@@ -28,7 +29,11 @@ export class AdvancedSearch extends React.Component {
         this.searchRequests.getProductsByFoodGroup(foodGroupId)
             .then(products => {
                 this.setState({ results: products });
-                alert("Search Complete - See Bottom For Results!");
+                notification.success({
+                    message: 'Search Complete!',
+                    description: 'Scroll to the bottom to see your results!',
+                    placement: 'bottomRight'
+                });
             })
     }
 
@@ -37,7 +42,11 @@ export class AdvancedSearch extends React.Component {
         this.searchRequests.getProductsByNutrition(foodProp, this.state.lowerBound, this.state.upperBound)
             .then(products => {
                 this.setState({ results: products });
-                alert("Search Complete - See Bottom For Results!");
+                notification.success({
+                    message: 'Search Complete!',
+                    description: 'Scroll to the bottom to see your results!',
+                    placement: 'bottomRight'
+                });
             })
             
     }
@@ -46,7 +55,11 @@ export class AdvancedSearch extends React.Component {
         this.searchRequests.getProductsByNutrition("protein", start, 100)
             .then(products => {
                 this.setState({ results: products });
-                alert("Search Complete - See Bottom For Results!");
+                notification.success({
+                    message: 'Search Complete!',
+                    description: 'Scroll to the bottom to see your results!',
+                    placement: 'bottomRight'
+                });
             })
     }
 
@@ -54,7 +67,11 @@ export class AdvancedSearch extends React.Component {
         this.searchRequests.getProductsByNutrition("totalCalories", 400, 800)
             .then(products => {
                 this.setState({ results: products });
-                alert("Search Complete - See Bottom For Results!");
+                notification.success({
+                    message: 'Search Complete!',
+                    description: 'Scroll to the bottom to see your results!',
+                    placement: 'bottomRight'
+                });
             })
     }
 
@@ -66,7 +83,11 @@ export class AdvancedSearch extends React.Component {
                     if (products[i].foodName.indexOf("Babyfood") !== -1)
                         baby.push(products[i]); 
                 debugger;this.setState({ results: baby });
-                alert("Search Complete - See Bottom For Results!");
+                notification.success({
+                    message: 'Search Complete!',
+                    description: 'Scroll to the bottom to see your results!',
+                    placement: 'bottomRight'
+                });
             })
     }
 
@@ -81,7 +102,7 @@ export class AdvancedSearch extends React.Component {
                         <div>          
                             <Button id = "asButton" className="m-2" onClick={ e => this.workoutSearch(20) }>Workout (High Protein)</Button>
                             <Button id = "asButton" className="m-2" onClick={ e => this.workoutSearch(30) }>Recovery (High Protein and Carbs)</Button>
-                            <Button id = "asButton" className="m-2" onClick={ e => this.workoutSearch(40) }>Performance (High Protein/Carbohydrates/Calcium)</Button>
+                            <Button id = "asButton" className="m-2" onClick={ e => this.workoutSearch(40) }>Performance (High Protein, Carbohydrates, or Calcium)</Button>
                         </div>  
                     </div>
                     <div className="list-group-item">
@@ -97,7 +118,7 @@ export class AdvancedSearch extends React.Component {
                             <select
                                 name="prop"
                                 id="prop"
-                                className="form-control col-4"
+                                className="form-control col-md-4"
                                 value={this.state.foodGroup}
                                 onChange={ e => this.setState({ foodGroup: e.target.value })}>
                                 <option></option>
@@ -114,38 +135,38 @@ export class AdvancedSearch extends React.Component {
                             Search
                         </Button>
                     </div>
-                    <div className="list-group-item">
-                        Custom Search (based on Nutrition Facts):             
+                    <div className="list-group-item" >     
                         <div className="col-12 d-flex flex-wrap">
-                            <select
-                                name="prop"
-                                id="prop"
-                                className="form-control col-4"
-                                value={this.state.property}
-                                onChange={ e => this.setState({ property: e.target.value })}>
-                                <option></option>
-                                {
-                                    this.foodProperties.map((x, i) => <option key={ i }>{ x }</option>)
-                                }
-                            </select>
-                            <span className="col-1">Range:</span>
-                            <div className="col-2">
+                            <div className="col-md-4">
+                                <label htmlFor="prop">Custom Search (based on Nutrition Facts):</label>
+                                <select
+                                    name="prop"
+                                    id="prop"
+                                    className="form-control"
+                                    value={this.state.property}
+                                    onChange={ e => this.setState({ property: e.target.value })}>
+                                    <option></option>
+                                    {
+                                        this.foodProperties.map((x, i) => <option key={ i }>{ x }</option>)
+                                    }
+                                </select>
+                            </div>
+                            <div className="col-md-4">
+                                <label htmlFor="amount1">Upper Bound</label>
                                 <input
                                     type="number"
-                                    name="amount"
-                                    id="amount"
+                                    name="amount1"
+                                    id="amount1"
                                     className="form-control" 
                                     value={this.state.lowerBound}
                                     onChange={ e => this.setState({ lowerBound: e.target.value }) } />
                             </div>
-                            <span className="col-3 d-flex">
-                                <span className="h4 col-3">&lt;=</span> <span className=" h4 col-6">property</span> <span className="h4 col-3">&gt;=</span> 
-                            </span>
-                            <div className="col-2">
+                            <div className="col-md-4">
+                                <label htmlFor="amount2">Lower Bound</label>
                                 <input
                                     type="number"
-                                    name="amount"
-                                    id="amount"
+                                    name="amount2"
+                                    id="amount2"
                                     className="form-control" 
                                     value={this.state.upperBound}
                                     onChange={ e => this.setState({ upperBound: e.target.value }) } />
@@ -167,9 +188,9 @@ export class AdvancedSearch extends React.Component {
                 {
                     this.state.results.length > 0
                     ? <>  
-                        <div id="productsContainer" className="d-flex flex-wrap ">
+                        <div id="productsContainer" className="d-flex flex-wrap justify-content-around">
                             {this.state.results.map(product =>
-                                <div id = "productResult" key={ product.id } className="card p-3 my-1 align-items-center col-5 ">
+                                <div id = "productResult" key={ product.id } className="card p-3 my-2 justify-content-between col-md-5 ">
                                     <h4 className="text-center text-wrap">{ product.foodName }</h4>
                                     <div className="align-self-stretch">
                                         <Link id = "productButton" to={`/product/${product.foodName}`}
