@@ -82,7 +82,7 @@ export class AdvancedSearch extends React.Component {
                 for(let i = 0; i < products.length; i++)
                     if (products[i].foodName.indexOf("Babyfood") !== -1)
                         baby.push(products[i]); 
-                debugger;this.setState({ results: baby });
+                    this.setState({ results: baby });
                 notification.success({
                     message: 'Search Complete!',
                     description: 'Scroll to the bottom to see your results!',

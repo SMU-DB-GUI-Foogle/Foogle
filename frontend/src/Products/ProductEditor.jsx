@@ -235,7 +235,7 @@ export class ProductEditor extends React.Component {
         let foodName = this.props.match.params.name.replace(/%20/g, ' ');
         this.setState({ foodName: foodName });
         this.productRequests.getProductByName(foodName)
-            .then(product => {debugger;
+            .then(product => {
                 if(product.length > 0) {
                     this.setState({ servingPortion: product[0].servingPortion,
                                     foodGroupId: product[0].foodGroupId,

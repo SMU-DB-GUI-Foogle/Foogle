@@ -128,7 +128,6 @@ export class RecipeEditor extends React.Component {
     }
 
     componentDidMount() {
-        debugger;
         let account = JSON.parse(sessionStorage.getItem("account"));
         let recipeName = window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1).replace(/%20/g, ' ');
         this.setState({ name: recipeName,
