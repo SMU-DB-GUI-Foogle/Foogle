@@ -1646,12 +1646,12 @@ INSERT INTO ingredients (ingredient, numberOfServings, recipeId) VALUES ('Cinnam
 INSERT INTO ingredients (ingredient, numberOfServings, recipeId) VALUES ('Baking Powder','1 teaspoon','2');					
 INSERT INTO ingredients (ingredient, numberOfServings, recipeId) VALUES ('Baking Soda','1 teaspoon','2');					
 INSERT INTO ingredients (ingredient, numberOfServings, recipeId) VALUES ('Salt','1 teaspoon','2');					
-INSERT INTO ingredients (ingredient, numberOfServings, recipeId) VALUES ('Bread','2 slices','1');					
-INSERT INTO ingredients (ingredient, numberOfServings, recipeId) VALUES ('Peanut Butter','1 tablespoon','1');					
-INSERT INTO ingredients (ingredient, numberOfServings, recipeId) VALUES ('Jelly','1 tablespoon','1');					
-INSERT INTO ingredients (ingredient, numberOfServings, recipeId) VALUES ('Apple','1','3');					
-INSERT INTO ingredients (ingredient, numberOfServings, recipeId) VALUES ('Turkey Sandwhich','1','3');					
-INSERT INTO ingredients (ingredient, numberOfServings, recipeId) VALUES ('Gatorade','1','3');
+INSERT INTO ingredients (ingredient, numberOfServings, recipeId) VALUES ('Yellow Snap Beans','2 cans','1');					
+INSERT INTO ingredients (ingredient, numberOfServings, recipeId) VALUES ('Frozen Yogurts Vanilla Soft-Serve','1 tablespoon','1');					
+INSERT INTO ingredients (ingredient, numberOfServings, recipeId) VALUES ('Red Anjou Pears','1 tablespoon','1');					
+INSERT INTO ingredients (ingredient, numberOfServings, recipeId) VALUES ('Rhubarb','1','3');					
+INSERT INTO ingredients (ingredient, numberOfServings, recipeId) VALUES ('Beef Brisket Flat Half Boneless Separable Lean And Fat Trimmed To 0 Inch Fat Select Raw','1','3');					
+INSERT INTO ingredients (ingredient, numberOfServings, recipeId) VALUES ('Cooked Wild Rice','1','3');
 
 -- recipes TABLE DATA
 INSERT INTO recipes (recipeId,recipeName,userId) VALUES ('1','Johns Test Recipe','1');
