@@ -288,3 +288,15 @@ code {
   color: black;
 
 }
+
+#purpose {
+  text-align: center;
+  margin-left: 40px;
+}
+
+#bigLogo2 {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  margin-right: 50px;
+}

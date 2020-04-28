@@ -12,13 +12,13 @@ export const backgroundPage = props => {
         
       </div>
         
-      <div>
+      <div id = "purpose">
             <h1>PURPOSE</h1>
 
             <p>Foogle was created to give users control over their daily consumption. With Foogle, users can easily search foods and learn about their nutritional information.
               Learn more about our service on the "Get Started" page.
             </p>
-            <img id = "bigLogo" src = {logo}></img>
+            <img id = "bigLogo2" src = {logo}></img>
       </div>
     
        
