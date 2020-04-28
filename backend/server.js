@@ -179,7 +179,7 @@ app.post('/product/likes', (req, res) => {
   var userId = req.body.userId;
   var foodName = req.body.foodName.replace('/+/g', ' ');;
 
-  connection.query(`INSERT INTO likedFoods (userId, foodId) VALUES (? ,(SELECT foodId FROM foods WHERE foodName = ?))`, [userId, foodName], (err, result, fields) => {
+  connection.query(`INSERT INTO likedFoods (userId, foodId) VALUES (? ,(SELECT foodId FROM foods WHERE foodName = ?) WHERE NOT EXISTS (SELECT userId, foodName FROM likedFoods WHERE userId = ? AND foodName = ?))`, [userId, foodName, userId, foodName], (err, result, fields) => {
     if (err) logger.error(err.stack);
     res.end(JSON.stringify(result));
   })
