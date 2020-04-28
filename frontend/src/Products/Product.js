@@ -3,10 +3,10 @@ import { Card } from 'react-bootstrap';
 
 export const Product = props => {
 
-    return <Card>
+    return <Card id = "foodCard">
         
-        <Card.Title className="card-header bg-light">Name: {props.product.foodName}</Card.Title>  
-        <Card.Text className="list-group">
+        <Card.Title id = "foodCard" className="card-header bg-light">Name: {props.product.foodName}</Card.Title>  
+        <Card.Text id = "foodCard" className="list-group">
             <div className="list-group-item px-3 py-2">Serving Portion: {props.product.servingPortion}</div>  
             <div className="list-group-item px-3 py-2">Total Calories: {props.product.totalCalories}</div>  
             <div className="list-group-item px-3 py-2">Total Fat: {props.product.totalFat}</div>  

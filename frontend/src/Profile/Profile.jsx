@@ -1,6 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { Image } from 'react-bootstrap';
+import profileDefault from '../profileDefault.jpg';
 
 export const Profile = props => {
 
@@ -13,10 +14,11 @@ export const Profile = props => {
 
     return <>
         <div className="row d-flex justify-content-center">
-            <div className="col-md-4 m-1">
-                <Image src="https://placehold.it/200x200" rounded />
+            <div className="col-4">
+                <img src = {profileDefault}></img>
+                {/* <Image src="https://placehold.it/200x200" rounded /> */}
             </div>
-            <div className="card col-md-7">
+            <div className="col-8 card">
                 <h2 className="card-header">{account.firstName} {account.lastName}</h2>
                 <div className="card-body">
                     <h4>Likes({props.likes.length})</h4>

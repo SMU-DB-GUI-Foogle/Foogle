@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Redirect } from 'react-router-dom';
 import { Account } from '../models';
-import loginImg from "../login.svg";
+import logo from '../logoTrueGreen.jpg';
 import { AxiosRequests } from "../api";
 
 export const Register = props => {
@@ -41,11 +41,11 @@ export const Register = props => {
 
   return <>
     <div className="base-container" ref={props.containerRef}>
-      <div id="inForm" className="header"><h3>Register for FOOGLE</h3></div>
+      <div id="inForm" className="header"><h3>REGISTER</h3></div>
       <div id="inForm" className="">
-        {/* <div className="image">
-          <img src={loginImg} />
-        </div> */}
+        <div className="image">
+          <img id = "greenLogo" src={logo} />
+        </div>
         <div className="form">
         <div className="form-group">
             <label htmlFor="firstName">First Name</label>

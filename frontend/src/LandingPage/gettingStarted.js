@@ -62,6 +62,7 @@ export class gettingStarted extends React.Component {
           this.setState({ product: new Food(product[0]) })
         })
     })
+    debugger;
   }
 
 }

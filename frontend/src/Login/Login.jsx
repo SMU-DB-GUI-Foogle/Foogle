@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Redirect } from 'react-router-dom';
 import loginImg from "../login.svg";
+import logo from '../logoTrueGreen.jpg';
 import { AxiosRequests } from '../api'
 
 export const Login = props => {
@@ -71,11 +72,11 @@ export const Login = props => {
   return <>
   
     <div className="base-container" ref={props.containerRef}>
-      <div id="inForm" className="header"><h3>Login to FOOGLE</h3></div>
+      <div id="inForm" className="header"><h3 >LOGIN</h3></div>
       <div className="">
-        {/* <div className="image">
-          <img src={loginImg} />
-        </div> */}
+        <div className="image">
+          <img id = "greenLogo" src={logo} />
+        </div>
         <div className="form">
           <div className="form-group">
             <label id="inForm" htmlFor="email">Email</label>

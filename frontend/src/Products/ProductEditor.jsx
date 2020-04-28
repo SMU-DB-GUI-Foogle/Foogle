@@ -71,8 +71,8 @@ export class ProductEditor extends React.Component {
             return <Redirect to={ this.state.redirect } />
         }
 
-        return <div className="container">
-            <form className="card p-3">
+        return <div  className="container">
+            <form  className="card p-3">
                 <h1>Product Editor</h1>
                 <div className="form-group d-flex">
                     <div className="col-4">

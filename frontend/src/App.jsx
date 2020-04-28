@@ -54,7 +54,7 @@ class App extends React.Component{
 
     return (
       <div className="">
-        <Navbar id="nav" bg="dark" variant="dark" expand="lg" onSelect={this.setNavExpanded} expanded={this.state.navExpanded}>
+        <Navbar id="nav" bg="light" variant="light" expand="lg" onSelect={this.setNavExpanded} expanded={this.state.navExpanded}>
 					<Navbar.Brand >
             <Link id="navLink" className="" to="/" onClick={() => this.setNavExpanded(false)}>Foogle</Link>
           </Navbar.Brand>
