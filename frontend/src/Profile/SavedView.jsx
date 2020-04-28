@@ -38,7 +38,7 @@ export class SavedView extends React.Component {
     }
 
     render() {
-        return <>
+        return <div className="container">
             <div className="card p-2 m-2">
                 <h2>My Saved Products ({this.state.saves.length})</h2>
                 <Saved deleteSaved={name => this.handleDeleteSaved(name)} saves={this.state.saves} />
@@ -46,7 +46,7 @@ export class SavedView extends React.Component {
             <Link className="btn btn-secondary btn-block mt-2" to={`/${sessionStorage.getItem("username")}`}>
                 Return to Profile
             </Link>
-        </>
+        </div>
     }
 
     componentDidMount() {

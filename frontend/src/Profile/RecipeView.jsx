@@ -69,7 +69,7 @@ export class RecipeView extends React.Component {
         return <div className="container">
             <div className="card p-2">
                 <p className="card-header">
-                    My Recipes ({this.state.recipes.length})
+                    <span className="h4">My Recipes ({this.state.recipes.length})</span>
                     <Button className="btn btn-primary float-right" type="button" onClick={e => this.createRecipe()}>
                         Add a Recipe
                     </Button>

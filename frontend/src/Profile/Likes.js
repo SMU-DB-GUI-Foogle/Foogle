@@ -6,7 +6,10 @@ import { DeleteTwoTone } from '@ant-design/icons';
 export const Likes = props => {
 
     return <>
+        {!props.checked
+        ?
         <div className="card p-2 m-2">
+        
             <h2>My Likes ({props.likes.length})</h2>
             <ul className="list-group">
                 { !props.likes.length && (
@@ -28,6 +31,7 @@ export const Likes = props => {
                 }
             </ul>
         </div>
+        :
         <div className="card p-2 m-2">
             <h2>My Dislikes ({props.dislikes.length})</h2>
             <ul className="list-group">
@@ -50,6 +54,7 @@ export const Likes = props => {
                 }
             </ul>
         </div>
+        }
     </>
 }
 

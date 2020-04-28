@@ -2,7 +2,7 @@ import React from 'react';
 import { Likes } from './Likes';
 import { AxiosRequests } from '../api';
 import { Link } from 'react-router-dom';
-import { notification } from 'antd';
+import { notification, Switch } from 'antd';
 
 export class LikesView extends React.Component {
 
@@ -10,7 +10,8 @@ export class LikesView extends React.Component {
 
     state = {
         likes: [],
-        dislikes: []
+        dislikes: [],
+        checked: false
     }
 
     handleDeleteLiked(foodName) {
@@ -63,15 +64,23 @@ export class LikesView extends React.Component {
         });
     }
 
+    switchView() {
+        let newChecked = !this.state.checked;
+        this.setState({ checked: newChecked });
+    }
+
     render() {
-        return <>
-            <div>
-                <Likes deleteLiked={name => this.handleDeleteLiked(name)} likes={this.state.likes} deleteDisliked={name => this.handleDeleteDisliked(name)} dislikes={this.state.dislikes} />
-                <Link className="btn btn-secondary btn-block mt-2" to={`/${sessionStorage.getItem("username")}`}>
-                    Return to Profile
-                </Link>
-            </div> 
-        </>
+        return <div className="container">
+            <div className="d-flex">
+                <div className="col-3"></div>
+                <Switch checkedChildren="Dislikes" unCheckedChildren="Likes" checked={this.state.checked} onClick={() => this.switchView()} className="col-6" />
+                <div className="col-3"></div>
+            </div>
+            <Likes deleteLiked={name => this.handleDeleteLiked(name)} likes={this.state.likes} deleteDisliked={name => this.handleDeleteDisliked(name)} dislikes={this.state.dislikes} checked={this.state.checked} />
+            <Link className="btn btn-secondary btn-block mt-2" to={`/${sessionStorage.getItem("username")}`}>
+                Return to Profile
+            </Link>
+        </div>
     }
 
     componentDidMount() {
@@ -80,6 +89,7 @@ export class LikesView extends React.Component {
             .then(likes => this.setState({ likes }));
         this.profileRequests.getAccountDislikes(account.username, account.userId)
             .then(dislikes => this.setState({ dislikes }));
+        this.setState({ checked: this.props.location.typeProps});
     }
 
 }
