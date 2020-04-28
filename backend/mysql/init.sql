@@ -55,7 +55,7 @@ PRIMARY KEY(userId, foodId)
 CREATE TABLE IF NOT EXISTS dislikedFoods (
 userId int,
 foodId int,
-PRIMARY KEY(userId, foodId);
+PRIMARY KEY(userId, foodId)
 );
 
 CREATE TABLE IF NOT EXISTS users (
