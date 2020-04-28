@@ -19,7 +19,7 @@ export const Likes = props => {
                 }
                 {
                     props.likes.length && props.likes.map((p, i) => 
-                        <li className="list-group" key={ i } id="group">
+                        <li className="list-group my-1" key={ i } id="group">
                             <div className=" list-group-item list-group-item-secondary">{ i + 1 }. { p.foodName }</div>
                             <div className="list-group-item">
                                 <Link to={`/product/${ p.foodName }`}>Link to { p.foodName }'s product page</Link>
@@ -42,7 +42,7 @@ export const Likes = props => {
                 }
                 {
                     props.dislikes.length && props.dislikes.map((p, i) => 
-                        <li className="list-group" key={ i } id="group">
+                        <li className="list-group my-1" key={ i } id="group">
                             <div className=" list-group-item list-group-item-secondary">{ i + 1 }. { p.foodName }</div>
                             <div className="list-group-item">
                                 <Link to={`/product/${ p.foodName }`}>Link to { p.foodName }'s product page</Link>
