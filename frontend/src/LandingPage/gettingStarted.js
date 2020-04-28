@@ -35,7 +35,12 @@ export class gettingStarted extends React.Component {
                   <ul id = "nestedList">
                     <li>You can do a simple search with the exact name</li>
                     <li>An advanced search can help you find a food based on our grouping sytems!</li>
-                  </ul>
+                  </ul> 
+               <li>For example, here is the most recently added food on the site!</li>
+              </ul>
+                 <div className="text-dark">
+                   <Product product={this.state.product} foodGroup={this.state.foodGroup} />
+                 </div>
                 <li>Once you find a food you want to interact with, you can choose between these</li>
                 <ul>
                     <li><h4>LIKE</h4><LikeTwoTone  id = "action" key="like"  /> </li>
@@ -43,12 +48,8 @@ export class gettingStarted extends React.Component {
                     <li><h4>SAVE</h4><StarTwoTone id = "action" key="star" twoToneColor="#f7db02" /></li>
                 </ul>
                 <li>You can keep track of foods you have interacted with on your PROFILE page!</li>
-                <li>For example, here is the most recently added food on the site!</li>
-              </ul>
-              
-            <div className="text-dark">
-              <Product product={this.state.product} foodGroup={this.state.foodGroup} />
-            </div>
+                <li>You can also make recipes from your PROFILE page!</li>
+            
         </div>
 
         
@@ -61,9 +62,9 @@ export class gettingStarted extends React.Component {
 
   componentDidMount() {
     this.productRequests.getAllProducts()
-    .then(products => { debugger;
+    .then(products => { 
       this.productRequests.getProductByName(products[products.length - 1].foodName)
-        .then(product => { debugger;
+        .then(product => { 
           this.setState({ product: new Food(product[0]) })
           this.productRequests.getFoodGroups()
             .then(foodGroups => {
@@ -72,7 +73,7 @@ export class gettingStarted extends React.Component {
             });
         })
     })
-    debugger;
+    
   }
 
 }
