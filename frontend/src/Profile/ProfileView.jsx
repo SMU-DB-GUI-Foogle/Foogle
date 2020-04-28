@@ -4,6 +4,7 @@ import { Profile } from './Profile';
 import { DropdownButton, Dropdown, Form, Col, Button } from 'react-bootstrap';
 import { Redirect, Link } from 'react-router-dom';
 import { SendOutlined } from '@ant-design/icons';
+import { notification } from 'antd';
 
 export class ProfileView extends React.Component {
 
@@ -30,7 +31,10 @@ export class ProfileView extends React.Component {
                         window.sessionStorage.removeItem("admin");
                         this.setState({ saves: [], redirct: '/' });
                         this.props.userHasAuthenticated(false);
-                        alert("Account Deleted :(");
+                        notification.success({
+                            message: 'Account Deleted :(',
+                            placement: 'bottomRight'
+                        });
                     });
                 }
             }
@@ -62,7 +66,13 @@ export class ProfileView extends React.Component {
                                         id = "buttonRules"
                                         type="button"
                                         disabled={!(this.state.email.length > 0)}
-                                        onClick={() => {window.alert("Invitation Sent"); this.setState({ email: '' }) } }>
+                                        onClick={() => {            
+                                            notification.success({
+                                                message: 'Email "Sent"!',
+                                                placement: 'bottomRight'
+                                            });
+                                            this.setState({ email: '' })
+                                        }}>
                                     <SendOutlined className="align-middle" />
                                 </Button>
                         </Form.Group>

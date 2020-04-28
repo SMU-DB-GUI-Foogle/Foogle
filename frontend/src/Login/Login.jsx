@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 import loginImg from "../login.svg";
 import logo from '../logoTrueGreen.jpg';
 import { AxiosRequests } from '../api'
+import { notification } from 'antd';
 
 export const Login = props => {
   const [email, setEmail] = useState("");
@@ -28,7 +29,12 @@ export const Login = props => {
             .then(account => {
               if (account.length == 0) {
                   setInvalidCred(true);
-                  alert("Invalid email and/or password");
+                  notification.error({
+                    message: 'Invalid Username and/or Password!',
+                    placement: 'bottomRight'
+                  });
+                  setEmail("");
+                  setPassword("");
                   return;
               }
 
@@ -38,25 +44,13 @@ export const Login = props => {
               if(account[0].isAdmin) {
                 window.sessionStorage.setItem("admin", true);
               }
-              // else {
-              //   window.sessionStorage.setItem("admin", false);
-              // }
+              notification.success({
+                message: 'Login Successful!',
+                description: `Click 'Profile' or 'Search a Food' to see more!`,
+                placement: 'bottomRight'
+              });
               props.userHasAuthenticated(true);
             })
-
-          // //local stoarge statements used for local testing till axios requests can be used
-          // let accounts = JSON.parse(localStorage.getItem('accounts'));
-          // let userAccount = accounts.find(x => (x.email === email && x.password === password));
-
-          // if (!(email && password) || !userAccount) {
-          //     setInvalidCred(true);
-          //     return;
-          // }
-
-          // props.userHasAuthenticated(true);
-          // window.sessionStorage.setItem("auth", true);
-          // window.sessionStorage.setItem("username", userAccount.username);
-          // window.sessionStorage.setItem("account", JSON.stringify(userAccount));
       }
       catch(e) {
           alert(e.message)
@@ -64,7 +58,7 @@ export const Login = props => {
 
   }
 
-  if(props.isAuthenticated /*window.sessionStorage.getItem("auth")*/) {
+  if(props.isAuthenticated) {
       return (<Redirect to="/" push/>);
   }
 
@@ -79,7 +73,7 @@ export const Login = props => {
         </div>
         <div className="form">
           <div className="form-group">
-            <label id="inForm" htmlFor="email">Email</label>
+            <label id="inForm" htmlFor="email" className="mr-2">Email: </label>
             <input type="email"
                    name="email"
                    placeholder="Email"
@@ -87,7 +81,7 @@ export const Login = props => {
                    onChange={ e => setEmail(e.target.value) } />
           </div>
           <div className="form-group">
-            <label id="inForm" htmlFor="password">Password</label>
+            <label id="inForm" htmlFor="password" className="mr-2">Password:</label>
             <input type="password"
                    name="password"
                    placeholder="Password"

@@ -81,7 +81,10 @@ export class ProductView extends React.Component {
             this.productRequests.deleteProduct(foodName)
                 .then(() => {
                     this.setState({ redirect: '/' });
-                    alert("Product Deleted "); 
+                    notification.success({
+                        message: 'Product Deleted!',
+                        placement: 'bottomRight'
+                    });
                 });
         }
     }

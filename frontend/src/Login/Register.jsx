@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { Account } from '../models';
 import logo from '../logoTrueGreen.jpg';
 import { AxiosRequests } from "../api";
+import { notification } from 'antd';
 
 export const Register = props => {
   const [firstName, setFirstName] = useState("");
@@ -26,7 +27,10 @@ export const Register = props => {
       }
 
       accountRequests.register(firstName, lastName, email, username, password)
-        .then(alert("Account Created!"));
+        .then(notification.success({
+                message: 'Account Created!',
+                placement: 'bottomRight'
+              }));
 
       setRegistered(true);
   }
@@ -48,7 +52,7 @@ export const Register = props => {
         </div>
         <div className="form">
         <div className="form-group">
-            <label htmlFor="firstName">First Name</label>
+            <label htmlFor="firstName" className="mr-2">First Name:</label>
             <input type="text"
                    name="firstName"
                    placeholder="First Name"
@@ -56,7 +60,7 @@ export const Register = props => {
                    onChange={e => setFirstName(e.target.value)} />
           </div>
           <div className="form-group">
-            <label htmlFor="lastName">Last Name</label>
+            <label htmlFor="lastName" className="mr-2">Last Name:</label>
             <input type="text"
                    name="lastName"
                    placeholder="Last Name"
@@ -64,7 +68,7 @@ export const Register = props => {
                    onChange={e => setLastName(e.target.value)} />
           </div>
           <div className="form-group">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email" className="mr-2">Email:</label>
             <input type="email"
                    name="email"
                    placeholder="Email"
@@ -72,7 +76,7 @@ export const Register = props => {
                    onChange={e => setEmail(e.target.value)} />
           </div>
           <div className="form-group">
-            <label htmlFor="username">Username</label>
+            <label htmlFor="username" className="mr-2">Username:</label>
             <input type="text"
                    name="username"
                    placeholder="Username"
@@ -80,7 +84,7 @@ export const Register = props => {
                    onChange={e => setUsername(e.target.value)} />
           </div>
           <div className="form-group">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password" className="mr-2">Password:</label>
             <input type="password"
                    name="password"
                    placeholder="Password"

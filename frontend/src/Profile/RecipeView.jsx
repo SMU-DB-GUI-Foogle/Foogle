@@ -70,7 +70,7 @@ export class RecipeView extends React.Component {
             <div className="card p-2">
                 <p className="card-header">
                     <span className="h4">My Recipes ({this.state.recipes.length})</span>
-                    <Button className="btn btn-primary float-right" type="button" onClick={e => this.createRecipe()}>
+                    <Button className="btn float-right" id="buttonRules" type="button" onClick={e => this.createRecipe()}>
                         Add a Recipe
                     </Button>
                 </p>
@@ -92,13 +92,16 @@ export class RecipeView extends React.Component {
                                     </button>
                                 </div>
                                 <div>
-                                    <Link className="btn btn-primary m-1" to={`/${sessionStorage.getItem("username")}/recipes/${ p.recipeName }`}>Edit { p.recipeName }'s' Recipe</Link>
+                                    <Link className="btn m-1" id="buttonRules" to={`/${sessionStorage.getItem("username")}/recipes/${ p.recipeName }`}>Edit { p.recipeName }'s' Recipe</Link>
                                     <textarea id="hidden" class="js-copytextarea" rows="1" cols="1">{ window.location.href }</textarea>
-                                    <Button className="btn btn-info m-1 float-right" type="button" onClick={ e => { 
+                                    <Button className="btn m-1 float-right" id="buttonRules" type="button" onClick={ e => { 
                                         let copyText = document.querySelector('.js-copytextarea');
                                         copyText.select();
                                         document.execCommand("copy");
-                                        alert("Link Copied to Clipboard!") } }>
+                                        notification.info({
+                                            message: 'Link Copied to Clipboard!',
+                                            placement: 'bottomRight'
+                                        }); } }>
                                         Share this Recipe
                                     </Button>
                                 </div>  

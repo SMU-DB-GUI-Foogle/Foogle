@@ -40,7 +40,8 @@ export class IngredientEditor extends React.Component {
                         <br/>
                         <button
                             type="button"
-                            className="btn btn-success btn-block"
+                            id="buttonRules"
+                            className="btn btn-block"
                             disabled={!(this.state.name.length > 0 && this.state.amount > 0)}
                             onClick={ () => this.onIngredientAdded()} >
                             Add
