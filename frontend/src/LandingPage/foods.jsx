@@ -22,43 +22,43 @@ export class Foods extends Component {
     state = {
         foodsList: [{
             id: 1,
-            foodsName: '食物1',
+            foodsName: '1',
             foodsDescription: '好吃得很',
         }, {
             id: 2,
-            foodsName: '食物2',
+            foodsName: '2',
             foodsDescription: '好吃得很',
         }, {
             id: 3,
-            foodsName: '食物3',
+            foodsName: '3',
             foodsDescription: '好吃得很',
         }, {
             id: 4,
-            foodsName: '食物4',
+            foodsName: '4',
             foodsDescription: '好吃得很',
         }, {
             id: 5,
-            foodsName: '食物5',
+            foodsName: '5',
             foodsDescription: '好吃得很',
         }, {
             id: 6,
-            foodsName: '食物6',
+            foodsName: '6',
             foodsDescription: '好吃得很',
         }, {
             id: 7,
-            foodsName: '食物7',
+            foodsName: '7',
             foodsDescription: '好吃得很',
         }, {
             id: 8,
-            foodsName: '食物8',
+            foodsName: '8',
             foodsDescription: '好吃得很',
         }, {
             id: 9,
-            foodsName: '食物9',
+            foodsName: '9',
             foodsDescription: '好吃得很',
         }, {
             id: 10,
-            foodsName: '食物9',
+            foodsName: '9',
             foodsDescription: '好吃得很',
         }],
         filterFoodList: [],
@@ -75,10 +75,7 @@ export class Foods extends Component {
         
     }
 
-    /**
-     * 请求方法区域  
-     */
-    // 请求所有食物列表
+    
     getAllFoods = () => {
         console.log("hello world!")
         reqAllFood(this.state.search).then(res => {
@@ -94,9 +91,9 @@ export class Foods extends Component {
             // }
         });
     };
-    // 加入喜欢列表请求
+    
     getLikeFoods = (foods) => {
-        message.success('添加喜欢食物成功!');
+        message.success('!');
         reqAddLikeFood({
             foodsName: foods.foodsName,
             userId: foods.userId,
@@ -110,9 +107,9 @@ export class Foods extends Component {
             }
         });
     };
-    // 删除喜欢食物请求
+    
     deleteLikeFoods = (foods) => {
-        message.success('删除喜欢食物成功!');
+        message.success('!');
         reqDeleteLikeFood({
             foodsName: foods.foodsName,
             userId: foods.userId,
@@ -126,9 +123,9 @@ export class Foods extends Component {
             }
         });
     };
-    // 加入不喜欢列表请求
+    
     getDislikeFoods = (foods) => {
-        message.success('加入不喜欢列表成功!');
+        message.success('!');
         reqAddDislikeFood({
             foodsName: foods.foodsName,
             userId: foods.userId,
@@ -142,9 +139,9 @@ export class Foods extends Component {
             }
         });
     };
-    // 删除不喜欢列表请求
+    
     deleteDislikeFoods = (foods) => {
-        message.success('删除不喜欢列表成功!')
+        message.success('!')
         reqDeleteDislikeFood({
             foodsName: foods.foodsName,
             userId: foods.userId,
@@ -158,11 +155,7 @@ export class Foods extends Component {
             }
         });
     };
-    /**
-     * 通用方法区域
-     * @param value
-     */
-    // 模糊搜索食物
+    
     searchFoods = (value) => {
         const { foodsList, filterFoodList } = this.state;
         if (filterFoodList.length > 0) {

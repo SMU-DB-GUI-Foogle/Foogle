@@ -94,10 +94,10 @@ export class ProductView extends React.Component {
         return <div className="container">
             {this.state.product
             ? <>
-                <Card key={this.state.product.foodId} className="bg-info"
-                      actions={ [<LikeTwoTone key="like"  onClick={ e => this.likeProduct( window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1)) } />,    
-                      <DislikeTwoTone key="dislike" twoToneColor="#eb2f96" onClick={ e => this.dislikeProduct(window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1)) } />,
-                      <StarTwoTone key="star" twoToneColor="#f7db02" onClick={ e => this.saveProduct(window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1)) } />,] }>
+                <Card id = "outerFoodCard" key={this.state.product.foodId} 
+                      actions={ [<LikeTwoTone  id = "action" key="like"  onClick={ e => this.likeProduct( window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1)) } />,    
+                      <DislikeTwoTone id = "action" key="dislike" twoToneColor="#eb2f96" onClick={ e => this.dislikeProduct(window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1)) } />,
+                      <StarTwoTone id = "action" key="star" twoToneColor="#f7db02" onClick={ e => this.saveProduct(window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1)) } />,] }>
                     <Product product={this.state.product} />
                 </Card>
                 

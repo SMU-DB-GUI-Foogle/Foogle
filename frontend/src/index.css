@@ -39,7 +39,7 @@ code {
 }
 
 #navLink{
-  color: #00FA9A;
+  color: black;
 }
 .ml-3 {
   background-color: #00FA9A;
@@ -163,6 +163,27 @@ code {
   height: 100px;
 }
 
-#foodCard {
+
+#outerFoodCard{
+  background-color: #00FA9A;
+  color: black;
+  border-radius: 15px;
+  border-width: 5px;
+  border-color: white;
+}
+
+#foodCard{
+  background-color: #00FA9A;
+  color: black;
+  border-color: #00FA9A;
+}
+
+#foodStat {
+  background-color: #00fA9A;
+  border-color: #00FA9A
+}
+
+#action {
   background-color: white;
+  border-color: #00FA9A;
 }
