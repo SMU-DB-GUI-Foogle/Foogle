@@ -3,7 +3,8 @@ import Routes from './Routes';
 import { Nav, Navbar, Form, Button, Dropdown } from 'react-bootstrap';
 import { Redirect, Link } from 'react-router-dom';
 import { SearchOutlined } from '@ant-design/icons';
-import logo from './logoTrueGreen.jpg';
+import logo from './logoGreenTransparent.png';
+
 
 class App extends React.Component{
   state = {
