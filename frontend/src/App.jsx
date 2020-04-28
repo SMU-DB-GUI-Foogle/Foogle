@@ -102,7 +102,7 @@ class App extends React.Component{
                           <SearchOutlined className="align-middle" />
                   </Button>
                   <Dropdown.Toggle split type="button" id="buttonRules" />
-                  <Dropdown.Menu alignRight>
+                  <Dropdown.Menu id="dropdown-menu">
                     <Dropdown.Item href="/search">Advanced Search</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>

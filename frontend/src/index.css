@@ -274,6 +274,11 @@ code {
   margin-right: 50px;
 }
 
+#dropdown-menu {
+    right: 0;
+    left: auto;
+}
+
 @media (max-width: 575px) {
   div > div > img {
     display: none;
@@ -309,6 +314,11 @@ code {
   #bigLogo2 {
     margin-right: 0;
     margin-left: 0;
+  }
+
+  #dropdown-menu {
+    left: 0;
+    right: auto;
   }
 
 }
