@@ -122,7 +122,7 @@ export class ProductEditor extends React.Component {
                 </div>
                 <div className="d-flex form-group">
                     <div className="col-6">
-                        <label htmlFor="amount">Total Calories</label>
+                        <label htmlFor="amount">Total Calories (cal)</label>
                         <input
                             type="number"
                             name="amount"
@@ -132,7 +132,7 @@ export class ProductEditor extends React.Component {
                             onChange={ e => this.setState({ totalCalories: e.target.value }) } />
                     </div>
                     <div className="col-6">
-                        <label htmlFor="amount">Total Carbohydrates</label>
+                        <label htmlFor="amount">Total Carbohydrates (g)</label>
                         <input
                             type="number"
                             name="amount"
@@ -144,7 +144,7 @@ export class ProductEditor extends React.Component {
                 </div>
                 <div className="d-flex form-group">
                     <div className="col-6">
-                        <label htmlFor="amount">Total Fat</label>
+                        <label htmlFor="amount">Total Fat (g)</label>
                         <input
                             type="number"
                             name="amount"
@@ -154,7 +154,7 @@ export class ProductEditor extends React.Component {
                             onChange={ e => this.setState({ totalFat: e.target.value }) } />
                     </div>
                     <div className="col-3">
-                        <label htmlFor="amount">Trans Fat</label>
+                        <label htmlFor="amount">Trans Fat (g)</label>
                         <input
                             type="number"
                             name="amount"
@@ -164,7 +164,7 @@ export class ProductEditor extends React.Component {
                             onChange={ e => this.setState({ transFat: e.target.value }) } />
                     </div>
                     <div className="col-3">
-                        <label htmlFor="amount">Saturated Fat</label>
+                        <label htmlFor="amount">Saturated Fat (g)</label>
                         <input
                             type="number"
                             name="amount"
@@ -176,7 +176,7 @@ export class ProductEditor extends React.Component {
                 </div>
                 <div className="d-flex form-group">
                     <div className="col-3">
-                        <label htmlFor="amount">Cholesterol</label>
+                        <label htmlFor="amount">Cholesterol (mg)</label>
                         <input
                             type="number"
                             name="amount"
@@ -186,7 +186,7 @@ export class ProductEditor extends React.Component {
                             onChange={ e => this.setState({ cholesterol: e.target.value }) } />
                     </div>
                     <div className="col-3">
-                        <label htmlFor="amount">Sodium</label>
+                        <label htmlFor="amount">Sodium (mg)</label>
                         <input
                             type="number"
                             name="amount"
@@ -196,7 +196,7 @@ export class ProductEditor extends React.Component {
                             onChange={ e => this.setState({ sodium: e.target.value }) } />
                     </div>
                     <div className="col-3">
-                        <label htmlFor="amount">Sugars</label>
+                        <label htmlFor="amount">Sugars (g)</label>
                         <input
                             type="number"
                             name="amount"
@@ -206,7 +206,7 @@ export class ProductEditor extends React.Component {
                             onChange={ e => this.setState({ sugars: e.target.value }) } />
                     </div>
                     <div className="col-3">
-                        <label htmlFor="amount">Protein</label>
+                        <label htmlFor="amount">Protein (g)</label>
                         <input
                             type="number"
                             name="amount"

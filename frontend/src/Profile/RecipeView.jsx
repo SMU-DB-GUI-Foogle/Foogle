@@ -93,7 +93,7 @@ export class RecipeView extends React.Component {
                                 </div>
                                 <div>
                                     <Link id ="recipeButton" className="btn m-1" to={`/${sessionStorage.getItem("username")}/recipes/${ p.recipeName }`}>Edit { p.recipeName }'s' Recipe</Link>
-                                    <textarea id="hidden" class="js-copytextarea" rows="1" cols="1">{ window.location.href }</textarea>
+                                    {/* <textarea id="hidden" class="js-copytextarea" rows="1" cols="1">{ window.location.href }</textarea>
                                     <Button id = "shareButton" className="btn m-1 float-right" type="button" onClick={ e => { 
                                         let copyText = document.querySelector('.js-copytextarea');
                                         copyText.select();
@@ -103,7 +103,7 @@ export class RecipeView extends React.Component {
                                             placement: 'bottomRight'
                                         }); } }>
                                         Share this Recipe
-                                    </Button>
+                                    </Button> */}
                                 </div>  
                             </li>)
                     }
