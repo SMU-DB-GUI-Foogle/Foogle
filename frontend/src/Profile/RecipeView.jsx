@@ -83,7 +83,7 @@ export class RecipeView extends React.Component {
                     {
                         this.state.recipes.length && this.state.recipes.map((p, i) => 
                             <li className="list-group mt-2" key={ i } id="group">
-                                <div className=" list-group-item list-group-item-secondary">
+                                <div id = "profileCard" className=" list-group-item">
                                     { i + 1 }. { p.recipeName }
                                     <button type="button"
                                             className="btn btn-sm btn-danger float-right"
@@ -92,9 +92,9 @@ export class RecipeView extends React.Component {
                                     </button>
                                 </div>
                                 <div>
-                                    <Link className="btn m-1" id="buttonRules" to={`/${sessionStorage.getItem("username")}/recipes/${ p.recipeName }`}>Edit { p.recipeName }'s' Recipe</Link>
+                                    <Link id ="recipeButton" className="btn m-1" to={`/${sessionStorage.getItem("username")}/recipes/${ p.recipeName }`}>Edit { p.recipeName }'s' Recipe</Link>
                                     <textarea id="hidden" class="js-copytextarea" rows="1" cols="1">{ window.location.href }</textarea>
-                                    <Button className="btn m-1 float-right" id="buttonRules" type="button" onClick={ e => { 
+                                    <Button id = "shareButton" className="btn m-1 float-right" type="button" onClick={ e => { 
                                         let copyText = document.querySelector('.js-copytextarea');
                                         copyText.select();
                                         document.execCommand("copy");
