@@ -16,7 +16,7 @@ export class LikesView extends React.Component {
     handleDeleteLiked(foodName) {
         notification.open({
             key: "like",
-            message: "Are you sure you want to delete this liked product from your profile?",
+            message: `Are you sure you want to delete your like of ${foodName} from your profile?`,
             duration: 0,
             btn: <button type="button" className="btn btn-primary" size="small" onClick={e => { 
                     this.deleteLiked(foodName);
@@ -27,7 +27,7 @@ export class LikesView extends React.Component {
     handleDeleteDisliked(foodName) {
         notification.open({
             key: "dislike",
-            message: "Are you sure you want to delete this disliked product from your profile?",
+            message: `Are you sure you want to delete your dislike of ${foodName} from your profile?`,
             duration: 0,
             btn: <button type="button" className="btn btn-primary" size="small" onClick={e => { 
                     this.deleteDisliked(foodName);
@@ -43,7 +43,8 @@ export class LikesView extends React.Component {
                 likes: this.state.likes.filter(x => x.foodName !== foodName)
             });
             notification.success({
-                message: 'Liked Product Removed!'
+                message: 'Liked Product Removed!',
+                placement: 'bottomRight'
             });
         });
     }
@@ -56,7 +57,8 @@ export class LikesView extends React.Component {
                 dislikes: this.state.dislikes.filter(x => x.foodName !== foodName)
             });
             notification.success({
-                message: 'Disliked Product Removed!'
+                message: 'Disliked Product Removed!',
+                placement: 'bottomRight'
             });
         });
     }

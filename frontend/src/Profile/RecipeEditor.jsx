@@ -4,6 +4,7 @@ import { Recipe } from '../models';
 import { Link, Redirect } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { IngredientEditor } from './IngredientEditor';
+import { notification } from 'antd';
 
 export class RecipeEditor extends React.Component {
 
@@ -28,26 +29,44 @@ export class RecipeEditor extends React.Component {
             this.setState({ 
                 recipes: ingredientList
             });
-            alert("Ingredient Added!");
+            notification.success({
+                message: 'Ingredient Added!',
+                placement: 'bottomRight'
+            });
+        })
+    }
+
+    handleDeleteIngredient(ingredient) {
+        notification.open({
+            key: "delete",
+            message: `Are you sure you want to delete the ingredient ${ingredient} from your recipe?`,
+            duration: 0,
+            btn: <button type="button" className="btn btn-primary" size="small" onClick={e => { 
+                    this.deleteIngredient(ingredient);
+                    notification.close("delete"); }}>Confirm</button>
         })
     }
 
     deleteIngredient(ingredient) {
-        if(window.confirm("Are you sure you want to delete this ingredient?")) {
-            let account = JSON.parse(sessionStorage.getItem("account"));
-            this.recipeRequests.deleteIngredient(account.username, account.userId, this.state.name, ingredient)
-            .then(() => {
-                this.setState({ 
-                    ingredients: this.state.ingredients.filter(x => x.ingredient !== ingredient)
-                });
-                alert("Ingredient Deleted");
-            })
-        }
+        let account = JSON.parse(sessionStorage.getItem("account"));
+        this.recipeRequests.deleteIngredient(account.username, account.userId, this.state.name, ingredient)
+        .then(() => {
+            this.setState({ 
+                ingredients: this.state.ingredients.filter(x => x.ingredient !== ingredient)
+            });
+            notification.success({
+                message: 'Ingredient Removed!',
+                placement: 'bottomRight'
+            });
+        })
     }
 
     onSubmit() {
         let account = JSON.parse(sessionStorage.getItem("account"));
-        alert("Recipe Updated!");
+        notification.success({
+            message: 'Recipe Updated!',
+            placement: 'bottomRight'
+        });;
         this.setState({ redirect: "/" + account.username + '/recipes'}) 
     }
 
@@ -79,7 +98,7 @@ export class RecipeEditor extends React.Component {
                     this.state.ingredients.length && this.state.ingredients.map((p, i) => 
                         <li className="list-group-item" key={ i }>
                             { p.ingredient }
-                            <Button className="float-right btn-danger" type="button" onClick={e => this.deleteIngredient(p.ingredient)} >X</Button>
+                            <Button className="float-right btn-danger" type="button" onClick={e => this.handleDeleteIngredient(p.ingredient)} >X</Button>
                             <span className="card float-right p-2 mr-2">
                                 Amount: { p.numberOfServings }
                             </span>

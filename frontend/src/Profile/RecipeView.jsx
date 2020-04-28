@@ -4,6 +4,7 @@ import { Account } from '../models';
 import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { DeleteTwoTone } from '@ant-design/icons';
+import { notification } from 'antd';
 
 export class RecipeView extends React.Component {
 
@@ -13,24 +14,39 @@ export class RecipeView extends React.Component {
         recipes: []
     }
 
+    handleDeleteRecipe(recipeName) {
+        notification.open({
+            key: "delete",
+            message: `Are you sure you want to delete your recipe ${recipeName} from your profile?`,
+            duration: 0,
+            btn: <button type="button" className="btn btn-primary" size="small" onClick={e => { 
+                    this.onDelete(recipeName);
+                    notification.close("delete"); }}>Confirm</button>
+        })
+    }
+
     onDelete(recipeName) {
-        if(window.confirm("Are you sure you want to delete this recipe?")) {
-            let account = JSON.parse(sessionStorage.getItem("account"));
-            this.recipeRequests.deleteRecipe(account.username, account.userId, recipeName)
-            .then(() => {
-                this.setState({ 
-                    recipes: this.state.recipes.filter(x => x.recipeName !== recipeName)
-                });
-                alert("Recipe Deleted");
-            })
-        }
+        let account = JSON.parse(sessionStorage.getItem("account"));
+        this.recipeRequests.deleteRecipe(account.username, account.userId, recipeName)
+        .then(() => {
+            this.setState({ 
+                recipes: this.state.recipes.filter(x => x.recipeName !== recipeName)
+            });
+            notification.success({
+                message: 'Recipe Removed!',
+                placement: 'bottomRight'
+            });
+        })
     }
 
     createRecipe() {
         let recipeName = prompt("Please enter a name for the new recipe", "");
 
         if (recipeName == null || recipeName == "") {
-            alert("Addition Cancelled")
+            notification.error({
+                message: 'Addition Cancelled!',
+                placement: 'bottomRight'
+            });
         }
         else {
             let account = JSON.parse(sessionStorage.getItem("account"));
@@ -41,7 +57,10 @@ export class RecipeView extends React.Component {
                 this.setState({ 
                     recipes: recipeList
                 });
-                alert("Recipe Added!");
+                notification.success({
+                    message: 'Recipe Added!',
+                    placement: 'bottomRight'
+                });
             })
         }
     }
@@ -68,7 +87,7 @@ export class RecipeView extends React.Component {
                                     { i + 1 }. { p.recipeName }
                                     <button type="button"
                                             className="btn btn-sm btn-danger float-right"
-                                            onClick={ e => this.onDelete(p.recipeName) }>
+                                            onClick={ e => this.handleDeleteRecipe(p.recipeName) }>
                                         <DeleteTwoTone className="align-middle" twoToneColor="#a8a8a8"/>
                                     </button>
                                 </div>

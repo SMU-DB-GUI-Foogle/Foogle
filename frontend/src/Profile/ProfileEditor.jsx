@@ -1,6 +1,7 @@
 import React from 'react'
 import { AxiosRequests } from '../api';
 import { Link, Redirect } from 'react-router-dom';
+import { notification } from 'antd';
 
 export class ProfileEditor extends React.Component {
 
@@ -32,14 +33,21 @@ export class ProfileEditor extends React.Component {
                 account.password = this.state.password;
                 password = this.state.password;
             }
-            window.alert("Profile information updated!")
+            notification.success({
+                message: 'Profile Updated!',
+                placement: 'bottomRight'
+            });
             sessionStorage.setItem("account", JSON.stringify(account));
             sessionStorage.setItem("username", this.state.username);
             this.profileRequests.updateProfile(account.userId, this.state.firstName, this.state.lastName, this.state.email, this.state.username, password)
             this.setState({ redirect: "/" + account.username}) 
         }
         else {
-            window.alert("Passwords do not match!")
+            notification.error({
+                message: 'Passwords Do Not Match!',
+                description: 'Make sure both passwords match then hit submit again.',
+                placement: 'bottomRight'
+            });
         }
     }
 
