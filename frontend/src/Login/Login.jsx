@@ -72,7 +72,7 @@ export const Login = props => {
           <img id = "greenLogo" src={logo} />
         </div>
         <div className="form">
-          <div className="formGroupEmail">
+          <div className="form-group">
             <label id="inForm" htmlFor="email" className="mr-2">Email: </label>
             <input className = "form-control"
                    type="email"

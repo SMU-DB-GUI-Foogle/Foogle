@@ -9,9 +9,9 @@ export const about = props => {
 
 
     <section id="main">
-      <div className="main-text">
-        <span>FOOGLE BASICS</span> <br />  <a color = "#00FA9A" href = "gettingStarted"> Get Started </a> <br />
-        <a href = "backgroundPage"> Purpose </a>
+    <div className="main-text">
+        <span>FOOGLE BASICS</span> <br />  <a href = "backgroundPage"> Purpose </a><br />
+        <a color = "#00FA9A" href = "gettingStarted"> Get Started </a>
       </div>
 
       <div id="hideImg">

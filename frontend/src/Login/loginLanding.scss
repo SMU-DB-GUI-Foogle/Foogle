@@ -136,3 +136,37 @@
   font-weight: bold;
   color:  #00FA9A;
 }
+
+@media (max-width: 575px) {
+  .login {
+    width: 60vw;
+    .right-side {
+      width: 100%;
+
+      &.right {
+        right: -20%;
+        align-items: flex-end;
+        &:hover {
+          right: -25%;
+        }
+      }
+      &.left {
+        right: 20%;
+        align-items: flex-start;
+        &:hover {
+          right: 25%;
+        }
+      }
+
+
+      .text {
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        margin-right: 0.6em;
+        margin-left: 0.6em;
+      }
+    }
+  }
+
+
+}
