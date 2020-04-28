@@ -7,7 +7,8 @@ import { AxiosRequests } from '../api';
 export class gettingStarted extends React.Component {
 
   state = {
-    product: []
+    product: [],
+    foodGroup: ""
   }
 
   productRequests = new AxiosRequests();
@@ -42,7 +43,7 @@ export class gettingStarted extends React.Component {
               </ul>
               
             <div className="text-dark">
-              <Product product={this.state.product} />
+              <Product product={this.state.product} foodGroup={this.state.foodGroup} />
             </div>
         </div>
 
@@ -60,6 +61,11 @@ export class gettingStarted extends React.Component {
       this.productRequests.getProductByName(products[products.length - 1].foodName)
         .then(product => { debugger;
           this.setState({ product: new Food(product[0]) })
+          this.productRequests.getFoodGroups()
+            .then(foodGroups => {
+                let foodGroup = foodGroups.find(x => x.id === this.state.product.foodGroupId); 
+                this.setState({ foodGroup: foodGroup.foodGroup });
+            });
         })
     })
     debugger;

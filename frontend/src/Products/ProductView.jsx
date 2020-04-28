@@ -13,7 +13,8 @@ export class ProductView extends React.Component {
 
     state = {
         product: '',
-        found: false
+        found: false,
+        foodGroup: ""
     }
 
     likeProduct(product) {
@@ -98,7 +99,7 @@ export class ProductView extends React.Component {
                       actions={ [<LikeTwoTone  id = "action" key="like"  onClick={ e => this.likeProduct( window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1)) } />,    
                       <DislikeTwoTone id = "action" key="dislike" twoToneColor="#eb2f96" onClick={ e => this.dislikeProduct(window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1)) } />,
                       <StarTwoTone id = "action" key="star" twoToneColor="#f7db02" onClick={ e => this.saveProduct(window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1)) } />,] }>
-                    <Product product={this.state.product} />
+                    <Product product={this.state.product} foodGroup={this.state.foodGroup} />
                 </Card>
                 
                 {window.sessionStorage.getItem("admin")
@@ -141,8 +142,14 @@ export class ProductView extends React.Component {
             .then(product => {
                 if(product.length > 0) {
                     this.setState({ product: new Food(product[0]), found: true });
+                    this.productRequests.getFoodGroups()
+                        .then(foodGroups => {
+                            let foodGroup = foodGroups.find(x => x.id === this.state.product.foodGroupId); 
+                            this.setState({ foodGroup: foodGroup.foodGroup });
+                    });  
                 }
             });
+        
     }
 }
 

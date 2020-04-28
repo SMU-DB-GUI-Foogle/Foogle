@@ -2,6 +2,7 @@ export class Food {
     constructor(product) {
         this.foodName = product.foodName;
         this.servingPortion = product.servingPortion;
+        this.foodGroupId = product.foodGroupId;
         this.totalCalories = product.totalCalories;
         this.totalFat = product.totalFat;
         this.transFat = product.transFat;

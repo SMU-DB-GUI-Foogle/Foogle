@@ -244,7 +244,6 @@ export class ProductEditor extends React.Component {
                     this.productRequests.getFoodGroups()
                         .then(foodGroups => {
                             this.setState({ foodGroups });
-                            debugger;
                             let foodGroup = this.state.foodGroups.find(x => x.id === this.state.foodGroupId); 
                             this.setState({ foodGroup: foodGroup.foodGroup });
                         });   
