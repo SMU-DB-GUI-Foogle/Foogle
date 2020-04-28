@@ -42,17 +42,20 @@ userId int
 
 CREATE TABLE IF NOT EXISTS savedFoods (
 userId int,
-foodId int
+foodId int,
+PRIMARY KEY(userId, foodId)
 );
 
 CREATE TABLE IF NOT EXISTS likedFoods (
 userId int,
-foodId int
+foodId int,
+PRIMARY KEY(userId, foodId)
 );
 
 CREATE TABLE IF NOT EXISTS dislikedFoods (
 userId int,
-foodId int
+foodId int,
+PRIMARY KEY(userId, foodId)
 );
 
 CREATE TABLE IF NOT EXISTS users (
