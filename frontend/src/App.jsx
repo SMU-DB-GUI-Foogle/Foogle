@@ -58,8 +58,7 @@ class App extends React.Component{
         <Navbar id="nav" bg="light" variant="light" expand="lg" onSelect={this.setNavExpanded} expanded={this.state.navExpanded}>
 					<Navbar.Brand >
             <Link id="navLink" className="" to="/" onClick={() => this.setNavExpanded(false)}>Foogle</Link>
-            <img id = "navImg" src = {logo} ></img>
-            
+            <Link to="/"><img id = "navImg" src = {logo} ></img></Link>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" onClick={() => this.setNavExpanded(this.state.navExpanded ? false : "expanded")}/>
             <Navbar.Collapse id="responsive-navbar-nav">
