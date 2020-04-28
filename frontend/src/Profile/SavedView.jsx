@@ -18,7 +18,7 @@ export class SavedView extends React.Component {
             message: "Are you sure you want to delete this saved product from your profile?",
             duration: 0,
             btn: <button type="button" className="btn btn-primary" size="small" onClick={e => { 
-                    this.deleteLiked(foodName);
+                    this.deleteSaved(foodName);
                     notification.close("save"); }}>Confirm</button>
         })
     }
