@@ -120,8 +120,9 @@ export class ProfileEditor extends React.Component {
                 </div>
 
                 <button type="button"
+                        id="buttonRules"
                         disabled={!this.validateForm()}
-                        className="btn btn-primary btn-block"
+                        className="btn btn-block"
                         onClick={ e => this.onSubmit() }>
                     Save
                 </button>

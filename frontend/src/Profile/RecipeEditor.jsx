@@ -4,6 +4,7 @@ import { Recipe } from '../models';
 import { Link, Redirect } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { IngredientEditor } from './IngredientEditor';
+import { DeleteTwoTone } from '@ant-design/icons';
 import { notification } from 'antd';
 
 export class RecipeEditor extends React.Component {
@@ -98,7 +99,9 @@ export class RecipeEditor extends React.Component {
                     this.state.ingredients.length && this.state.ingredients.map((p, i) => 
                         <li className="list-group-item" key={ i }>
                             { p.ingredient }
-                            <Button className="float-right btn-danger" type="button" onClick={e => this.handleDeleteIngredient(p.ingredient)} >X</Button>
+                            <Button className="float-right btn-danger" type="button" onClick={e => this.handleDeleteIngredient(p.ingredient)} >
+                                <DeleteTwoTone className="align-middle" twoToneColor="#a8a8a8"/>
+                            </Button>
                             <span className="card float-right p-2 mr-2">
                                 Amount: { p.numberOfServings }
                             </span>
@@ -110,8 +113,9 @@ export class RecipeEditor extends React.Component {
                 }
 
                 <button type="button"
+                        id="buttonRules"
                         disabled={!this.validateForm()}
-                        className="btn btn-primary btn-block mt-2"
+                        className="btn btn-block mt-2"
                         onClick={ e => this.onSubmit() }>
                     Save
                 </button>

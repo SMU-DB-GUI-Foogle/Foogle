@@ -1,6 +1,7 @@
 import React from 'react'
 import { AxiosRequests } from '../api';
 import { Link, Redirect } from 'react-router-dom';
+import { notification } from 'antd';
 
 export class ProductEditor extends React.Component {
 
@@ -44,7 +45,10 @@ export class ProductEditor extends React.Component {
                                                this.state.sugars,
                                                this.state.protein)
                 .then(() => {
-                    alert("Product Updated!");
+                    notification.success({
+                        message: 'Product Updated!',
+                        placement: 'bottomRight'
+                    });
                     this.setState({ redirect: "/product/" + this.state.foodName });
                 })
         }
@@ -63,7 +67,10 @@ export class ProductEditor extends React.Component {
                                                this.state.sugars,
                                                this.state.protein)
                 .then(() => {
-                alert("Product Created!");
+                    notification.success({
+                        message: 'Product Created!',
+                        placement: 'bottomRight'
+                    });
                 this.setState({ redirect: "/product/" + this.state.foodName });
                 })
         }
@@ -210,8 +217,9 @@ export class ProductEditor extends React.Component {
                     </div>
                 </div>
                 <button type="button"
+                        id="buttonRules"
                         disabled={!this.validateForm()}
-                        className="btn btn-primary btn-block"
+                        className="btn btn-block"
                         onClick={ e => this.onSubmit() }>
                     Save
                 </button>
