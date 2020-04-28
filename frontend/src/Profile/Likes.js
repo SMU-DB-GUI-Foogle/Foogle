@@ -20,7 +20,7 @@ export const Likes = props => {
                 {
                     props.likes.length && props.likes.map((p, i) => 
                         <li className="list-group my-1" key={ i } id="group">
-                            <div className=" list-group-item list-group-item-secondary">{ i + 1 }. { p.foodName }</div>
+                            <div id = "likeCard" className=" list-group-item list-group-item-secondary">{ i + 1 }. { p.foodName }</div>
                             <div className="list-group-item">
                                 <Link to={`/product/${ p.foodName }`}>Link to { p.foodName }'s product page</Link>
                                 <Button className="float-right btn-danger" type="button" onClick={e => props.deleteLiked(p.foodName)}>
