@@ -51,17 +51,19 @@ export const Register = props => {
           <img id = "greenLogo" src={logo} />
         </div>
         <div className="form">
-        <div className="form-group">
+        <div className="form-group" >
             <label htmlFor="firstName" className="mr-2">First Name:</label>
-            <input type="text"
+            <input className = "form-control"
+                   type="text"
                    name="firstName"
                    placeholder="First Name"
                    value={firstName}
                    onChange={e => setFirstName(e.target.value)} />
           </div>
-          <div className="form-group">
+          <div className="form-group ">
             <label htmlFor="lastName" className="mr-2">Last Name:</label>
-            <input type="text"
+            <input className = "form-control"
+                   type="text"
                    name="lastName"
                    placeholder="Last Name"
                    value={lastName}
@@ -69,7 +71,8 @@ export const Register = props => {
           </div>
           <div className="form-group">
             <label htmlFor="email" className="mr-2">Email:</label>
-            <input type="email"
+            <input className = "form-control"
+                   type="email"
                    name="email"
                    placeholder="Email"
                    value={email}
@@ -77,7 +80,8 @@ export const Register = props => {
           </div>
           <div className="form-group">
             <label htmlFor="username" className="mr-2">Username:</label>
-            <input type="text"
+            <input className = "form-control"
+                   type="text"
                    name="username"
                    placeholder="Username"
                    value={username}
@@ -85,7 +89,8 @@ export const Register = props => {
           </div>
           <div className="form-group">
             <label htmlFor="password" className="mr-2">Password:</label>
-            <input type="password"
+            <input className = "form-control"
+                   type="password"
                    name="password"
                    placeholder="Password"
                    value={password}

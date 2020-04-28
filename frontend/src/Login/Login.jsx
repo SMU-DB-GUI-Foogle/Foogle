@@ -66,15 +66,16 @@ export const Login = props => {
   return <>
   
     <div className="base-container" ref={props.containerRef}>
-      <div id="inForm" className="header"><h3 >LOGIN</h3></div>
+      <div id="inForm" className="header"><h3>LOGIN</h3></div>
       <div className="">
         <div className="image">
           <img id = "greenLogo" src={logo} />
         </div>
         <div className="form">
-          <div className="form-group">
+          <div className="formGroupEmail">
             <label id="inForm" htmlFor="email" className="mr-2">Email: </label>
-            <input type="email"
+            <input className = "form-control"
+                   type="email"
                    name="email"
                    placeholder="Email"
                    value={email}
@@ -82,7 +83,8 @@ export const Login = props => {
           </div>
           <div className="form-group">
             <label id="inForm" htmlFor="password" className="mr-2">Password:</label>
-            <input type="password"
+            <input className = "form-control"
+                   type="password"
                    name="password"
                    placeholder="Password"
                    value={password}
@@ -98,7 +100,7 @@ export const Login = props => {
           Login
         </button>
       </div>
-    </div>-
+    </div>
   </>
 }
 

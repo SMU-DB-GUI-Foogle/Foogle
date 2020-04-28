@@ -9,7 +9,7 @@ export const landingPage = props => {
     <section id="main">
       <div className="main-text">
         <span>FOOGLE</span> <br /> Food at your <br />
-        fingertips.
+        Fingertips.
       </div>
         
         <div id="hideImg"> 

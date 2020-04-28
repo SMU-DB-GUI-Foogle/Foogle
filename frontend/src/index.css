@@ -120,7 +120,7 @@ code {
 #buttonRules {
   background-color: #00FA9A;
   border-color: #FFF;
-  color: #FFF;
+  color: black;
 }
 #howTo {
   position: absolute;
@@ -165,6 +165,7 @@ code {
 #greenLogo {
   width: 100px;
   height: 100px;
+  margin-bottom: 10px;
 }
 
 
@@ -262,9 +263,9 @@ code {
 }
 
 #recipeButton {
-  color: black;
-  border-color: #45B8AC;
-  background-color: #45B8AC;
+  color: white;
+  border-color: #3F69AA;
+  background-color: #3F69AA;
 }
 
 #shareButton {
