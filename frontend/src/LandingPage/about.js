@@ -14,8 +14,9 @@ export const about = props => {
         <a href = "backgroundPage"> Explore</a>
       </div>
 
-      <img id = "aboutImg" src = {logoChef}></img>
-        
+      <div id="hideImg">
+        <img id = "aboutImg" src = {logoChef}></img>
+      </div> 
     
           
     
