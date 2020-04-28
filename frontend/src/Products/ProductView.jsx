@@ -75,18 +75,27 @@ export class ProductView extends React.Component {
 
     }
 
+    handleDeleteProduct() {
+        notification.open({
+            key: "delete",
+            message: `Are you sure you want to delete the product ${this.state.product.foodName} from the database?`,
+            duration: 0,
+            btn: <button type="button" className="btn btn-primary" size="small" onClick={e => { 
+                    this.deleteProduct();
+                    notification.close("delete"); }}>Confirm</button>
+        })
+    }
+
     deleteProduct() {
-        if(window.confirm("Are you sure you want to delete this product?")) {
-            let foodName = this.props.match.params.name;
-            this.productRequests.deleteProduct(foodName)
-                .then(() => {
-                    this.setState({ redirect: '/' });
-                    notification.success({
-                        message: 'Product Deleted!',
-                        placement: 'bottomRight'
-                    });
+        let foodName = this.props.match.params.name;
+        this.productRequests.deleteProduct(foodName)
+            .then(() => {
+                this.setState({ redirect: '/' });
+                notification.success({
+                    message: 'Product Deleted!',
+                    placement: 'bottomRight'
                 });
-        }
+            });
     }
 
     render() {
@@ -113,7 +122,7 @@ export class ProductView extends React.Component {
                     </Link>
                     <Button className="m-1 btn btn-danger float-right"
                             type="button" 
-                            onClick={e => this.deleteProduct() } >
+                            onClick={e => this.handleDeleteProduct() } >
                         Delete Product
                     </Button>
                 </>

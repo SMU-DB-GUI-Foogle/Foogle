@@ -25,7 +25,7 @@ export class ProductEditor extends React.Component {
     }
 
     validateForm() {
-        return this.state.foodName.length > 0 && this.state.servingPortion > 0;
+        return this.state.foodName.length > 0 && this.state.servingPortion > 0 && this.state.foodGroup.length > 0;
     }
 
     onSubmit() {
