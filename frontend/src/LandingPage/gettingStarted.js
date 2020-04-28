@@ -3,6 +3,7 @@ import logo from '../logo2White.png';
 import { Food } from '../models';
 import { Product } from '../Products';
 import { AxiosRequests } from '../api';
+import { DislikeTwoTone, LikeTwoTone, StarTwoTone } from '@ant-design/icons';
 
 export class gettingStarted extends React.Component {
 
@@ -25,13 +26,21 @@ export class gettingStarted extends React.Component {
         </div> 
         <div id = "howTo">
               <ul>
-                <li>To start, create and account by going to LOGIN->REGISTER!</li>
+                <li>To start, create an account by going to LOGIN</li>
+                  <ul id = "nestedList">
+                    <li>If you already have an account, simply login</li>
+                    <li>If you don't, register!</li>
+                  </ul>
                 <li>Once you have an account, try searching for a food by entering a term into the search bar!</li>
+                  <ul id = "nestedList">
+                    <li>You can do a simple search with the exact name</li>
+                    <li>An advanced search can help you find a food based on our grouping sytems!</li>
+                  </ul>
                 <li>Once you find a food you want to interact with, you can choose between these</li>
                 <ul>
-                    <button id = "buttonRules">Like</button>
-                    <button id = "buttonRules">Save</button>
-                    <button id = "buttonRules">Dislike</button>
+                    <li><h4>LIKE</h4><LikeTwoTone  id = "action" key="like"  /> </li>
+                    <li><h4>DISLIKE</h4><DislikeTwoTone id = "action" key="dislike" twoToneColor="#eb2f96" /></li>
+                    <li><h4>SAVE</h4><StarTwoTone id = "action" key="star" twoToneColor="#f7db02" /></li>
                 </ul>
                 <li>You can keep track of foods you have interacted with on your PROFILE page!</li>
                 <li>For example, here is the most recently added food on the site!</li>

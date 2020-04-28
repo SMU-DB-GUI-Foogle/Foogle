@@ -135,6 +135,11 @@ code {
 #howTo li {
   font-size: 30px;
 }
+
+#nestedList li{
+  font-size: 25px;
+}
+
 #aStyle {
   color: white;
 }
@@ -164,7 +169,7 @@ code {
 
 
 #outerFoodCard{
-  background-color: #00FA9A;
+  background-color: white;
   color: black;
   border-radius: 15px;
   border-width: 5px;
@@ -174,18 +179,20 @@ code {
 #foodCard{
   background-color: #00FA9A;
   color: black;
-  border-color: #00FA9A;
+  border-color: white;
 }
 
 #foodStat {
-  background-color: #00fA9A;
-  border-color: #00FA9A
+  background-color: white;
+  border-color: white;
 }
 
-#action {
-  background-color: white;
-  border-color: #00FA9A;
+#foodStat2 {
+  background-color: #B3FFB3;
+  border-color: white;
 }
+
+
 
 
 #productsContainer {
