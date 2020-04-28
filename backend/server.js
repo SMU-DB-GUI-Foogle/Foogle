@@ -324,6 +324,13 @@ app.post('/product/add', (req, res) => {
   })
 })
 
+app.get('/product/groups', (req,res) => {
+  connection.query('SELECT * FROM foodGroups',(err,result,fields) => {
+    if (err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  })
+})
+
 app.delete('/product/:foodName', (req, res) => {
   var foodName = req.query.foodName;
 
