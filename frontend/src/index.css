@@ -126,7 +126,7 @@ code {
   position: absolute;
   margin-left: 200px;
   margin-bottom: 100px;
-  color: white;
+  color: black;
   text-decoration-style: bold;
 }
 #howTo ul {
@@ -238,4 +238,12 @@ code {
   width: 30px;
   height: 30px;
   border-radius: 15px;
+}
+
+#aboutImg {
+  position: absolute;
+  width: 400;
+  height: 400;
+  margin-right: 200px;
+  margin-left: 720px;
 }

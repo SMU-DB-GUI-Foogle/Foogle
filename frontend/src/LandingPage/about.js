@@ -1,6 +1,6 @@
 import React from 'react';
 import logo from '../logo2White.png';
-import logoChef from '../logoChef.png'
+import logoChef from '../logoCookBook.png'
 
 
 export const about = props => {
@@ -14,7 +14,7 @@ export const about = props => {
         <a href = "backgroundPage"> Explore</a>
       </div>
 
-      <img src = {logoChef}></img>
+      <img id = "aboutImg" src = {logoChef}></img>
         
     
           
