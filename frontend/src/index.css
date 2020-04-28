@@ -234,7 +234,9 @@ code {
 }
 
 #navImg {
-  margin-left: 50px;
-  width: 50px;
-  height: 50px;
+  margin-left: 20px;
+  margin-right:20px;
+  width: 60px;
+  height: 60px;
+  border-radius: 15px;
 }

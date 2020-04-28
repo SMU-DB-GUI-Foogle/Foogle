@@ -71,24 +71,24 @@ export class AdvancedSearch extends React.Component {
     }
 
     render() {
-        return <div className="container">
-            <div className="card p-3 mb-3">
+        return <div  className="container">
+            <div id = "advancedSearchContainer" className="card p-3 mb-3">
                 <h1>Advanced Search (See Results At Bottom)</h1>
-                <div className="list-group p-4">
+                <div  className="list-group p-4">
                     <h3>Options:</h3>
                     <div className="list-group-item">
                         Filter for Workout: 
                         <div>          
-                            <Button className="m-2" onClick={ e => this.workoutSearch(20) }>Workout (High Protein)</Button>
-                            <Button className="m-2" onClick={ e => this.workoutSearch(30) }>Recovery (High Protein and Carbs)</Button>
-                            <Button className="m-2" onClick={ e => this.workoutSearch(40) }>Performance (High Protein/Carbohydrates/Calcium)</Button>
+                            <Button id = "asButton" className="m-2" onClick={ e => this.workoutSearch(20) }>Workout (High Protein)</Button>
+                            <Button id = "asButton" className="m-2" onClick={ e => this.workoutSearch(30) }>Recovery (High Protein and Carbs)</Button>
+                            <Button id = "asButton" className="m-2" onClick={ e => this.workoutSearch(40) }>Performance (High Protein/Carbohydrates/Calcium)</Button>
                         </div>  
                     </div>
                     <div className="list-group-item">
                         Filter for Other Situations:
                         <div>             
-                            <Button className="m-2" onClick={ e => this.sicknessSearch() }>Sickness (High Protein/Calories)</Button>
-                            <Button className="m-2" onClick={ e => this.babyFoodSearch() }>Formulas (Baby Foods)</Button>
+                            <Button id = "asButton" className="m-2" onClick={ e => this.sicknessSearch() }>Sickness (High Protein/Calories)</Button>
+                            <Button id = "asButton" className="m-2" onClick={ e => this.babyFoodSearch() }>Formulas (Baby Foods)</Button>
                         </div>
                     </div>
                     <div className="list-group-item">
@@ -108,7 +108,7 @@ export class AdvancedSearch extends React.Component {
                                 }
                             </select>
                         </div>
-                        <Button className="btn-lg btn-info m-2"
+                        <Button id = "asButton" className="btn-lg btn-info m-2"
                                 disabled={ !this.state.foodGroup > 0 }
                                 onClick={ e => this.groupSearch() } >
                             Search
@@ -151,7 +151,8 @@ export class AdvancedSearch extends React.Component {
                                     onChange={ e => this.setState({ upperBound: e.target.value }) } />
                             </div>
                         </div>
-                        <Button className="btn-lg btn-info m-2"
+                        <Button id = "asButton"
+                                className="btn-lg btn-info m-2"
                                 disabled={ !this.validateFormCustom() }
                                 onClick={ e => this.customSearch() } >
                             Search
@@ -166,12 +167,12 @@ export class AdvancedSearch extends React.Component {
                 {
                     this.state.results.length > 0
                     ? <>  
-                        <div id="products" className="d-flex flex-wrap">
+                        <div id="productsContainer" className="d-flex flex-wrap ">
                             {this.state.results.map(product =>
-                                <div key={ product.id } className="card p-3 my-1 align-items-center col-6 ">
+                                <div id = "productResult" key={ product.id } className="card p-3 my-1 align-items-center col-5 ">
                                     <h4 className="text-center text-wrap">{ product.foodName }</h4>
                                     <div className="align-self-stretch">
-                                        <Link to={`/product/${product.foodName}`}
+                                        <Link id = "productButton" to={`/product/${product.foodName}`}
                                             className="btn btn-block btn-info my-1">
                                             Product Details
                                         </Link>
@@ -181,7 +182,7 @@ export class AdvancedSearch extends React.Component {
                         </div>
                     </>
                     : <>
-                        <h2 className="card bg-info text-center mt-2">No Results!</h2>
+                        <h2 id = "noResults" >No Results!</h2>
                     </>
                 }
                 </div>

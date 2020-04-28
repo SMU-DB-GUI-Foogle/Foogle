@@ -16,12 +16,7 @@ export class gettingStarted extends React.Component {
   render() {
     return <div id="pushLeftWhenSmall">
       <div id = "landingPage">
-      <section>
-        <header>
-          <img src={logo} width="100" alt="Logo" />
-          
-        </header>
-      </section>
+
 
       <section id="main">
         <div className="main-text">

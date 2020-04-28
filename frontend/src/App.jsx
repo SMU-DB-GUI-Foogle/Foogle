@@ -3,6 +3,7 @@ import Routes from './Routes';
 import { Nav, Navbar, Form, Button, Dropdown } from 'react-bootstrap';
 import { Redirect, Link } from 'react-router-dom';
 import { SearchOutlined } from '@ant-design/icons';
+import logo from './logoTrueGreen.jpg';
 
 class App extends React.Component{
   state = {
@@ -57,6 +58,8 @@ class App extends React.Component{
         <Navbar id="nav" bg="light" variant="light" expand="lg" onSelect={this.setNavExpanded} expanded={this.state.navExpanded}>
 					<Navbar.Brand >
             <Link id="navLink" className="" to="/" onClick={() => this.setNavExpanded(false)}>Foogle</Link>
+            <img id = "navImg" src = {logo} ></img>
+            
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" onClick={() => this.setNavExpanded(this.state.navExpanded ? false : "expanded")}/>
             <Navbar.Collapse id="responsive-navbar-nav">
