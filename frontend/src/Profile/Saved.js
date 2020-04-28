@@ -15,7 +15,7 @@ export const Saved = props => {
                 }
                 {
                     props.saves.length && props.saves.map((p, i) => 
-                        <li className="list-group m-1" key={ i } id="group">
+                        <li className="list-group my-1" key={ i } id="group">
                             <div className=" list-group-item list-group-item-secondary">{ i + 1 }. { p.foodName }</div>
                             <div className="list-group-item">
                                 <Link to={`/product/${ p.foodName }`}>Link to { p.foodName }'s product page</Link>
