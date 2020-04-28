@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Redirect } from 'react-router-dom';
 import loginImg from "../login.svg";
-import logo from '../logoTrueGreen.jpg';
+import logo from '../logoGreenTransparent.png';
 import { AxiosRequests } from '../api'
 import { notification } from 'antd';
 
