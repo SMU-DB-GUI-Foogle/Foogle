@@ -18,7 +18,7 @@ export const backgroundPage = props => {
             <p>Foogle was created to give users control over their daily consumption. With Foogle, users can easily search foods and learn about their nutritional information.
               Learn more about our service on the "Get Started" page.
             </p>
-            <img id = "bigLogo2" src = {logo}></img>
+              <img id = "bigLogo2" src = {logo}></img>
       </div>
     
        

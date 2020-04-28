@@ -149,34 +149,6 @@ code {
   min-height: 100vh;
 }
 
-@media (max-width: 575px) {
-  div > div > img {
-    display: none;
-  }
-
-  #hideImg {
-    display: none;
-  }
-
-  #pushLeftWhenSmall {
-    float: left;
-  }
-
-  #howTo {
-    margin-left: -40vw;
-    position: static;
-  }
-
-  #howTo li {
-    font-size: 5vw;
-  }
-
-  #nestedList li {
-    font-size: 4vw;
-  }
-
-}
-
 #greenLogo {
   width: 100px;
   height: 100px;
@@ -291,6 +263,7 @@ code {
 
 #purpose {
   text-align: center;
+  font-size: 2rem;
   margin-left: 40px;
 }
 
@@ -299,4 +272,43 @@ code {
   width: 300px;
   height: 300px;
   margin-right: 50px;
+}
+
+@media (max-width: 575px) {
+  div > div > img {
+    display: none;
+  }
+
+  #hideImg {
+    display: none;
+  }
+
+  #pushLeftWhenSmall {
+    float: left;
+  }
+
+  #howTo {
+    margin-left: -40vw;
+    position: static;
+  }
+
+  #howTo li {
+    font-size: 5vw;
+  }
+
+  #nestedList li {
+    font-size: 4vw;
+  }
+
+  #purpose {
+    font-size: 1rem;
+    margin-top: 25vw;
+    margin-left: -55vw;
+  }
+
+  #bigLogo2 {
+    margin-right: 0;
+    margin-left: 0;
+  }
+
 }
