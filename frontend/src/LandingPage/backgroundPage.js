@@ -13,7 +13,12 @@ export const backgroundPage = props => {
       </div>
         
       <div>
-            <p>FOOGLE was started so that people could keep better track of the foods they consume!</p>
+            <h1>PURPOSE</h1>
+
+            <p>Foogle was created to give users control over their daily consumption. With Foogle, users can easily search foods and learn about their nutritional information.
+              Learn more about our service on the "Get Started" page.
+            </p>
+            <img id = "bigLogo" src = {logo}></img>
       </div>
     
        
