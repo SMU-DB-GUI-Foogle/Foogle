@@ -74,7 +74,7 @@ code {
 }
 #landingPage #main {
   margin: 0 120px;
-  margin-top: 200px;
+  margin-top: 50px;
   display: flex;
   justify-content: space-between
   
@@ -90,10 +90,9 @@ code {
 }
 #bigLogo {
    position: absolute; 
-  width: 400px;
-  height: 400px;
+  width: 500px;
+  height: 500px;
    left: 630px; 
-  bottom: -100px; 
 }
 #landingPage span {
   color:  #FFF;
@@ -236,7 +235,7 @@ code {
 #navImg {
   margin-left: 20px;
   margin-right:20px;
-  width: 60px;
-  height: 60px;
+  width: 25px;
+  height: 25px;
   border-radius: 15px;
 }
