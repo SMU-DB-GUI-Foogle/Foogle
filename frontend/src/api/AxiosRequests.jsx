@@ -324,6 +324,17 @@ export class AxiosRequests {
         });
     }
 
+    getFoodGroups() {
+        return new Promise((resolve, reject) => {
+            axios.get(`${this.url}/product/groups/get`, this.config)
+                .then(x => resolve(x.data))
+                .catch(x => {
+                    alert(x);
+                    reject(x);
+                });
+        });
+    } 
+
     //Search Requests
     getProductsByFoodGroup(foodGroup) {
         var config = this.config;

@@ -9,7 +9,7 @@ export class ProductEditor extends React.Component {
     state = {
         foodName: "",
         servingPortion: 0,
-        foodGroupId: 0,
+        foodGroup: 0,
         totalCalories: 0,
         totalFat: 0,
         transFat: 0,
@@ -19,7 +19,8 @@ export class ProductEditor extends React.Component {
         totalCarbohydrate: 0,
         sugars: 0,
         protein: 0,
-        foodId: 0
+        foodId: 0,
+        foodGroups: []
     }
 
     validateForm() {
@@ -28,10 +29,11 @@ export class ProductEditor extends React.Component {
 
     onSubmit() {
         if(this.state.foodId !== 0) {
+            let foodGroupId = this.state.foodGroups.find(x => x.foodGroup === this.state.foodGroup).id;
             this.productRequests.updateProduct(this.state.foodId,
                                                this.state.foodName,
                                                this.state.servingPortion,
-                                               this.state.foodGroupId,
+                                               foodGroupId,
                                                this.state.totalCalories,
                                                this.state.totalFat,
                                                this.state.transFat,
@@ -47,9 +49,10 @@ export class ProductEditor extends React.Component {
                 })
         }
         else {
+            let foodGroupId = this.state.foodGroups.find(x => x.foodGroup === this.state.foodGroup).id;
             this.productRequests.createProduct(this.state.foodName,
                                                this.state.servingPortion,
-                                               this.state.foodGroupId,
+                                               foodGroupId,
                                                this.state.totalCalories,
                                                this.state.totalFat,
                                                this.state.transFat,
@@ -85,14 +88,19 @@ export class ProductEditor extends React.Component {
                             onChange={ e => this.setState({ foodName: e.target.value }) } />
                     </div>
                     <div className="col-2">
-                        <label htmlFor="amount">Food Group Id</label>
-                        <input
-                            type="number"
-                            name="amount"
-                            id="amount"
-                            className="form-control" 
-                            value={this.state.foodGroupId}
-                            onChange={ e => this.setState({ foodGroupId: e.target.value }) } />
+                        <label htmlFor="amount">Food Group</label>
+                        <select name="amount"
+                                id="amount"
+                                className="form-control"
+                                value={this.state.foodGroup}
+                                onChange={ e => this.setState({ foodGroup: e.target.value })}>
+                                <option></option>
+                                {this.state.foodGroups.length > 0
+                                ? 
+                                    this.state.foodGroups.map((x, i) => <option key={ i }>{ x.foodGroup }</option>)
+                                : <> </>    
+                                }
+                            </select>
                     </div>
                     <div className="col-6">
                         <label htmlFor="amount">Serving Portion</label>
@@ -232,9 +240,21 @@ export class ProductEditor extends React.Component {
                                     totalCarbohydrate: product[0].totalCarbohydrate,
                                     sugars: product[0].sugars,
                                     protein: product[0].protein,
-                                    foodId: product[0].foodId })
+                                    foodId: product[0].foodId });
+                    this.productRequests.getFoodGroups()
+                        .then(foodGroups => {
+                            this.setState({ foodGroups });
+                            debugger;
+                            let foodGroup = this.state.foodGroups.find(x => x.id === this.state.foodGroupId); 
+                            this.setState({ foodGroup: foodGroup.foodGroup });
+                        });   
                 }
-            });        
+                else {
+                    this.productRequests.getFoodGroups()
+                        .then(foodGroups => this.setState({ foodGroups }));  
+                }
+            });  
+         
     }
 }
 

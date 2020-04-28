@@ -10,13 +10,12 @@ export class AdvancedSearch extends React.Component {
         lowerBound: 0,
         upperBound: 0,
         foodGroup: "",
-        results: []
+        results: [],
+        foodGroups: []
     }
 
     foodProperties = ["Serving Portion", "Total Calories", "Total Fat", "Trans Fat", "Saturated Fat", "Cholesterol", "Sodium", "Total Carbohydrates", "Sugars", "Protein"];
     foodPropertiesNames = ["servingPortion", "totalCalories", "totalFat", "transFat", "saturatedFat", "cholesterol", "sodium", "totalCarbohydrate", "sugars", "protein"];
-
-    foodGroups = ["1", "2", "3", "4", "5", "6"];
 
     searchRequests = new AxiosRequests();
 
@@ -25,7 +24,7 @@ export class AdvancedSearch extends React.Component {
     }
 
     groupSearch() {
-        let foodGroupId = this.foodGroups.indexOf(this.state.foodGroup) + 1;
+        let foodGroupId = this.state.foodGroups.find(x => x.foodGroup === this.state.foodGroup).id;
         this.searchRequests.getProductsByFoodGroup(foodGroupId)
             .then(products => {
                 this.setState({ results: products });
@@ -102,8 +101,10 @@ export class AdvancedSearch extends React.Component {
                                 value={this.state.foodGroup}
                                 onChange={ e => this.setState({ foodGroup: e.target.value })}>
                                 <option></option>
-                                {
-                                    this.foodGroups.map((x, i) => <option key={ i }>{ x }</option>)
+                                {this.state.foodGroups.length > 0
+                                ? 
+                                    this.state.foodGroups.map((x, i) => <option key={ i }>{ x.foodGroup }</option>)
+                                : <> </>    
                                 }
                             </select>
                         </div>
@@ -186,6 +187,11 @@ export class AdvancedSearch extends React.Component {
                 </div>
             </div>
         </div>
+    }
+
+    componentDidMount() {
+        this.searchRequests.getFoodGroups()
+            .then(foodGroups => this.setState({ foodGroups }));
     }
 
 }
