@@ -15,7 +15,7 @@ export const about = props => {
       </div>
 
       <div id="hideImg">
-        <img id = "aboutImg" src = {logoChef}></img>
+        <img id = "aboutImg" src = {logoChef} alt="logo"></img>
       </div> 
     
           
